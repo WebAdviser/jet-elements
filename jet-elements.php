@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: JetElements For Elementor
- * Plugin URI:  http://jetelements.zemez.io/
+ * Plugin URI:  https://crocoblock.com/plugins/jetelements/
  * Description: Brand new addon for Elementor Page builder. It provides the set of modules to create different kinds of content, adds custom modules to your website and applies attractive styles in the matter of several clicks!
- * Version:     1.15.16
+ * Version:     2.0.1
  * Author:      Zemez
  * Author URI:  https://zemez.io/zemezjet/
  * Text Domain: jet-elements
@@ -40,15 +40,6 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 		private static $instance = null;
 
 		/**
-		 * A reference to an instance of cherry framework core class.
-		 *
-		 * @since  1.0.0
-		 * @access private
-		 * @var    object
-		 */
-		private $core = null;
-
-		/**
 		 * Holder for base plugin URL
 		 *
 		 * @since  1.0.0
@@ -56,22 +47,6 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 		 * @var    string
 		 */
 		private $plugin_url = null;
-
-		/**
-		 * Plugin version
-		 *
-		 * @var string
-		 */
-		private $version = '1.15.16';
-
-		/**
-		 * Framework component
-		 *
-		 * @since  1.0.0
-		 * @access public
-		 * @var    object
-		 */
-		public $framework;
 
 		/**
 		 * Holder for base plugin path
@@ -83,6 +58,22 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 		private $plugin_path = null;
 
 		/**
+		 * Plugin version
+		 *
+		 * @var string
+		 */
+		private $version = '2.0.1';
+
+		/**
+		 * Framework component
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 * @var    object
+		 */
+		public $module_loader = null;
+
+		/**
 		 * Sets up needed actions/filters for the plugin to initialize.
 		 *
 		 * @since 1.0.0
@@ -92,7 +83,7 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 		public function __construct() {
 
 			// Load the CX Loader.
-			add_action( 'after_setup_theme', array( $this, 'framework_loader' ), -20 );
+			add_action( 'after_setup_theme', array( $this, 'module_loader' ), -20 );
 
 			// Internationalize the text strings used.
 			add_action( 'init', array( $this, 'lang' ), -999 );
@@ -110,13 +101,13 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 		 *
 		 * @since  1.0.0
 		 */
-		public function framework_loader() {
-			require $this->plugin_path( 'framework/loader.php' );
+		public function module_loader() {
+			require $this->plugin_path( 'includes/modules/loader.php' );
 
-			$this->framework = new Jet_Elements_CX_Loader(
+			$this->module_loader = new Jet_Elements_CX_Loader(
 				array(
-					$this->plugin_path( 'framework/modules/interface-builder/cherry-x-interface-builder.php' ),
-					$this->plugin_path( 'framework/modules/db-updater/cherry-x-db-updater.php' ),
+					$this->plugin_path( 'includes/modules/vue-ui/cherry-x-vue-ui.php' ),
+					$this->plugin_path( 'includes/modules/db-updater/cx-db-updater.php' ),
 				)
 			);
 		}
@@ -154,6 +145,9 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 
 			jet_family_column_orientation_ext()->init();
 
+			//Init Rest Api
+			new \Jet_Elements\Rest_Api();
+
 			if ( is_admin() ) {
 
 				// Init plugin updater
@@ -172,18 +166,18 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 					'slug'     => 'jet-elements',
 					'version'  => $this->get_version(),
 					'author'   => '<a href="https://zemez.io/zemezjet/">Zemez</a>',
-					'homepage' => 'http://jetelements.zemez.io/',
+					'homepage' => 'https://crocoblock.com/plugins/jetelements/',
 					'banners'  => array(
 						'high' => $this->plugin_url( 'assets/images/jet-elements.png' ),
 						'low'  => $this->plugin_url( 'assets/images/jet-elements.png' ),
 					),
 				) );
 
-				// Init DB upgrader
+				// include DB upgrader
 				require $this->plugin_path( 'includes/class-jet-elements-db-upgrader.php' );
 
+				// Init DB upgrader
 				new Jet_Elements_DB_Upgrader();
-
 			}
 
 		}
@@ -265,6 +259,10 @@ if ( ! class_exists( 'Jet_Elements' ) ) {
 			require $this->plugin_path( 'includes/lib/compatibility/class-jet-elements-compatibility.php' );
 			require $this->plugin_path( 'includes/ext/class-jet-elements-ext-section.php' );
 			require $this->plugin_path( 'includes/ext/class-jet-family-column-orientation-ext.php' );
+			require $this->plugin_path( 'includes/rest-api/rest-api.php' );
+			require $this->plugin_path( 'includes/rest-api/endpoints/base.php' );
+			require $this->plugin_path( 'includes/rest-api/endpoints/elementor-template.php' );
+			require $this->plugin_path( 'includes/rest-api/endpoints/plugin-settings.php' );
 		}
 
 		/**

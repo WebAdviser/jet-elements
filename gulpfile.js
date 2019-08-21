@@ -97,6 +97,29 @@ gulp.task('css-rtl', () => {
 		   .pipe(notify('Compile Sass Done!'));
 });
 
+//css-icons
+gulp.task( 'css-icons', () => {
+	return gulp.src( './assets/scss/jet-elements-icons.scss' )
+		.pipe(
+			plumber( {
+				errorHandler: function( error ) {
+					console.log( '=================ERROR=================' );
+					console.log( error.message );
+					this.emit( 'end' );
+				}
+			} )
+		)
+		.pipe( sass( { outputStyle: 'compressed' } ) )
+		.pipe( autoprefixer( {
+			browsers: ['last 10 versions'],
+			cascade:  false
+		} ) )
+
+		.pipe( rename( 'jet-elements-icons.css' ) )
+		.pipe( gulp.dest( './assets/css/' ) )
+		.pipe( notify( 'Compile Sass Done!' ) );
+} );
+
 // Minify JS
 gulp.task( 'js-minify', function() {
 	return gulp.src( './assets/js/jet-elements.js' )
@@ -116,7 +139,7 @@ gulp.task( 'js-editor-minify', function() {
 
 //watch
 gulp.task('watch', () => {
-	gulp.watch('./assets/scss/**', ['css', 'css-skin', 'css-admin', 'css-rtl']);
+	gulp.watch('./assets/scss/**', ['css', 'css-skin', 'css-admin', 'css-rtl', 'css-icons']);
 
 	gulp.watch( './assets/js/jet-elements.js', ['js-minify'] );
 	gulp.watch( './assets/js/jet-elements-editor.js', ['js-editor-minify'] );

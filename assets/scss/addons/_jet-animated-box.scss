@@ -1,6 +1,17 @@
 .jet-animated-box {
 	position: relative;
 
+	&__toggle {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		z-index: 3;
+		top: 10px;
+		right: 10px;
+		transition: all 0.3s ease;
+	}
+
 	&__front,
 	&__back {
 		position: absolute;

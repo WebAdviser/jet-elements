@@ -2,5 +2,4 @@
 /**
  * Posts loop end template
  */
-?>
-</div>
+?></div>

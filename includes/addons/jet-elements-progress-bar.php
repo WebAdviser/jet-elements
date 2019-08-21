@@ -30,7 +30,7 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-34';
+		return 'jet-elements-icon-progress-bar';
 	}
 
 	public function get_jet_help_url() {
@@ -96,14 +96,13 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'icon',
 			array(
 				'label'       => esc_html__( 'Icon', 'jet-elements' ),
 				'type'        => Controls_Manager::ICON,
 				'label_block' => true,
 				'file'        => '',
-				'default'     => 'fa fa-wordpress',
 			)
 		);
 
@@ -124,7 +123,7 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 		/**
 		 * Progress Bar Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_progress_style',
 			array(
 				'label'      => esc_html__( 'Progress Bar', 'jet-elements' ),
@@ -133,7 +132,7 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'progress_wrapper_height',
 			array(
 				'label'      => esc_html__( 'Progress Height', 'jet-elements' ),
@@ -150,10 +149,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['progress_wrapper'] => 'height: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'progress_wrapper_width',
 			array(
 				'label'      => esc_html__( 'Progress Width', 'jet-elements' ),
@@ -173,10 +173,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['progress_wrapper'] => 'width: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'progress_wrapper_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -185,18 +186,20 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['progress_wrapper'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'progress_wrapper_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['progress_wrapper'],
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'progress_wrapper_border',
@@ -204,10 +207,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['progress_wrapper'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'progress_wrapper_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -216,35 +220,39 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['progress_wrapper'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name' => 'progress_wrapper_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['progress_wrapper'],
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'status_bar_heading',
 			array(
 				'label' => esc_html__( 'Status Bar', 'jet-elements' ),
 				'type'  => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'status_bar_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['status_bar'],
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'status_bar_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -253,15 +261,16 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['status_bar'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Title Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_title_style',
 			array(
 				'label'      => esc_html__( 'Title', 'jet-elements' ),
@@ -270,7 +279,7 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'title_alignment',
 			array(
 				'label'       => esc_html__( 'Title Alignment', 'jet-elements' ),
@@ -279,16 +288,16 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'default'     => '',
 				'options'     => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'eicon-h-align-left',
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
 						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'eicon-h-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'condition' => array(
@@ -297,18 +306,20 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['title'] => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'title_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['title'],
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'title_border',
@@ -316,10 +327,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['title'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'title_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -328,18 +340,20 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['title'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'title_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['title'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'title_padding',
 			array(
 				'label'      => __( 'Padding', 'jet-elements' ),
@@ -348,10 +362,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['title'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'title_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -360,19 +375,21 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['title'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'title_icon_heading',
 			array(
 				'label'     => esc_html__( 'Icon', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'icon_color',
 			array(
 				'label'     => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -380,10 +397,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['title_icon'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'icon_size',
 			array(
 				'label'      => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -400,10 +418,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['title_icon'] => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'icon_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -412,19 +431,21 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['title_icon'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'title_text_heading',
 			array(
 				'label'     => esc_html__( 'Text', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'text_color',
 			array(
 				'label'  => esc_html__( 'Text Color', 'jet-elements' ),
@@ -432,19 +453,21 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['title_text'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'text_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['title_text'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'text_alignment',
 			array(
 				'label'       => esc_html__( 'Text Alignment', 'jet-elements' ),
@@ -468,15 +491,16 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['title_text'] => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Percent Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_percent_style',
 			array(
 				'label'      => esc_html__( 'Percent', 'jet-elements' ),
@@ -485,7 +509,7 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'percent_width',
 			array(
 				'label'      => esc_html__( 'Percent Width', 'jet-elements' ),
@@ -505,10 +529,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['percent'] => 'width: {{SIZE}}{{UNIT}}; margin-right: calc( {{SIZE}}{{UNIT}}/-2 );',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'percent_alignment',
 			array(
 				'label'       => esc_html__( 'Percent Alignment', 'jet-elements' ),
@@ -517,16 +542,16 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'default'     => '',
 				'options'     => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'eicon-h-align-left',
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
 						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'eicon-h-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'condition' => array(
@@ -535,18 +560,20 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['percent'] => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'percent_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['percent'],
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'percent_border',
@@ -554,10 +581,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['percent'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'percent_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -566,18 +594,20 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['percent'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'percent_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['percent'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'percent_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -586,10 +616,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['percent'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'percent_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -598,10 +629,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['percent'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'percent_color',
 			array(
 				'label'  => esc_html__( 'Text Color', 'jet-elements' ),
@@ -609,19 +641,21 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['percent'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'percent_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['percent'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_suffix_font_size',
 			array(
 				'label'      => esc_html__( 'Suffix Font Size', 'jet-elements' ),
@@ -632,10 +666,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['percent'] . ' .jet-progress-bar__percent-suffix' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'percent_suffix_alignment',
 			array(
 				'label'       => esc_html__( 'Percent Suffix Alignment', 'jet-elements' ),
@@ -659,10 +694,11 @@ class Jet_Elements_Progress_Bar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['percent'] . ' .jet-progress-bar__percent-suffix' => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 

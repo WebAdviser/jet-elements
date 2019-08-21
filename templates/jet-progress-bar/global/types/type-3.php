@@ -5,6 +5,6 @@
 		</div>
 	</div>
 	<div class="jet-progress-bar__title"><?php
-		$this->__html( 'icon', '<i class="jet-progress-bar__title-icon %s"></i>' );
+		$this->__icon( 'icon', '<span class="jet-progress-bar__title-icon jet-elements-icon">%s</span>' );
 		$this->__html( 'title', '<span class="jet-progress-bar__title-text">%s</span>' );?></div>
 </div>

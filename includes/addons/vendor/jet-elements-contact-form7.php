@@ -24,7 +24,7 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-13';
+		return 'jet-elements-icon-cf7';
 	}
 
 	public function get_jet_help_url() {
@@ -71,7 +71,7 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_text_style',
 			array(
 				'label'      => esc_html__( 'Form Texts', 'jet-elements' ),
@@ -80,7 +80,7 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'text_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -89,27 +89,30 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'{{WRAPPER}} .wpcf7 *:not(.wpcf7-form-control):not(option):not(a)' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .wpcf7 .wpcf7-form-control.wpcf7-file' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'text_typography',
 				'selector' => '{{WRAPPER}} .wpcf7 *:not(.wpcf7-form-control):not(option), {{WRAPPER}} .wpcf7 .wpcf7-form-control.wpcf7-file',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'invalid_heading',
 			array(
 				'label'     => esc_html__( 'Not Valid Notices', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'invalid_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -117,18 +120,20 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 span.wpcf7-not-valid-tip' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'invalid_typography',
 				'selector' => '{{WRAPPER}} .wpcf7 span.wpcf7-not-valid-tip',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'invalid_notice_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -137,10 +142,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 span.wpcf7-not-valid-tip' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};display: block;',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'invalid_notice_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -163,12 +169,13 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 span.wpcf7-not-valid-tip' => 'text-align: {{VALUE}};display: block;',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_inputs_style',
 			array(
 				'label'      => esc_html__( 'Controls', 'jet-elements' ),
@@ -177,24 +184,73 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_input_style' );
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'input_typography',
+				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)',
+			),
+			50
+		);
 
-		$this->start_controls_tab(
+		$this->__add_responsive_control(
+			'input_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'input_margin',
+			array(
+				'label'      => esc_html__( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'input_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__start_controls_tabs( 'tabs_input_style' );
+
+		$this->__start_controls_tab(
 			'tab_input_noraml',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'input_background',
 				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -202,10 +258,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_placeholder_color',
 			array(
 				'label'     => esc_html__( 'Placeholder Color', 'jet-elements' ),
@@ -215,89 +272,49 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'{{WRAPPER}} .wpcf7 .wpcf7-form .wpcf7-form-control::-moz-placeholder'          => 'color: {{VALUE}}',
 					'{{WRAPPER}} .wpcf7 .wpcf7-form .wpcf7-form-control:-ms-input-placeholder'      => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'input_typography',
-				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)',
-			)
-		);
-
-		$this->add_responsive_control(
-			'input_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'input_margin',
-			array(
-				'label'      => esc_html__( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'input_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)',
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
-			'input_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file)',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_input_focus',
 			array(
 				'label' => esc_html__( 'Focus', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'input_focus_background',
 				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file):focus',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_focus_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -305,10 +322,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file):focus' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_placeholder_focus_color',
 			array(
 				'label'     => esc_html__( 'Placeholder Color', 'jet-elements' ),
@@ -318,45 +336,49 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'{{WRAPPER}} .wpcf7 .wpcf7-form .wpcf7-form-control:focus::-moz-placeholder'          => 'color: {{VALUE}}',
 					'{{WRAPPER}} .wpcf7 .wpcf7-form .wpcf7-form-control:focus:-ms-input-placeholder'      => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'input_focus_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file):focus',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_focus_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file):focus',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_input_invalid',
 			array(
 				'label' => esc_html__( 'Not Valid', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'input_invalid_background',
 				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file).wpcf7-not-valid',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_invalid_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -364,48 +386,51 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file).wpcf7-not-valid' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'input_invalid_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file).wpcf7-not-valid',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_invalid_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio):not(.wpcf7-acceptance):not(.wpcf7-file).wpcf7-not-valid',
-			)
+			),
+			75
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'textarea_min_height',
 			array(
 				'label'       => esc_html__( 'Textarea Minimal Height', 'jet-elements' ),
-				'label_block' => true,
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => '',
 				'selectors'   => array(
 					'{{WRAPPER}} .wpcf7 .wpcf7-form-control.wpcf7-textarea' => 'height: {{VALUE}}px; min-height: {{VALUE}}px;',
 				),
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'submit_style',
 			array(
 				'label'      => esc_html__( 'Submit Button', 'jet-elements' ),
@@ -414,16 +439,16 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_submit_style' );
+		$this->__start_controls_tabs( 'tabs_submit_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'submit_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg',
 			array(
 				'label'       => _x( 'Background Type', 'Background Control', 'jet-elements' ),
@@ -441,10 +466,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'default'     => 'color',
 				'label_block' => false,
 				'render_type' => 'ui',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_color',
 			array(
 				'label'     => _x( 'Color', 'Background Control', 'jet-elements' ),
@@ -461,10 +487,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'condition' => array(
 					'submit_bg' => array( 'color', 'gradient' ),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_color_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -479,10 +506,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_color_b',
 			array(
 				'label'       => _x( 'Second Color', 'Background Control', 'jet-elements' ),
@@ -493,10 +521,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_color_b_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -511,10 +540,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_gradient_type',
 			array(
 				'label'   => _x( 'Type', 'Background Control', 'jet-elements' ),
@@ -529,10 +559,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_gradient_angle',
 			array(
 				'label'      => _x( 'Angle', 'Background Control', 'jet-elements' ),
@@ -555,10 +586,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_bg_gradient_type' => 'linear',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_bg_gradient_position',
 			array(
 				'label'   => _x( 'Position', 'Background Control', 'jet-elements' ),
@@ -583,10 +615,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_bg_gradient_type' => 'radial',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_color',
 			array(
 				'label' => esc_html__( 'Text Color', 'jet-elements' ),
@@ -594,35 +627,21 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'submit_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}}  .wpcf7 input.wpcf7-submit',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
-			'submit_text_decor',
-			array(
-				'label'   => esc_html__( 'Text Decoration', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'none'      => esc_html__( 'None', 'jet-elements' ),
-					'underline' => esc_html__( 'Underline', 'jet-elements' ),
-				),
-				'default' => 'none',
-				'selectors' => array(
-					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'text-decoration: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'submit_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -631,10 +650,23 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'submit_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} .wpcf7 input.wpcf7-submit',
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
 			'submit_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -643,21 +675,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'submit_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} .wpcf7 input.wpcf7-submit',
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'submit_box_shadow',
@@ -665,16 +687,16 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 			)
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_submit_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg',
 			array(
 				'label'       => _x( 'Background Type', 'Background Control', 'jet-elements' ),
@@ -692,10 +714,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'default'     => 'color',
 				'label_block' => false,
 				'render_type' => 'ui',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_color',
 			array(
 				'label'     => _x( 'Color', 'Background Control', 'jet-elements' ),
@@ -712,10 +735,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'condition' => array(
 					'submit_hover_bg' => array( 'color', 'gradient' ),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_color_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -730,10 +754,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_hover_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_color_b',
 			array(
 				'label'       => _x( 'Second Color', 'Background Control', 'jet-elements' ),
@@ -744,10 +769,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_hover_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_color_b_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -762,10 +788,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_hover_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_gradient_type',
 			array(
 				'label'   => _x( 'Type', 'Background Control', 'jet-elements' ),
@@ -780,10 +807,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_hover_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_gradient_angle',
 			array(
 				'label'      => _x( 'Angle', 'Background Control', 'jet-elements' ),
@@ -806,10 +834,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_hover_bg_gradient_type' => 'linear',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_bg_gradient_position',
 			array(
 				'label'   => _x( 'Position', 'Background Control', 'jet-elements' ),
@@ -834,10 +863,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_hover_bg_gradient_type' => 'radial',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_hover_color',
 			array(
 				'label' => esc_html__( 'Text Color', 'jet-elements' ),
@@ -845,35 +875,21 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name' => 'submit_hover_typography',
 				'label' => esc_html__( 'Typography', 'jet-elements' ),
 				'selector' => '{{WRAPPER}}  .wpcf7 input.wpcf7-submit:hover',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
-			'submit_hover_text_decor',
-			array(
-				'label'   => esc_html__( 'Text Decoration', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'none'      => esc_html__( 'None', 'jet-elements' ),
-					'underline' => esc_html__( 'Underline', 'jet-elements' ),
-				),
-				'default' => 'none',
-				'selectors' => array(
-					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover' => 'text-decoration: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'submit_hover_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -882,10 +898,23 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'submit_hover_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover',
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
 			'submit_hover_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -894,38 +923,29 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'submit_hover_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover',
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'submit_hover_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 input.wpcf7-submit:hover',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_submit_focus',
 			array(
 				'label' => esc_html__( 'Focus', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg',
 			array(
 				'label'       => _x( 'Background Type', 'Background Control', 'jet-elements' ),
@@ -943,10 +963,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'default'     => 'color',
 				'label_block' => false,
 				'render_type' => 'ui',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_color',
 			array(
 				'label'     => _x( 'Color', 'Background Control', 'jet-elements' ),
@@ -963,10 +984,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'condition' => array(
 					'submit_focus_bg' => array( 'color', 'gradient' ),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_color_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -981,10 +1003,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_focus_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_color_b',
 			array(
 				'label'       => _x( 'Second Color', 'Background Control', 'jet-elements' ),
@@ -995,10 +1018,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_focus_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_color_b_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -1013,10 +1037,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_focus_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_gradient_type',
 			array(
 				'label'   => _x( 'Type', 'Background Control', 'jet-elements' ),
@@ -1031,10 +1056,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_focus_bg' => array( 'gradient' ),
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_gradient_angle',
 			array(
 				'label'      => _x( 'Angle', 'Background Control', 'jet-elements' ),
@@ -1057,10 +1083,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_focus_bg_gradient_type' => 'linear',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_bg_gradient_position',
 			array(
 				'label'   => _x( 'Position', 'Background Control', 'jet-elements' ),
@@ -1085,10 +1112,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 					'submit_focus_bg_gradient_type' => 'radial',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'submit_focus_color',
 			array(
 				'label' => esc_html__( 'Text Color', 'jet-elements' ),
@@ -1096,35 +1124,21 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name' => 'submit_focus_typography',
 				'label' => esc_html__( 'Typography', 'jet-elements' ),
 				'selector' => '{{WRAPPER}}  .wpcf7 input.wpcf7-submit:focus',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
-			'submit_focus_text_decor',
-			array(
-				'label'   => esc_html__( 'Text Decoration', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'none'      => esc_html__( 'None', 'jet-elements' ),
-					'underline' => esc_html__( 'Underline', 'jet-elements' ),
-				),
-				'default' => 'none',
-				'selectors' => array(
-					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus' => 'text-decoration: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'submit_focus_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1133,10 +1147,23 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'submit_focus_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus',
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
 			'submit_focus_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1145,33 +1172,38 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'submit_focus_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus',
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'submit_focus_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 input.wpcf7-submit:focus',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'submit_margin',
+			array(
+				'label'      => esc_html__( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator' => 'before',
+			),
+			25
+		);
+
+		$this->__add_control(
 			'arrows',
 			array(
 				'label'        => esc_html__( 'Fullwidth Button', 'jet-elements' ),
@@ -1183,24 +1215,13 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'    => array(
 					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'display: {{VALUE}}; width: 100%;',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
-			'submit_margin',
-			array(
-				'label'      => esc_html__( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wpcf7 input.wpcf7-submit' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
+		$this->__end_controls_section();
 
-		$this->end_controls_section();
-
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_alerts_style',
 			array(
 				'label'      => esc_html__( 'Alerts', 'jet-elements' ),
@@ -1209,15 +1230,16 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'alert_typography',
 				'selector' => '{{WRAPPER}} .wpcf7 div.wpcf7-response-output',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'alert_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1226,10 +1248,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-response-output' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'alert_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -1238,10 +1261,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-response-output' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'alert_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1250,10 +1274,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-response-output' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'alert_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -1276,19 +1301,21 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-response-output' => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'sent_heading',
 			array(
 				'label'     => esc_html__( 'Sent Success', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'sent_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1296,10 +1323,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ok' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'sent_bg',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1307,37 +1335,41 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ok' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'sent_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ok',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'sent_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ok',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'error_heading',
 			array(
 				'label'     => esc_html__( 'Sent Error', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'error_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1345,10 +1377,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ng' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'error_bg',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1356,37 +1389,41 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ng' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'error_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ng',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'error_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 div.wpcf7-mail-sent-ng',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'invalid_alert_heading',
 			array(
 				'label'     => esc_html__( 'Not Valid', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'invalid_alert_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1394,10 +1431,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-validation-errors' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'invalid_alert_bg',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1405,37 +1443,41 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-validation-errors' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'invalid_alert_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 div.wpcf7-validation-errors',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'invalid_alert_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 div.wpcf7-validation-errors',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'spam_heading',
 			array(
 				'label'     => esc_html__( 'Spam Blocked', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
-		);
+			),
+			25
+	);
 
-		$this->add_control(
+		$this->__add_control(
 			'spam_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1443,10 +1485,11 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-spam-blocked' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'spam_bg',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1454,28 +1497,31 @@ class Jet_Elements_Contact_Form7 extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wpcf7 div.wpcf7-spam-blocked' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'spam_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} .wpcf7 div.wpcf7-spam-blocked',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'spam_box_shadow',
 				'selector' => '{{WRAPPER}} .wpcf7 div.wpcf7-spam-blocked',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 	}
 
 	/**

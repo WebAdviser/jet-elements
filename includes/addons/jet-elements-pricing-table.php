@@ -30,7 +30,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-4';
+		return 'jet-elements-icon-pricing-table';
 	}
 
 	public function get_jet_help_url() {
@@ -50,14 +50,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'icon',
 			array(
 				'label'       => esc_html__( 'Icon', 'jet-elements' ),
 				'type'        => Controls_Manager::ICON,
 				'label_block' => true,
 				'file'        => '',
-				'default'     => 'fa fa-flag-o',
 			)
 		);
 
@@ -321,6 +320,37 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
+		$this->__add_advanced_icon_control(
+			'included_bullet_icon',
+			array(
+				'label'       => esc_html__( 'Included Bullet Icon', 'jet-elements' ),
+				'type'        => Controls_Manager::ICON,
+				'label_block' => true,
+				'file'        => '',
+				'default'     => 'fa fa-check',
+				'fa5_default' => array(
+					'value'   => 'fas fa-check',
+					'library' => 'fa-solid',
+				),
+				'separator'   => 'before',
+			)
+		);
+
+		$this->__add_advanced_icon_control(
+			'excluded_bullet_icon',
+			array(
+				'label'       => esc_html__( 'Excluded Bullet Icon', 'jet-elements' ),
+				'type'        => Controls_Manager::ICON,
+				'label_block' => true,
+				'file'        => '',
+				'default'     => 'fa fa-times',
+				'fa5_default' => array(
+					'value'   => 'fas fa-times',
+					'library' => 'fa-solid',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -389,6 +419,48 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 		);
 
 		$this->add_control(
+			'add_button_icon',
+			array(
+				'label'        => esc_html__( 'Add Icon', 'jet-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
+				'label_off'    => esc_html__( 'No', 'jet-elements' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			)
+		);
+
+		$this->__add_advanced_icon_control(
+			'button_icon',
+			array(
+				'label'       => esc_html__( 'Icon', 'jet-elements' ),
+				'type'        => Controls_Manager::ICON,
+				'label_block' => true,
+				'file'        => '',
+				'condition' => array(
+					'add_button_icon' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'button_icon_position',
+			array(
+				'label'   => esc_html__( 'Icon Position', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'left'  => esc_html__( 'Before Text', 'jet-elements' ),
+					'right' => esc_html__( 'After Text', 'jet-elements' ),
+				),
+				'default'     => 'left',
+				'render_type' => 'template',
+				'condition' => array(
+					'add_button_icon' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
 			'button_after',
 			array(
 				'label'   => esc_html__( 'Text After Action Button', 'jet-elements' ),
@@ -424,7 +496,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_table_style',
 			array(
 				'label'      => esc_html__( 'Table', 'jet-elements' ),
@@ -433,15 +505,16 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'table_bg',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['table'],
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'table_border',
@@ -468,10 +541,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -480,18 +554,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['table'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'table_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['table'],
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_padding',
 			array(
 				'label'      => esc_html__( 'Table Padding', 'jet-elements' ),
@@ -500,12 +567,22 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['table'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'table_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['table'],
+			),
+			100
+		);
 
-		$this->start_controls_section(
+		$this->__end_controls_section();
+
+		$this->__start_controls_section(
 			'section_header_style',
 			array(
 				'label'      => esc_html__( 'Header', 'jet-elements' ),
@@ -514,7 +591,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'header_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -522,19 +599,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['header'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'header_title_style',
 			array(
 				'label'     => esc_html__( 'Title', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'title_color',
 			array(
 				'label'  => esc_html__( 'Title Color', 'jet-elements' ),
@@ -546,28 +625,31 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['title'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['title'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'header_subtitle_style',
 			array(
 				'label'     => esc_html__( 'Subtitle', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'subtitle_color',
 			array(
 				'label'  => esc_html__( 'Subtitle Color', 'jet-elements' ),
@@ -579,19 +661,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'subtitle_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['subtitle'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'header_padding',
 			array(
 				'label'      => esc_html__( 'Header Padding', 'jet-elements' ),
@@ -600,10 +684,12 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['header'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+				'separator' => 'before',
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'header_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -626,20 +712,22 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['header'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'header_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} ' . $css_scheme['header'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'header_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -648,12 +736,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['header'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_icon_style',
 			array(
 				'label'      => esc_html__( 'Icon', 'jet-elements' ),
@@ -662,7 +751,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			\Jet_Group_Control_Box_Style::get_type(),
 			array(
 				'name'           => 'icon_style',
@@ -676,10 +765,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'icon_wrap_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -689,10 +779,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['icon_wrap'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator' => 'before',
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'icon_box_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -715,12 +806,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_wrap'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_pricing_style',
 			array(
 				'label'      => esc_html__( 'Pricing', 'jet-elements' ),
@@ -729,7 +821,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -737,19 +829,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_prefix_style',
 			array(
 				'label'     => esc_html__( 'Prefix', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_prefix_color',
 			array(
 				'label' => esc_html__( 'Price Prefix Color', 'jet-elements' ),
@@ -761,19 +855,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_prefix'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'price_prefix_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['price_prefix'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_prefix_vertical_align',
 			array(
 				'label'   => esc_html__( 'Vertical Alignment', 'jet-elements' ),
@@ -783,10 +879,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_prefix'] => 'vertical-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_prefix_dispaly',
 			array(
 				'label'   => esc_html__( 'Prefix Display', 'jet-elements' ),
@@ -799,19 +896,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_prefix'] => 'display: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_val_style',
 			array(
 				'label'     => esc_html__( 'Price Value', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_color',
 			array(
 				'label' => esc_html__( 'Price Color', 'jet-elements' ),
@@ -823,28 +922,31 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_value'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'price_typography',
 				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}}  ' . $css_scheme['price_value'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_suffix_style',
 			array(
 				'label'     => esc_html__( 'Suffix', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_suffix_color',
 			array(
 				'label' => esc_html__( 'Price Suffix Color', 'jet-elements' ),
@@ -856,19 +958,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_suffix'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'price_suffix_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['price_suffix'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_suffix_vertical_align',
 			array(
 				'label'   => esc_html__( 'Vertical Alignment', 'jet-elements' ),
@@ -878,10 +982,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_suffix'] => 'vertical-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_suffix_dispaly',
 			array(
 				'label'   => esc_html__( 'Suffix Display', 'jet-elements' ),
@@ -894,19 +999,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_suffix'] => 'display: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_desc_style',
 			array(
 				'label'     => esc_html__( 'Description', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_desc_color',
 			array(
 				'label' => esc_html__( 'Price Description Color', 'jet-elements' ),
@@ -914,19 +1021,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_desc'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'price_desc_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['price_desc'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'price_desc_gap',
 			array(
 				'label' => esc_html__( 'Gap', 'jet-elements' ),
@@ -940,10 +1049,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['price_desc'] => 'margin-top: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'price_padding',
 			array(
 				'label'      => esc_html__( 'Pricing Block Padding', 'jet-elements' ),
@@ -953,20 +1063,22 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['price'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'price_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} ' . $css_scheme['price'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'price_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -975,10 +1087,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['price'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'price_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -1001,12 +1114,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['price'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_features_style',
 			array(
 				'label'      => esc_html__( 'Features', 'jet-elements' ),
@@ -1015,7 +1129,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1023,10 +1137,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['features'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'features_padding',
 			array(
 				'label'      => esc_html__( 'Features Block Padding', 'jet-elements' ),
@@ -1035,20 +1150,22 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['features'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'features_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} ' . $css_scheme['features'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'features_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1057,10 +1174,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['features'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'features_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['features_item'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
 			'features_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -1083,28 +1211,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['features'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'features_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['features_item'],
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'heading_included_feature_style',
 			array(
 				'label'     => esc_html__( 'Included Feature', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'inc_features_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -1116,21 +1237,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['included_item'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
-			'included_bullet_icon',
-			array(
-				'label'       => esc_html__( 'Included Bullet Icon', 'jet-elements' ),
-				'type'        => Controls_Manager::ICON,
-				'label_block' => true,
-				'file'        => '',
-				'default'     => 'fa fa-check',
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'inc_bullet_icon_size',
 			array(
 				'label'   => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -1146,13 +1257,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['included_item'] . ' .item-bullet:before' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} ' . $css_scheme['included_item'] . ' .item-bullet' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['included_item'] . ' .item-bullet' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'inc_bullet_color',
 			array(
 				'label' => esc_html__( 'Bullet Color', 'jet-elements' ),
@@ -1162,21 +1273,23 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'value' => Scheme_Color::COLOR_4,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['included_item'] . ' .item-bullet:before' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['included_item'] . ' .item-bullet' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'heading_excluded_feature_style',
 			array(
 				'label'     => esc_html__( 'Excluded Feature', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'exc_features_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -1188,21 +1301,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['excluded_item'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
-			'excluded_bullet_icon',
-			array(
-				'label'       => esc_html__( 'Excluded Bullet Icon', 'jet-elements' ),
-				'type'        => Controls_Manager::ICON,
-				'label_block' => true,
-				'file'        => '',
-				'default'     => 'fa fa-times',
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'exc_bullet_icon_size',
 			array(
 				'label'   => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -1218,13 +1321,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['excluded_item'] . ' .item-bullet:before' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} ' . $css_scheme['excluded_item'] . ' .item-bullet' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['excluded_item'] . ' .item-bullet' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'exc_bullet_color',
 			array(
 				'label' => esc_html__( 'Bullet Color', 'jet-elements' ),
@@ -1234,12 +1337,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'value' => Scheme_Color::COLOR_3,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['excluded_item'] . ' .item-bullet:before' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['excluded_item'] . ' .item-bullet' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'exc_text_decoration',
 			array(
 				'label'   => esc_html__( 'Text Decoration', 'jet-elements' ),
@@ -1252,19 +1356,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['excluded_item'] . ' .pricing-feature__text' => 'text-decoration: {{VALUE}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider_style',
 			array(
 				'label'     => esc_html__( 'Features Divider', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider',
 			array(
 				'label'        => esc_html__( 'Divider', 'jet-elements' ),
@@ -1273,10 +1379,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'label_off'    => esc_html__( 'No', 'jet-elements' ),
 				'return_value' => 'yes',
 				'default'      => '',
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider_line',
 			array(
 				'label' => esc_html__( 'Style', 'jet-elements' ),
@@ -1294,10 +1401,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['features_item'] . ':before' => 'border-top-style: {{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -1312,10 +1420,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['features_item'] . ':before' => 'border-top-color: {{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider_weight',
 			array(
 				'label'   => esc_html__( 'Weight', 'jet-elements' ),
@@ -1336,10 +1445,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['features_item'] . ':before' => 'border-top-width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider_width',
 			array(
 				'label' => esc_html__( 'Width', 'jet-elements' ),
@@ -1350,10 +1460,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['features_item'] . ':before' => 'width: {{SIZE}}%',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'features_divider_gap',
 			array(
 				'label' => esc_html__( 'Gap', 'jet-elements' ),
@@ -1374,12 +1485,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['features_item'] . ':before' => 'margin-top: {{SIZE}}{{UNIT}}; margin-bottom: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			75
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_actions_style',
 			array(
 				'label'      => esc_html__( 'Action Box', 'jet-elements' ),
@@ -1388,7 +1500,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'action_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1396,10 +1508,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['action'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'action_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -1407,19 +1520,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['action'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'action_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['action'],
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'action_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1428,20 +1533,22 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['action'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'           => 'action_border',
 				'label'          => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder'    => '1px',
 				'selector'       => '{{WRAPPER}} ' . $css_scheme['action'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'action_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1450,10 +1557,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['action'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'action_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['action'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
 			'action_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -1476,12 +1594,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['action'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_action_button_style',
 			array(
 				'label'      => esc_html__( 'Action Button', 'jet-elements' ),
@@ -1490,7 +1609,7 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_size',
 			array(
 				'label'   => esc_html__( 'Size', 'jet-elements' ),
@@ -1500,56 +1619,24 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'auto' => esc_html__( 'auto', 'jet-elements' ),
 					'full'  => esc_html__( 'full', 'jet-elements' ),
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
-			'add_button_icon',
+		$this->__add_control(
+			'button_icon_heading',
 			array(
-				'label'        => esc_html__( 'Add Icon', 'jet-elements' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
-				'label_off'    => esc_html__( 'No', 'jet-elements' ),
-				'return_value' => 'yes',
-				'default'      => '',
-			)
-		);
-
-		$this->add_control(
-			'button_icon',
-			array(
-				'label'       => esc_html__( 'Icon', 'jet-elements' ),
-				'type'        => Controls_Manager::ICON,
-				'label_block' => true,
-				'file'        => '',
-				'default'     => 'fa fa-shopping-cart',
+				'label'     => esc_html__( 'Icon', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 				'condition' => array(
 					'add_button_icon' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
-			'button_icon_position',
-			array(
-				'label'   => esc_html__( 'Icon Position', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'left'  => esc_html__( 'Before Text', 'jet-elements' ),
-					'right' => esc_html__( 'After Text', 'jet-elements' ),
-				),
-				'default'     => 'left',
-				'render_type' => 'template',
-				'selectors'   => array(
-					'{{WRAPPER}} ' . $css_scheme['button_icon'] => 'float: {{VALUE}}',
-				),
-				'condition' => array(
-					'add_button_icon' => 'yes',
-				),
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_size',
 			array(
 				'label' => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -1564,12 +1651,13 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'add_button_icon' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['button_icon'] . ':before' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['button_icon'] => 'font-size: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_color',
 			array(
 				'label'     => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -1580,10 +1668,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['button_icon'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_icon_margin',
 			array(
 				'label'      => esc_html__( 'Icon Margin', 'jet-elements' ),
@@ -1595,19 +1684,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button_icon'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+				'separator' => 'after',
+			),
+			25
 		);
 
-		$this->start_controls_tabs( 'tabs_button_style' );
+		$this->__start_controls_tabs( 'tabs_button_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'button_bg',
@@ -1635,10 +1726,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'repeat',
 					'size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -1646,19 +1738,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['button'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1667,10 +1761,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1679,10 +1774,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'button_border',
@@ -1690,27 +1786,29 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'button_hover_bg',
@@ -1734,10 +1832,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 					'repeat',
 					'size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_hover_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -1745,18 +1844,20 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] . ':hover' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_hover_typography',
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_hover_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1765,10 +1866,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] . ':hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_hover_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1777,10 +1879,11 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'button_hover_border',
@@ -1788,22 +1891,24 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_hover_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 
@@ -1828,18 +1933,21 @@ class Jet_Elements_Pricing_Table extends Jet_Elements_Base {
 
 		switch ( $item['item_included'] ) {
 			case 'item-excluded':
-				$icon = $this->get_settings_for_display( 'excluded_bullet_icon' );
+				$icon_setting = 'excluded_bullet_icon';
 				break;
 
 			default:
-				$icon = $this->get_settings_for_display( 'included_bullet_icon' );
+				$icon_setting = 'included_bullet_icon';
 				break;
 		}
 
-		if ( $icon ) {
-			return sprintf( '<i class="item-bullet %s"></i>', $icon );
-		}
+		$this->__processed_item = false;
 
+		$icon = $this->__get_icon( $icon_setting, '<span class="item-bullet jet-elements-icon">%s</span>' );
+
+		$this->__processed_item = $item;
+
+		return $icon;
 	}
 
 	public function __pricing_feature_icon_edit() {

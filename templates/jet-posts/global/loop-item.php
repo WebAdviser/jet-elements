@@ -2,8 +2,7 @@
 /**
  * Posts loop start template
  */
-?>
-<div class="jet-posts__item <?php echo jet_elements_tools()->col_classes( array(
+?><div class="jet-posts__item <?php echo jet_elements_tools()->col_classes( array(
 	'desk' => $this->get_attr( 'columns' ),
 	'tab'  => $this->get_attr( 'columns_tablet' ),
 	'mob'  => $this->get_attr( 'columns_mobile' ),

@@ -67,7 +67,7 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-30';
+		return 'jet-elements-icon-instagram';
 	}
 
 	public function get_jet_help_url() {
@@ -136,17 +136,6 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				),
 			)
 		);
-
-//		$this->add_control(
-//			'self',
-//			array(
-//				'label' => esc_html__( 'Username', 'jet-elements' ),
-//				'type'  => Controls_Manager::TEXT,
-//				'condition' => array(
-//					'endpoint' => 'self',
-//				),
-//			)
-//		);
 
 		if ( ! $this->get_access_token() ) {
 			$this->add_control(
@@ -322,20 +311,6 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 			)
 		);
 
-		$this->end_controls_section();
-
-		/**
-		 * General Style Section
-		 */
-		$this->start_controls_section(
-			'section_general_style',
-			array(
-				'label'      => esc_html__( 'General', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
 		$this->add_responsive_control(
 			'item_height',
 			array(
@@ -362,7 +337,7 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 		$this->add_responsive_control(
 			'item_margin',
 			array(
-				'label' => esc_html__( 'Items Margin', 'jet-elements' ),
+				'label' => esc_html__( 'Items Gap', 'jet-elements' ),
 				'type'  => Controls_Manager::SLIDER,
 				'range' => array(
 					'px' => array(
@@ -380,7 +355,52 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->add_control(
+			'show_on_hover',
+			array(
+				'label'        => esc_html__( 'Show on hover', 'jet-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
+				'label_off'    => esc_html__( 'No', 'jet-elements' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->end_controls_section();
+
+		/**
+		 * Item Style Section
+		 */
+		$this->__start_controls_section(
+			'section_general_style',
+			array(
+				'label'      => esc_html__( 'Item', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			)
+		);
+
+		$this->__add_control(
+			'cover_alignment',
+			array(
+				'label'   => esc_html__( 'Content Vertical Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'center',
+				'options' => array(
+					'flex-start'    => esc_html__( 'Top', 'jet-elements' ),
+					'center'        => esc_html__( 'Center', 'jet-elements' ),
+					'flex-end'      => esc_html__( 'Bottom', 'jet-elements' ),
+					'space-between' => esc_html__( 'Space between', 'jet-elements' ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} '. $css_scheme['content'] => 'justify-content: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
 			'item_padding',
 			array(
 				'label'      => __( 'Padding', 'jet-elements' ),
@@ -389,10 +409,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['inner'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'item_border',
@@ -400,10 +421,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['inner'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'item_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -412,26 +434,107 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['inner'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name' => 'item_shadow',
-				'exclude' => array(
-					'box_shadow_position',
-				),
 				'selector' => '{{WRAPPER}} ' . $css_scheme['inner'],
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
+		$this->__add_control(
+			'item_overlay_heading',
+			array(
+				'label'     => esc_html__( 'Overlay', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before'
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'overlay_background',
+				'fields_options' => array(
+					'color' => array(
+						'scheme' => array(
+							'type'  => Scheme_Color::get_type(),
+							'value' => Scheme_Color::COLOR_2,
+						),
+					),
+				),
+				'selector' => '{{WRAPPER}} ' . $css_scheme['content'] . ':before',
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'overlay_paddings',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['content'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_control(
+			'item_order_heading',
+			array(
+				'label'     => esc_html__( 'Order', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before'
+			),
+			100
+		);
+
+		$this->__add_control(
+			'caption_order',
+			array(
+				'label'   => esc_html__( 'Caption Order', 'jet-elements' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 1,
+				'min'     => 1,
+				'max'     => 4,
+				'step'    => 1,
+				'selectors' => array(
+					'{{WRAPPER}} '. $css_scheme['caption'] => 'order: {{VALUE}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_control(
+			'meta_order',
+			array(
+				'label'   => esc_html__( 'Meta Order', 'jet-elements' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 2,
+				'min'     => 1,
+				'max'     => 4,
+				'step'    => 1,
+				'selectors' => array(
+					'{{WRAPPER}} '. $css_scheme['meta'] => 'order: {{VALUE}};',
+				),
+			),
+			100
+		);
+
+		$this->__end_controls_section();
 
 		/**
 		 * Caption Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_caption_style',
 			array(
 				'label'      => esc_html__( 'Caption', 'jet-elements' ),
@@ -440,51 +543,59 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
-			'caption_color',
+		$this->__add_responsive_control(
+			'caption_alignment',
 			array(
-				'label'  => esc_html__( 'Color', 'jet-elements' ),
-				'type'   => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['caption'] => 'color: {{VALUE}}',
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
+					),
 				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'caption_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-				'selector' => '{{WRAPPER}} ' . $css_scheme['caption'],
-			)
-		);
-
-		$this->add_responsive_control(
-			'caption_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['caption'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['caption'] => 'align-self: {{VALUE}};',
 				),
 			)
 		);
 
-		$this->add_responsive_control(
-			'caption_margin',
+		$this->__add_responsive_control(
+			'caption_text_alignment',
 			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
 				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['caption'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['caption'] => 'text-align: {{VALUE}};',
 				),
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'caption_width',
 			array(
 				'label' => esc_html__( 'Caption Width', 'jet-elements' ),
@@ -509,67 +620,64 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['caption'] => 'max-width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
-			'caption_alignment',
+		$this->__add_control(
+			'caption_color',
 			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
+				'label'  => esc_html__( 'Color', 'jet-elements' ),
+				'type'   => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['caption'] => 'color: {{VALUE}}',
 				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['caption'] => 'align-self: {{VALUE}};',
-				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
-			'caption_text_alignment',
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
 			array(
-				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['caption'] => 'text-align: {{VALUE}};',
-				),
-			)
+				'name'     => 'caption_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'selector' => '{{WRAPPER}} ' . $css_scheme['caption'],
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__add_responsive_control(
+			'caption_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['caption'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
+			'caption_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['caption'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__end_controls_section();
 
 		/**
 		 * Meta Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_meta_style',
 			array(
 				'label'      => esc_html__( 'Meta', 'jet-elements' ),
@@ -578,7 +686,34 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'meta_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['meta'] => 'align-self: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
 			'comments_icon',
 			array(
 				'label'       => esc_html__( 'Comments Icon', 'jet-elements' ),
@@ -586,10 +721,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'label_block' => true,
 				'file'        => '',
 				'default'     => 'fa fa-comment',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'likes_icon',
 			array(
 				'label'       => esc_html__( 'Likes Icon', 'jet-elements' ),
@@ -597,10 +733,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'label_block' => true,
 				'file'        => '',
 				'default'     => 'fa fa-heart',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'meta_icon_color',
 			array(
 				'label'  => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -608,10 +745,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['meta_icon'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'meta_icon_size',
 			array(
 				'label'      => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -628,10 +766,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['meta_icon'] . ' i' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'meta_label_color',
 			array(
 				'label'  => esc_html__( 'Text Color', 'jet-elements' ),
@@ -639,27 +778,30 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['meta_label'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'meta_label_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['meta_label'],
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'meta_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['meta'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'meta_padding',
 			array(
 				'label'      => __( 'Padding', 'jet-elements' ),
@@ -668,10 +810,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['meta'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'meta_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -680,10 +823,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['meta'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'meta_item_margin',
 			array(
 				'label'      => __( 'Item Margin', 'jet-elements' ),
@@ -692,10 +836,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['meta_item'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'meta_border',
@@ -703,10 +848,11 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['meta'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'meta_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -715,160 +861,20 @@ class Jet_Elements_Instagram_Gallery extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['meta'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'meta_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['meta'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
-			'meta_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['meta'] => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * Overlay Style Section
-		 */
-		$this->start_controls_section(
-			'section_overlay_style',
-			array(
-				'label'      => esc_html__( 'Overlay', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'show_on_hover',
-			array(
-				'label'        => esc_html__( 'Show on hover', 'jet-elements' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
-				'label_off'    => esc_html__( 'No', 'jet-elements' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Background::get_type(),
-			array(
-				'name'     => 'overlay_background',
-				'fields_options' => array(
-					'color' => array(
-						'scheme' => array(
-							'type'  => Scheme_Color::get_type(),
-							'value' => Scheme_Color::COLOR_2,
-						),
-					),
-				),
-				'selector' => '{{WRAPPER}} ' . $css_scheme['content'] . ':before',
-			)
-		);
-
-		$this->add_responsive_control(
-			'overlay_paddings',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['content'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * Order Style Section
-		 */
-		$this->start_controls_section(
-			'section_order_style',
-			array(
-				'label'      => esc_html__( 'Content Order and Alignment', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'caption_order',
-			array(
-				'label'   => esc_html__( 'Caption Order', 'jet-elements' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 1,
-				'min'     => 1,
-				'max'     => 4,
-				'step'    => 1,
-				'selectors' => array(
-					'{{WRAPPER}} '. $css_scheme['caption'] => 'order: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'meta_order',
-			array(
-				'label'   => esc_html__( 'Meta Order', 'jet-elements' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 2,
-				'min'     => 1,
-				'max'     => 4,
-				'step'    => 1,
-				'selectors' => array(
-					'{{WRAPPER}} '. $css_scheme['meta'] => 'order: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'cover_alignment',
-			array(
-				'label'   => esc_html__( 'Cover Content Vertical Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => esc_html__( 'Top', 'jet-elements' ),
-					'center'        => esc_html__( 'Center', 'jet-elements' ),
-					'flex-end'      => esc_html__( 'Bottom', 'jet-elements' ),
-					'space-between' => esc_html__( 'Space between', 'jet-elements' ),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} '. $css_scheme['content'] => 'justify-content: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 

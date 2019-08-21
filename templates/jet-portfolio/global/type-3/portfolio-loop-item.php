@@ -4,7 +4,7 @@
  */
 $settings = $this->get_settings_for_display();
 $perPage = $settings['per_page'];
-$cover_icon = ! empty( $settings['cover_icon'] ) ? $settings['cover_icon'] : 'fa fa-search';
+$cover_icon = ! empty( $settings['cover_icon'] ) ? sprintf( '<i class="%s"></i>', $settings['cover_icon'] ) : '';
 $is_more_button = $settings['view_more_button'];
 
 $item_instance = 'item-instance-' . $this->item_counter;
@@ -41,7 +41,7 @@ $this->add_render_attribute( $link_instance, 'data-elementor-lightbox-slideshow'
 			<div class="jet-portfolio__image">
 				<?php echo $this->__loop_image_item(); ?>
 				<div class="jet-portfolio__image-loader"><span></span></div>
-				<div class="jet-portfolio__cover"><i class="<?php echo $cover_icon; ?>"></i></div>
+				<div class="jet-portfolio__cover"><?php echo $cover_icon; ?></div>
 			</div>
 		</a>
 	</div>

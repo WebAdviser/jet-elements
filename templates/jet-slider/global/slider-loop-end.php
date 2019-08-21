@@ -2,6 +2,5 @@
 /**
  * Slider wrap end template
  */
-?>
-</div>
+?></div>
 </div>

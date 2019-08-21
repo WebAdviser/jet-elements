@@ -29,7 +29,7 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-42';
+		return 'jet-elements-icon-dropbar';
 	}
 
 	public function get_jet_help_url() {
@@ -82,7 +82,7 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'button_before_icon',
 			array(
 				'label' => esc_html__( 'Before icon', 'jet-elements' ),
@@ -90,7 +90,7 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'button_after_icon',
 			array(
 				'label' => esc_html__( 'After icon', 'jet-elements' ),
@@ -106,19 +106,19 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'options' => array(
 					'left' => array(
 						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon' => 'fa fa-align-left',
+						'icon' => 'eicon-h-align-left',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon' => 'fa fa-align-center',
+						'icon' => 'eicon-h-align-center',
 					),
 					'right' => array(
 						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon' => 'fa fa-align-right',
+						'icon' => 'eicon-h-align-right',
 					),
 					'justify' => array(
 						'title' => esc_html__( 'Justified', 'jet-elements' ),
-						'icon' => 'fa fa-align-justify',
+						'icon' => 'eicon-h-align-stretch',
 					),
 				),
 				'selectors_dictionary' => array(
@@ -449,7 +449,7 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 		/**
 		 * `Button` Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_button_style',
 			array(
 				'label' => esc_html__( 'Button', 'jet-elements' ),
@@ -457,16 +457,17 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button_text'],
-			)
+			),
+			50
 		);
 		
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_icon_font_size',
 			array(
 				'label' => esc_html__( 'Icon Font Size', 'jet-elements' ),
@@ -485,21 +486,22 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 					'relation' => 'or',
 					'terms' => array(
 						array(
-							'name'     => 'button_before_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_before_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 						array(
-							'name'     => 'button_after_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_after_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 					),
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_spacing',
 			array(
 				'label' => esc_html__( 'Icon Spacing', 'jet-elements' ),
@@ -520,38 +522,40 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 					'relation' => 'or',
 					'terms' => array(
 						array(
-							'name'     => 'button_before_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_before_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 						array(
-							'name'     => 'button_after_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_after_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->start_controls_tabs( 'tabs_button_style' );
+		$this->__start_controls_tabs( 'tabs_button_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'button_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_color',
 			array(
 				'label' => esc_html__( 'Text Color', 'jet-elements' ),
@@ -559,10 +563,11 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_color',
 			array(
 				'label' => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -574,46 +579,49 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 					'relation' => 'or',
 					'terms' => array(
 						array(
-							'name'     => 'button_before_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_before_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 						array(
-							'name'     => 'button_after_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_after_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'button_background_hover',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_color_hover',
 			array(
 				'label' => esc_html__( 'Text Color', 'jet-elements' ),
@@ -621,10 +629,11 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] . ':hover' => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_color_hover',
 			array(
 				'label' => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -636,21 +645,22 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 					'relation' => 'or',
 					'terms' => array(
 						array(
-							'name'     => 'button_before_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_before_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 						array(
-							'name'     => 'button_after_icon',
+							'name'     => $this->__prepare_icon_id_for_condition( 'button_after_icon' ),
 							'operator' => '!==',
 							'value'    => '',
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_border_color_hover',
 			array(
 				'label' => esc_html__( 'Border Color', 'jet-elements' ),
@@ -661,39 +671,43 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'condition' => array(
 					'button_border_border!' => '',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_box_shadow_hover',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_hover_animation',
 			array(
 				'label' => esc_html__( 'Hover Animation', 'jet-elements' ),
 				'type'  => Controls_Manager::HOVER_ANIMATION,
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'button_border',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'],
 				'separator' => 'before',
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -702,10 +716,11 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -714,15 +729,16 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * `Content` Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_content_style',
 			array(
 				'label' => esc_html__( 'Content', 'jet-elements' ),
@@ -730,16 +746,17 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 			)
 		);
 		
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'content_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['content'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'content_align',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -765,18 +782,20 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['content'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 		
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'content_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['content'],
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'content_color',
 			array(
 				'label' => esc_html__( 'Text Color', 'jet-elements' ),
@@ -784,18 +803,20 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['content'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'content_border',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['content'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'content_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -804,18 +825,20 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['content'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'content_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['content'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'content_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -824,10 +847,11 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['content'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'content_z_index',
 			array(
 				'label' => esc_html__( 'Z-index', 'jet-elements' ),
@@ -836,10 +860,11 @@ class Jet_Elements_Dropbar extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['content_wrapper'] => 'z-index: {{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 

@@ -33,7 +33,7 @@ if ( ! empty( $settings['button_url']['url'] ) ) {
 		<div class="jet-button__state jet-button__state-normal">
 			<?php
 				if ( filter_var( $use_icon, FILTER_VALIDATE_BOOLEAN ) ) {
-					echo $this->__html( 'button_icon_normal', '<span class="jet-button__icon"><i class="%s"></i></span>' );
+					echo $this->__icon( 'button_icon_normal', '<span class="jet-button__icon jet-elements-icon">%s</span>' );
 				}
 				echo $this->__html( 'button_label_normal', '<span class="jet-button__label">%s</span>' );
 			?>
@@ -41,7 +41,7 @@ if ( ! empty( $settings['button_url']['url'] ) ) {
 		<div class="jet-button__state jet-button__state-hover">
 			<?php
 				if ( filter_var( $use_icon, FILTER_VALIDATE_BOOLEAN ) ) {
-					echo $this->__html( 'button_icon_hover', '<span class="jet-button__icon"><i class="%s"></i></span>' );
+					echo $this->__icon( 'button_icon_hover', '<span class="jet-button__icon jet-elements-icon">%s</span>' );
 				}
 				echo $this->__html( 'button_label_hover', '<span class="jet-button__label">%s</span>' );
 			?>

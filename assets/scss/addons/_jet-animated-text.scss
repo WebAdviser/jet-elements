@@ -5,13 +5,11 @@
 	align-items: center;
 
 	&__before-text {
-		color: #54595f;
 		align-self: auto;
 	}
 
 	&__animated-text {
 		position: relative;
-		color: #6ec1e4;
 		align-self: auto;
 		transition: width 0.3s ease;
 	}
@@ -43,7 +41,6 @@
 	}
 
 	&__after-text {
-		color: #7a7a7a;
 		align-self: auto;
 	}
 

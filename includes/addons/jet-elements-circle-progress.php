@@ -31,7 +31,7 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-3';
+		return 'jet-elements-icon-circle-progress';
 	}
 
 	public function get_jet_help_url() {
@@ -111,90 +111,6 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'condition' => array(
 					'values_type' => 'absolute',
 				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_size',
-			array(
-				'label' => esc_html__( 'Settings', 'jet-elements' ),
-			)
-		);
-
-		$this->add_responsive_control(
-			'circle_size',
-			array(
-				'label'      => esc_html__( 'Circle Size', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px' ),
-				'default'    => array(
-					'unit' => 'px',
-					'size' => 185,
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 100,
-						'max' => 600,
-					),
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .circle-progress-bar' => 'max-width: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .circle-progress' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .position-in-circle'  => 'height: {{SIZE}}{{UNIT}}',
-
-				),
-				'render_type' => 'template',
-			)
-		);
-
-		$this->add_responsive_control(
-			'value_stroke',
-			array(
-				'label'      => esc_html__( 'Value Stoke Width', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px' ),
-				'default'    => array(
-					'unit' => 'px',
-					'size' => 7,
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 1,
-						'max' => 300,
-					),
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'bg_stroke',
-			array(
-				'label'      => esc_html__( 'Background Stoke Width', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px' ),
-				'default'    => array(
-					'unit' => 'px',
-					'size' => 7,
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 300,
-					),
-				),
-			)
-		);
-
-		$this->add_control(
-			'duration',
-			array(
-				'label'   => esc_html__( 'Animation Duration', 'jet-elements' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 1000,
-				'min'     => 100,
-				'step'    => 100,
 			)
 		);
 
@@ -287,11 +203,73 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'section_progress_style',
+			'section_size',
 			array(
-				'label'      => esc_html__( 'Progress Circle Style', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
+				'label' => esc_html__( 'Settings', 'jet-elements' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'circle_size',
+			array(
+				'label'      => esc_html__( 'Circle Size', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 185,
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 100,
+						'max' => 600,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .circle-progress-bar' => 'max-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .circle-progress' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .position-in-circle'  => 'height: {{SIZE}}{{UNIT}}',
+
+				),
+				'render_type' => 'template',
+			)
+		);
+
+		$this->add_responsive_control(
+			'value_stroke',
+			array(
+				'label'      => esc_html__( 'Value Stoke Width', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 7,
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 300,
+					),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'bg_stroke',
+			array(
+				'label'      => esc_html__( 'Background Stoke Width', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 7,
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 300,
+					),
+				),
 			)
 		);
 
@@ -440,6 +418,28 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 		);
 
 		$this->add_control(
+			'duration',
+			array(
+				'label'   => esc_html__( 'Animation Duration', 'jet-elements' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 1000,
+				'min'     => 100,
+				'step'    => 100,
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->__start_controls_section(
+			'section_progress_style',
+			array(
+				'label'      => esc_html__( 'Progress Circle Style', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			)
+		);
+
+		$this->__add_control(
 			'circle_fill_color',
 			array(
 				'label'     => esc_html__( 'Circle Fill Color', 'jet-elements' ),
@@ -448,10 +448,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .circle-progress__meter' => 'fill: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'line_endings',
 			array(
 				'label'   => esc_html__( 'Progress Line Endings', 'jet-elements' ),
@@ -464,21 +465,23 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .circle-progress__value' => 'stroke-linecap: {{VALUE}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'circle_box_shadow',
 				'label'    => esc_html__( 'Circle Box Shadow', 'jet-elements' ),
 				'selector' => '{{WRAPPER}} .circle-progress',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_content_style',
 			array(
 				'label'      => esc_html__( 'Content Style', 'jet-elements' ),
@@ -487,16 +490,17 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'number_style',
 			array(
 				'label'     => esc_html__( 'Number Styles', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'number_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -508,19 +512,21 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .circle-counter .circle-val' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'number_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .circle-counter .circle-val',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -529,10 +535,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-val' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_prefix_font_size',
 			array(
 				'label'      => esc_html__( 'Prefix Font Size', 'jet-elements' ),
@@ -549,10 +556,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-val .circle-counter__prefix' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_prefix_gap',
 			array(
 				'label'      => esc_html__( 'Prefix Gap (px)', 'jet-elements' ),
@@ -570,10 +578,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 					'body:not(.rtl) {{WRAPPER}} .circle-counter .circle-val .circle-counter__prefix' => 'margin-right: {{SIZE}}{{UNIT}}',
 					'body.rtl {{WRAPPER}} .circle-counter .circle-val .circle-counter__prefix' => 'margin-left: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_prefix_alignment',
 			array(
 				'label'       => esc_html__( 'Prefix Alignment', 'jet-elements' ),
@@ -597,10 +606,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-val .circle-counter__prefix' => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_suffix_font_size',
 			array(
 				'label'      => esc_html__( 'Suffix Font Size', 'jet-elements' ),
@@ -617,10 +627,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-val .circle-counter__suffix' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_suffix_gap',
 			array(
 				'label'      => esc_html__( 'Suffix Gap (px)', 'jet-elements' ),
@@ -638,10 +649,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 					'body:not(.rtl) {{WRAPPER}} .circle-counter .circle-val .circle-counter__suffix' => 'margin-left: {{SIZE}}{{UNIT}}',
 					'body.rtl {{WRAPPER}} .circle-counter .circle-val .circle-counter__suffix' => 'margin-right: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'number_suffix_alignment',
 			array(
 				'label'       => esc_html__( 'Suffix Alignment', 'jet-elements' ),
@@ -665,19 +677,21 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-val .circle-counter__suffix' => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'title_style',
 			array(
 				'label'     => esc_html__( 'Title Styles', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'title_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -689,19 +703,21 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .circle-counter .circle-counter__title' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .circle-counter .circle-counter__title',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'title_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -710,19 +726,21 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-counter__title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'subtitle_style',
 			array(
 				'label'     => esc_html__( 'Subtitle Styles', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'subtitle_color',
 			array(
 				'label'  => esc_html__( 'Color', 'jet-elements' ),
@@ -734,19 +752,21 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .circle-counter .circle-counter__subtitle' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'subtitle_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_2,
 				'selector' => '{{WRAPPER}} .circle-counter .circle-counter__subtitle',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'subtitle_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -755,10 +775,11 @@ class Jet_Elements_Circle_Progress extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .circle-counter .circle-counter__subtitle' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 

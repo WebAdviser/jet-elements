@@ -71,7 +71,7 @@ if ( ! class_exists( 'Jet_Elements_Ext_Section' ) ) {
 			$obj->start_controls_section(
 				'section_parallax',
 				array(
-					'label' => esc_html__( 'Jet Parallax', 'jet-elements' ),
+					'label' => esc_html__( 'Jet Section Parallax', 'jet-elements' ),
 					'tab'   => Elementor\Controls_Manager::TAB_LAYOUT,
 				)
 			);

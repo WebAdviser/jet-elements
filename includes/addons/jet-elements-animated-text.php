@@ -29,7 +29,7 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-12';
+		return 'jet-elements-icon-animated-text';
 	}
 
 	public function get_jet_help_url() {
@@ -183,24 +183,24 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'animated_text_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'default' => 'center',
 				'options' => array(
-					'flex-start'    => array(
+					'flex-start' => array(
 						'title' => esc_html__( 'Start', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
 						'title' => esc_html__( 'End', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'selectors'  => array(
@@ -211,7 +211,7 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_before_text_style',
 			array(
 				'label'      => esc_html__( 'Before Text', 'jet-elements' ),
@@ -220,7 +220,7 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'before_text_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -232,10 +232,11 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['before_text'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'before_text_bg_color',
 			array(
 				'label' => esc_html__( 'Background color', 'jet-elements' ),
@@ -243,20 +244,22 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['before_text'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'before_text_typography',
 				'label'    => esc_html__( 'Typography', 'jet-elements' ),
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['before_text'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'before_text_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -265,12 +268,13 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['before_text'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_animated_text_style',
 			array(
 				'label'      => esc_html__( 'Animated Text', 'jet-elements' ),
@@ -279,7 +283,7 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'animated_text_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -291,10 +295,11 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['animated_text'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'animated_text_bg_color',
 			array(
 				'label' => esc_html__( 'Background color', 'jet-elements' ),
@@ -302,10 +307,11 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['animated_text'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'animated_text_cursor_color',
 			array(
 				'label' => esc_html__( 'Cursor Color', 'jet-elements' ),
@@ -320,20 +326,22 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'condition' => array(
 					'animation_effect' => 'fx12',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'animated_text_typography',
 				'label'    => esc_html__( 'Typography', 'jet-elements' ),
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_2,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['animated_text'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'animated_text_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -342,12 +350,13 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['animated_text'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_after_text_style',
 			array(
 				'label'      => esc_html__( 'After Text', 'jet-elements' ),
@@ -356,7 +365,7 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'after_text_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -368,10 +377,11 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['after_text'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'after_text_bg_color',
 			array(
 				'label' => esc_html__( 'Background color', 'jet-elements' ),
@@ -379,20 +389,22 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['after_text'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'after_text_typography',
 				'label'    => esc_html__( 'Typography', 'jet-elements' ),
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['after_text'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'after_text_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -401,11 +413,11 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['after_text'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
-
+		$this->__end_controls_section();
 	}
 
 	/**
@@ -483,7 +495,6 @@ class Jet_Elements_Animated_Text extends Jet_Elements_Base {
 	}
 
 	protected function render() {
-
 		$this->__context = 'render';
 
 		$this->__open_wrap();

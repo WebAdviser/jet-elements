@@ -43,7 +43,7 @@ if ( is_array( $button_url ) ) {
 	echo $this->__html( 'back_side_button_text', '<span class="jet-animated-box__button-text">%s</span>' );
 
 	if ( filter_var( $use_icon, FILTER_VALIDATE_BOOLEAN ) ) {
-		echo $this->__html( 'button_icon', '<i class="jet-animated-box__button-icon %s"></i>' );
+		echo $this->__icon( 'button_icon', '<span class="jet-animated-box__button-icon jet-elements-icon">%s</span>' );
 	}
 ?></a>
 

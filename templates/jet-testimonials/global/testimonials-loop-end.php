@@ -2,5 +2,4 @@
 /**
  * Testimonials wrap end template
  */
-?>
-</div>
+?></div>

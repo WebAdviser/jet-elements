@@ -43,7 +43,7 @@ if ( ! class_exists( 'Jet_Elements_DB_Upgrader' ) ) {
 		 */
 		public function init_upgrader() {
 
-			$db_updater_data = jet_elements()->framework->get_included_module_data( 'cherry-x-db-updater.php' );
+			$db_updater_data = jet_elements()->module_loader->get_included_module_data( 'cx-db-updater.php' );
 
 			new CX_DB_Updater(
 				array(
@@ -72,6 +72,9 @@ if ( ! class_exists( 'Jet_Elements_DB_Upgrader' ) ) {
 						),
 						'1.15.0' => array(
 							array( $this, 'update_db_1_15_0' ),
+						),
+						'2.0.0' => array(
+							array( $this, 'update_db_2_0_0' ),
 						),
 					),
 					'labels'    => array(
@@ -233,6 +236,18 @@ if ( ! class_exists( 'Jet_Elements_DB_Upgrader' ) ) {
 					update_option( $this->key, $current_version_settings );
 				}
 
+			}
+		}
+
+		/**
+		 * Update db updater 1.1.8
+		 *
+		 * @return void
+		 */
+		public function update_db_2_0_0() {
+
+			if ( class_exists( 'Elementor\Plugin' ) ) {
+				jet_elements()->elementor()->files_manager->clear_cache();
 			}
 		}
 	}

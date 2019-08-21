@@ -14,7 +14,7 @@ class Jet_Elements_Woo_Featured_Products extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-16';
+		return 'jet-elements-icon-woo-featured-products';
 	}
 
 	public function get_jet_help_url() {

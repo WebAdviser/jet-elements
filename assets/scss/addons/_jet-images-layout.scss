@@ -28,7 +28,6 @@
 		position: relative;
 		overflow: hidden;
 		transform: translateZ(0);
-		background-color: rgba(0,0,0,0.3);
 	}
 
 	&__link {
@@ -52,6 +51,11 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+		}
+
+		svg {
+			width: 1em;
+			height: 1em;
 		}
 	}
 
@@ -82,7 +86,7 @@
 		height: 100%;
 		display: flex;
 		flex-flow: column nowrap;
-		justify-content: center;
+		justify-content: flex-end;
 		align-items: center;
 		text-align: center;
 		z-index: 1;

@@ -4,6 +4,19 @@ Brand new addon for Elementor Page builder. It provides the set of modules to cr
 
 # ChangeLog
 
+## [2.0.1](https://github.com/ZemezLab/jet-elements/archive/2.0.1.zip) - 19.08.2019
+* Added: link control in the Testimonials widget
+* Fixed: js issue in the Animation Box widget
+
+## [2.0.0](https://github.com/ZemezLab/jet-elements/archive/2.0.0.zip) - 14.08.2019
+* Added: Editor Load Level Option
+* Added: compatibility with new Icons control
+* Added: toggle event in the Animated Box widget
+* Added: template content in the Animated Box widget
+* Added: better RTL compatibility in the Advanced Carousel widget
+* Added: multiple performance improvements and bug fixes
+* Update: settings page
+
 ## [1.15.16](https://github.com/ZemezLab/jet-elements/archive/1.15.16.zip) - 24.07.2019
 * Added: `vh` size unit to the Item Height control in the Images Layout widget
 * Added: FA5 compatibility for styles

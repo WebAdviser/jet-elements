@@ -31,7 +31,7 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-31';
+		return 'jet-elements-icon-headline';
 	}
 
 	public function get_jet_help_url() {
@@ -59,14 +59,14 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		$this->start_controls_section(
 			'section_title',
 			array(
-				'label' => esc_html__( 'Title', 'jet-elements' ),
+				'label' => esc_html__( 'Title Content', 'jet-elements' ),
 			)
 		);
 
 		$this->add_control(
 			'first_part',
 			array(
-				'label'       => esc_html__( 'Title first part', 'jet-elements' ),
+				'label'       => esc_html__( 'First part', 'jet-elements' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'placeholder' => esc_html__( 'Enter title first part', 'jet-elements' ),
 				'default'     => esc_html__( 'Heading', 'jet-elements' ),
@@ -77,45 +77,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		$this->add_control(
 			'second_part',
 			array(
-				'label'       => esc_html__( 'Title second part', 'jet-elements' ),
+				'label'       => esc_html__( 'Second part', 'jet-elements' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'placeholder' => esc_html__( 'Enter title second part', 'jet-elements' ),
-				'default'     => esc_html__( 'element', 'jet-elements' ),
+				'default'     => esc_html__( 'Element', 'jet-elements' ),
 				'dynamic'     => array( 'active' => true ),
-			)
-		);
-
-		$this->add_control(
-			'link',
-			array(
-				'label'       => esc_html__( 'Link', 'jet-elements' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => 'http://your-link.com',
-				'default' => array(
-					'url' => '',
-				),
-				'separator'   => 'before',
-				'dynamic'     => array( 'active' => true ),
-			)
-		);
-
-		$this->add_control(
-			'header_size',
-			array(
-				'label'   => esc_html__( 'HTML Tag', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'h1'   => esc_html__( 'H1', 'jet-elements' ),
-					'h2'   => esc_html__( 'H2', 'jet-elements' ),
-					'h3'   => esc_html__( 'H3', 'jet-elements' ),
-					'h4'   => esc_html__( 'H4', 'jet-elements' ),
-					'h5'   => esc_html__( 'H5', 'jet-elements' ),
-					'h6'   => esc_html__( 'H6', 'jet-elements' ),
-					'div'  => esc_html__( 'div', 'jet-elements' ),
-					'span' => esc_html__( 'span', 'jet-elements' ),
-					'p'    => esc_html__( 'p', 'jet-elements' ),
-				),
-				'default' => 'h2',
 			)
 		);
 
@@ -125,14 +91,6 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			'section_deco_elements',
 			array(
 				'label' => esc_html__( 'Decorative Elements', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'before_deco_heading',
-			array(
-				'label' => esc_html__( 'Before Deco Element', 'jet-elements' ),
-				'type'  => Controls_Manager::HEADING,
 			)
 		);
 
@@ -150,14 +108,13 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'before_icon',
 			array(
 				'label'       => esc_html__( 'Before Icon', 'jet-elements' ),
 				'type'        => Controls_Manager::ICON,
 				'label_block' => true,
 				'file'        => '',
-				'default'     => 'fa fa-arrow-circle-right',
 				'condition' => array(
 					'before_deco_type' => 'icon',
 				),
@@ -183,15 +140,6 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		);
 
 		$this->add_control(
-			'after_deco_heading',
-			array(
-				'label'     => esc_html__( 'After Deco Element', 'jet-elements' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			)
-		);
-
-		$this->add_control(
 			'after_deco_type',
 			array(
 				'label'   => esc_html__( 'After Deco Type', 'jet-elements' ),
@@ -205,14 +153,13 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'after_icon',
 			array(
 				'label'       => esc_html__( 'After Icon', 'jet-elements' ),
 				'type'        => Controls_Manager::ICON,
 				'label_block' => true,
 				'file'        => '',
-				'default'     => 'fa fa-arrow-circle-left',
 				'condition' => array(
 					'after_deco_type' => 'icon',
 				),
@@ -239,15 +186,30 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
-		/**
-		 * General Style Section
-		 */
 		$this->start_controls_section(
-			'section_general_style',
+			'section_settings',
 			array(
-				'label'      => esc_html__( 'General', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
+				'label' => esc_html__( 'Settings', 'jet-elements' ),
+			)
+		);
+
+		$this->add_control(
+			'header_size',
+			array(
+				'label'   => esc_html__( 'HTML Tag', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
+					'h1'   => esc_html__( 'H1', 'jet-elements' ),
+					'h2'   => esc_html__( 'H2', 'jet-elements' ),
+					'h3'   => esc_html__( 'H3', 'jet-elements' ),
+					'h4'   => esc_html__( 'H4', 'jet-elements' ),
+					'h5'   => esc_html__( 'H5', 'jet-elements' ),
+					'h6'   => esc_html__( 'H6', 'jet-elements' ),
+					'div'  => esc_html__( 'div', 'jet-elements' ),
+					'span' => esc_html__( 'span', 'jet-elements' ),
+					'p'    => esc_html__( 'p', 'jet-elements' ),
+				),
+				'default' => 'h2',
 			)
 		);
 
@@ -264,21 +226,6 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
-			'use_space_between',
-			array(
-				'label'        => esc_html__( 'Space Between', 'jet-elements' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
-				'label_off'    => esc_html__( 'No', 'jet-elements' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'condition' => array(
-					'instance_direction' => 'horizontal',
-				),
-			)
-		);
-
 		$this->add_responsive_control(
 			'instance_alignment_horizontal',
 			array(
@@ -286,17 +233,17 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'type'    => Controls_Manager::CHOOSE,
 				'default' => 'center',
 				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'selectors'  => array(
@@ -316,17 +263,17 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'type'    => Controls_Manager::CHOOSE,
 				'default' => 'center',
 				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'selectors'  => array(
@@ -339,15 +286,59 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->add_control(
+			'use_space_between',
+			array(
+				'label'        => esc_html__( 'Space Between Parts', 'jet-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
+				'label_off'    => esc_html__( 'No', 'jet-elements' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition' => array(
+					'instance_direction' => 'horizontal',
+				),
+			)
+		);
+
+		$this->add_control(
+			'link',
+			array(
+				'label'       => esc_html__( 'Link', 'jet-elements' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'http://your-link.com',
+				'default' => array(
+					'url' => '',
+				),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		/**
+		 * General Style Section
+		 */
+		$this->__start_controls_section(
+			'section_general_style',
+			array(
+				'label'      => esc_html__( 'General', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			),
+			100
+		);
+
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'instance_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['instance'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'instance_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -356,10 +347,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'instance_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -368,10 +360,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'instance_border',
@@ -379,10 +372,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'  => '{{WRAPPER}} ' . $css_scheme['instance'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'instance_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -391,15 +385,16 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section( 100 );
 
 		/**
 		 * First Part Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_first_part_style',
 			array(
 				'label'      => esc_html__( 'First Part', 'jet-elements' ),
@@ -408,7 +403,91 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'first_vertical_alignment',
+			array(
+				'label'   => esc_html__( 'Vertical Position', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'flex-start'    => array(
+						'title' => esc_html__( 'Top', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-top',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-middle',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'Bottom', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-bottom',
+					),
+				),
+				'condition' => array(
+					'instance_direction' => 'horizontal',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'align-self: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'first_horizontal_alignment',
+			array(
+				'label'   => esc_html__( 'Horizontal Position', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
+					),
+				),
+				'condition' => array(
+					'instance_direction' => 'vertical',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'align-self: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'first_text_alignment',
+			array(
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label' => 'text-align: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_control(
 			'first_color',
 			array(
 				'label'  => esc_html__( 'Text Color', 'jet-elements' ),
@@ -420,35 +499,100 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part']  . ' .jet-headline__label' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'first_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label',
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			array(
-				'name'     => 'first_text_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label',
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'first_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['first_part'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'first_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'first_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'first_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['first_part'],
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'first_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'first_text_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label',
+			),
+			50
+		);
+
+		$this->__add_control(
+			'use_first_text_image_heading',
+			array(
+				'label'     => esc_html__( 'Text Image', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before'
+			),
+			100
+		);
+
+		$this->__add_control(
 			'use_first_text_image',
 			array(
 				'label'        => esc_html__( 'Use Text Image', 'jet-elements' ),
@@ -458,10 +602,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'separator'    => 'before',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'choose_styling_first_element',
 			array(
 				'type'    => Controls_Manager::CHOOSE,
@@ -480,10 +625,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'use_first_text_image' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_color',
 			array(
 				'label'     => _x( 'Color', 'Background Control', 'jet-elements' ),
@@ -495,10 +641,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_color_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -514,10 +661,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_color_b',
 			array(
 				'label'       => _x( 'Second Color', 'Background Control', 'jet-elements' ),
@@ -529,10 +677,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_color_b_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -548,10 +697,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_gradient_type',
 			array(
 				'label'   => _x( 'Type', 'Background Control', 'jet-elements' ),
@@ -567,10 +717,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_gradient_angle',
 			array(
 				'label'      => _x( 'Angle', 'Background Control', 'jet-elements' ),
@@ -594,10 +745,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_label_bg_gradient_position',
 			array(
 				'label'   => _x( 'Position', 'Background Control', 'jet-elements' ),
@@ -623,10 +775,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_first_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_text_image',
 			array(
 				'label'   => esc_html__( 'Text Image', 'jet-elements' ),
@@ -638,10 +791,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label' => 'background-image: url({{URL}})',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_text_image_position',
 			array(
 				'label'   =>esc_html__( 'Background Position', 'jet-elements' ),
@@ -666,10 +820,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label' => 'background-position: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_text_image_repeat',
 			array(
 				'label'   =>esc_html__( 'Background Repeat', 'jet-elements' ),
@@ -689,10 +844,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label' => 'background-repeat: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'first_text_image_size',
 			array(
 				'label'   =>esc_html__( 'Background Size', 'jet-elements' ),
@@ -711,139 +867,8 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label' => 'background-size: {{VALUE}};',
 				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'first_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['first_part'],
-				'separator'   => 'before',
-			)
-		);
-
-		$this->add_responsive_control(
-			'first_border_radius',
-			array(
-				'label'      => __( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'first_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'first_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'first_vertical_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Top', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-up',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Bottom', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-down',
-					),
-				),
-				'condition' => array(
-					'instance_direction' => 'horizontal',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'first_horizontal_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				//'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-right',
-					),
-				),
-				'condition' => array(
-					'instance_direction' => 'vertical',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'first_text_alignment',
-			array(
-				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__label' => 'text-align: {{VALUE}};',
-				),
-			)
+			),
+			100
 		);
 
 		$this->end_controls_section();
@@ -851,7 +876,7 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		/**
 		 * Second Part Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_second_part_style',
 			array(
 				'label'      => esc_html__( 'Second Part', 'jet-elements' ),
@@ -860,7 +885,91 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'second_vertical_alignment',
+			array(
+				'label'   => esc_html__( 'Vertical Position', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'flex-start'    => array(
+						'title' => esc_html__( 'Top', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-top',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-middle',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'Bottom', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-bottom',
+					),
+				),
+				'condition' => array(
+					'instance_direction' => 'horizontal',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'align-self: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'second_horizontal_alignment',
+			array(
+				'label'   => esc_html__( 'Horizontal Position', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
+					),
+				),
+				'condition' => array(
+					'instance_direction' => 'vertical',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'align-self: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'second_text_alignment',
+			array(
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'text-align: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_control(
 			'second_color',
 			array(
 				'label'  => esc_html__( 'Text Color', 'jet-elements' ),
@@ -872,35 +981,90 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'second_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_2,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label',
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			array(
-				'name'     => 'second_text_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label',
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'second_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['second_part'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'second_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'second_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'second_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['second_part'],
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'second_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'second_text_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label',
+			),
+			50
+		);
+
+		$this->__add_control(
 			'use_second_text_image',
 			array(
 				'label'        => esc_html__( 'Use Text Image', 'jet-elements' ),
@@ -910,10 +1074,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'separator'    => 'before',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'choose_styling_second_element',
 			array(
 				'type'    => Controls_Manager::CHOOSE,
@@ -932,10 +1097,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'use_second_text_image' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_color',
 			array(
 				'label'     => _x( 'Color', 'Background Control', 'jet-elements' ),
@@ -947,10 +1113,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_color_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -966,10 +1133,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_color_b',
 			array(
 				'label'       => _x( 'Second Color', 'Background Control', 'jet-elements' ),
@@ -981,10 +1149,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_color_b_stop',
 			array(
 				'label'      => _x( 'Location', 'Background Control', 'jet-elements' ),
@@ -1000,10 +1169,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_gradient_type',
 			array(
 				'label'   => _x( 'Type', 'Background Control', 'jet-elements' ),
@@ -1019,10 +1189,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_gradient_angle',
 			array(
 				'label'      => _x( 'Angle', 'Background Control', 'jet-elements' ),
@@ -1046,10 +1217,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_label_bg_gradient_position',
 			array(
 				'label'   => _x( 'Position', 'Background Control', 'jet-elements' ),
@@ -1075,10 +1247,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'use_second_text_image'         => 'yes',
 				),
 				'of_type' => 'gradient',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_text_image',
 			array(
 				'label'   => esc_html__( 'Text Image', 'jet-elements' ),
@@ -1090,10 +1263,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'background-image: url({{URL}});',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_text_image_position',
 			array(
 				'label'   =>esc_html__( 'Background Position', 'jet-elements' ),
@@ -1118,10 +1292,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'background-position: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_text_image_repeat',
 			array(
 				'label'   =>esc_html__( 'Background Repeat', 'jet-elements' ),
@@ -1141,10 +1316,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'background-repeat: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'second_text_image_size',
 			array(
 				'label'   =>esc_html__( 'Background Size', 'jet-elements' ),
@@ -1163,147 +1339,16 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'background-size: {{VALUE}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'second_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['second_part'],
-				'separator'   => 'before',
-			)
-		);
-
-		$this->add_responsive_control(
-			'second_border_radius',
-			array(
-				'label'      => __( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'second_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'second_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'second_vertical_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Top', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-up',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Bottom', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-down',
-					),
-				),
-				'condition' => array(
-					'instance_direction' => 'horizontal',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'second_horizontal_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				//'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-right',
-					),
-				),
-				'condition' => array(
-					'instance_direction' => 'vertical',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'second_text_alignment',
-			array(
-				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__label' => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Decorative Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_deco_style',
 			array(
 				'label'      => esc_html__( 'Decorative Elements', 'jet-elements' ),
@@ -1312,7 +1357,7 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'before_deco',
 			array(
 				'label' => esc_html__( 'Before Deco Element', 'jet-elements' ),
@@ -1320,10 +1365,40 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'before_deco_type!' => 'none',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'before_deco_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'flex-start'    => array(
+						'title' => esc_html__( 'Top', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-top',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-middle',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'Bottom', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-bottom',
+					),
+				),
+				'condition' => array(
+					'before_deco_type!' => 'none',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco' => 'align-self: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_control(
 			'before_icon_color',
 			array(
 				'label'     => esc_html__( 'Before Icon Color', 'jet-elements' ),
@@ -1333,11 +1408,13 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				),
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco-icon i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco-icon svg' => 'fill: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'before_icon_size',
 			array(
 				'label'      => esc_html__( 'Before Icon Size', 'jet-elements' ),
@@ -1355,12 +1432,14 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'before_deco_type' => 'icon',
 				),
 				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco-icon' => 'font-size: {{SIZE}}{{UNIT}}',
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco-icon i' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'before_image_width_size',
 			array(
 				'label'      => esc_html__( 'Before Image Width Size', 'jet-elements' ),
@@ -1380,10 +1459,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco-image' => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'before_image_height_size',
 			array(
 				'label'      => esc_html__( 'Before Image Height Size', 'jet-elements' ),
@@ -1403,10 +1483,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco-image' => 'height: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'before_deco_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -1418,39 +1499,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'before_deco_type!' => 'none',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
-			'before_deco_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Top', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-up',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Bottom', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-down',
-					),
-				),
-				'condition' => array(
-					'before_deco_type!' => 'none',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['first_part'] . ' .jet-headline__deco' => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'after_deco',
 			array(
 				'label'     => esc_html__( 'After Deco Element', 'jet-elements' ),
@@ -1459,10 +1512,40 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'after_deco_type!' => 'none',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'after_deco_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'flex-start'    => array(
+						'title' => esc_html__( 'Top', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-top',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-middle',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'Bottom', 'jet-elements' ),
+						'icon'  => 'eicon-v-align-bottom',
+					),
+				),
+				'condition' => array(
+					'after_deco_type!' => 'none',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco' => 'align-self: {{VALUE}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_control(
 			'after_icon_color',
 			array(
 				'label'     => esc_html__( 'After Icon Color', 'jet-elements' ),
@@ -1472,11 +1555,13 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				),
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco-icon i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco-icon svg' => 'fill: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'after_icon_size',
 			array(
 				'label'      => esc_html__( 'After Icon Size', 'jet-elements' ),
@@ -1494,12 +1579,14 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'after_deco_type' => 'icon',
 				),
 				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco-icon' => 'font-size: {{SIZE}}{{UNIT}}',
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco-icon i' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'after_image_width_size',
 			array(
 				'label'      => esc_html__( 'After Image Width Size', 'jet-elements' ),
@@ -1519,10 +1606,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco-image' => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'after_image_height_size',
 			array(
 				'label'      => esc_html__( 'After Image Height Size', 'jet-elements' ),
@@ -1542,10 +1630,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco-image' => 'height: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'after_deco_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -1557,48 +1646,21 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'after_deco_type!' => 'none',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
-			'after_deco_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Top', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-up',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Bottom', 'jet-elements' ),
-						'icon'  => 'fa fa-arrow-down',
-					),
-				),
-				'condition' => array(
-					'after_deco_type!' => 'none',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['second_part'] . ' .jet-headline__deco' => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'divider_deco',
 			array(
 				'label'     => esc_html__( 'Divider Deco Element', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'use_divider_deco',
 			array(
 				'label'        => esc_html__( 'Use Divider Mode', 'jet-elements' ),
@@ -1607,10 +1669,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'label_off'    => esc_html__( 'No', 'jet-elements' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'divider_deco_height',
 			array(
 				'label'   => esc_html__( 'Divider Size', 'jet-elements' ),
@@ -1625,10 +1688,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} '. $css_scheme['divider'] => 'height: {{VALUE}}px;',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'divider_deco_space',
 			array(
 				'label'   => esc_html__( 'Divider Space', 'jet-elements' ),
@@ -1645,22 +1709,24 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 					'{{WRAPPER}} '. $css_scheme['divider'] . '.jet-headline__left-divider' => 'margin-right: {{VALUE}}px;',
 					'{{WRAPPER}} '. $css_scheme['divider'] . '.jet-headline__right-divider' => 'margin-left: {{VALUE}}px;',
 				),
-			)
+			),
+			100
 		);
 
-		$this->start_controls_tabs( 'tabs_deco_divider' );
+		$this->__start_controls_tabs( 'tabs_deco_divider', 100 );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_deco_divider_left',
 			array(
 				'label' => esc_html__( 'Left', 'jet-elements' ),
 				'condition' => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'use_divider_deco_left',
 			array(
 				'label'        => esc_html__( 'Enable', 'jet-elements' ),
@@ -1672,10 +1738,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition'    => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'divider_deco_left_background',
@@ -1684,10 +1751,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'divider_deco_left_border',
@@ -1698,22 +1766,24 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition'   => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab( 100 );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_deco_divider_right',
 			array(
 				'label' => esc_html__( 'Right', 'jet-elements' ),
 				'condition' => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'use_divider_deco_right',
 			array(
 				'label'        => esc_html__( 'Enable', 'jet-elements' ),
@@ -1725,10 +1795,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition'    => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'divider_deco_right_background',
@@ -1737,10 +1808,11 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition' => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'divider_deco_right_border',
@@ -1751,14 +1823,15 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 				'condition'   => array(
 					'use_divider_deco' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab( 100 );
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs( 100 );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 
@@ -1792,23 +1865,23 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		// Before Deco Render
 		if ( 'none' !== $settings['before_deco_type'] ) {
 
-			if ( 'icon' === $settings['before_deco_type'] && ! empty( $settings['before_icon'] ) ) {
-				$before_deco_icon = sprintf( '<i class="%s"></i>', $settings['before_icon'] );
-				$before_deco_html = sprintf( '<span class="jet-headline__deco jet-headline__deco-icon">%1$s</span>', $before_deco_icon );
+			if ( 'icon' === $settings['before_deco_type'] ) {
+				$before_deco_icon = $this->__get_icon( 'before_icon' );
+				$before_deco_html = ! empty( $before_deco_icon ) ? sprintf( '<span class="jet-headline__deco jet-headline__deco-icon">%1$s</span>', $before_deco_icon ) : '';
 			}
 
 			if ( 'image' === $settings['before_deco_type'] && ! empty( $settings['before_image']['url'] ) ) {
 				$before_deco_image = sprintf( '<img src="%s" alt="%s">', $settings['before_image']['url'], esc_attr( Control_Media::get_image_alt( $settings['before_image'] ) ) );
-				$before_deco_html = sprintf( '<span class="jet-headline__deco jet-headline__deco-image">%1$s</span>', $before_deco_image );
+				$before_deco_html  = sprintf( '<span class="jet-headline__deco jet-headline__deco-image">%1$s</span>', $before_deco_image );
 			}
 		}
 
 		// After Deco Render
 		if ( 'none' !== $settings['after_deco_type'] ) {
 
-			if ( 'icon' === $settings['after_deco_type'] && ! empty( $settings['after_icon'] ) ) {
-				$after_deco_icon = sprintf( '<i class="%s"></i>', $settings['after_icon'] );
-				$after_deco_html = sprintf( '<span class="jet-headline__deco jet-headline__deco-icon">%1$s</span>', $after_deco_icon );
+			if ( 'icon' === $settings['after_deco_type'] ) {
+				$after_deco_icon = $this->__get_icon( 'after_icon' );
+				$after_deco_html = ! empty( $after_deco_icon ) ? sprintf( '<span class="jet-headline__deco jet-headline__deco-icon">%1$s</span>', $after_deco_icon ) : '';
 			}
 
 			if ( 'image' === $settings['after_deco_type'] && ! empty( $settings['after_image']['url'] ) ) {
@@ -1821,7 +1894,9 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 
 			$first_classes_array = array( 'jet-headline__part', 'jet-headline__first' );
 
-			if ( filter_var( $settings['use_first_text_image'], FILTER_VALIDATE_BOOLEAN ) ) {
+			$first_text_image = isset( $settings['use_first_text_image'] ) ? filter_var( $settings['use_first_text_image'], FILTER_VALIDATE_BOOLEAN ) : false;
+
+			if ( $first_text_image ) {
 				$first_classes_array[] = 'headline__part--image-text';
 			}
 
@@ -1833,7 +1908,9 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		if ( ! empty( $settings['second_part'] ) ) {
 			$second_classes_array = array( 'jet-headline__part', 'jet-headline__second' );
 
-			if ( filter_var( $settings['use_second_text_image'], FILTER_VALIDATE_BOOLEAN ) ) {
+			$second_text_image = isset( $settings['use_second_text_image'] ) ? filter_var( $settings['use_second_text_image'], FILTER_VALIDATE_BOOLEAN ) : false;
+
+			if ( $second_text_image ) {
 				$second_classes_array[] = 'headline__part--image-text';
 			}
 
@@ -1845,13 +1922,13 @@ class Jet_Elements_Headline extends Jet_Elements_Base {
 		$deco_devider_left = '';
 		$deco_devider_right = '';
 
-		if ( filter_var( $settings['use_divider_deco'], FILTER_VALIDATE_BOOLEAN ) ) {
+		if ( isset( $settings['use_divider_deco'] ) && filter_var( $settings['use_divider_deco'], FILTER_VALIDATE_BOOLEAN ) ) {
 
-			if ( filter_var( $settings['use_divider_deco_left'], FILTER_VALIDATE_BOOLEAN ) ) {
+			if ( isset( $settings['use_divider_deco_left'] ) && filter_var( $settings['use_divider_deco_left'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$deco_devider_left ='<span class="jet-headline__divider jet-headline__left-divider"></span>';
 			}
 
-			if ( filter_var( $settings['use_divider_deco_right'], FILTER_VALIDATE_BOOLEAN ) ) {
+			if ( isset( $settings['use_divider_deco_right'] ) && filter_var( $settings['use_divider_deco_right'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$deco_devider_right ='<span class="jet-headline__divider jet-headline__right-divider"></span>';
 			}
 		}

@@ -1,5 +1,7 @@
 .jet-animated-box {
 
+	height: 250px;
+
 	&__front,
 	&__back {
 		padding: 10px;
@@ -12,31 +14,46 @@
 			border-radius: 50%;
 		}
 
-		i {
+		.jet-elements-icon {
 			font-size: 40px;
 			color: white;
 		}
 	}
 
+	.jet-animated-box__toggle {
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		color: white;
+		background-color: #848484;
+		box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+
+	}
+
 	.jet-animated-box__title {
 		color: white;
 		font-size: 23px;
+		text-align: center;
 		margin: 0 0 10px 0;
 	}
 
 	.jet-animated-box__subtitle {
 		color: white;
 		font-size: 18px;
+		text-align: center;
 		margin: 0 0 10px 0;
 	}
 
 	.jet-animated-box__description {
 		color: white;
 		font-size: 13px;
+		text-align: center;
 		margin: 0 0 10px 0;
 	}
 
 	.jet-animated-box__button {
+		align-self: center;
 
 		.jet-animated-box__button-text {
 			margin: 0 3px;
@@ -44,7 +61,6 @@
 
 		.jet-animated-box__button-icon{
 			color: white;
-
 		}
 	}
 }

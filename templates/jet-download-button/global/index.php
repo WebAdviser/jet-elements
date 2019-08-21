@@ -1,12 +1,12 @@
 <?php
 	$settings = $this->get_settings_for_display();
-	$position = $settings['download_icon_position'];
-?>
-<a class="elementor-button elementor-size-md jet-download jet-download-icon-position-<?php echo $position; ?>" href="<?php echo jet_elements_download_handler()->get_download_link( $settings['download_file'] ); ?>"><?php
+	$position = isset( $settings['download_icon_position'] ) ? $settings['download_icon_position'] : 'left';
 
-	$format = '<i class="jet-download__icon jet-download-icon-' . $position . ' %s"></i>';
+?><a class="elementor-button elementor-size-md jet-download jet-download-icon-position-<?php echo $position; ?>" href="<?php echo jet_elements_download_handler()->get_download_link( $settings['download_file'] ); ?>"><?php
 
-	$this->__html( 'download_icon', $format );
+	$icon_format = '<span class="jet-download__icon jet-download-icon-' . $position . ' jet-elements-icon">%s</span>';
+
+	$this->__icon( 'download_icon', $icon_format );
 
 	$label    = $this->__get_html( 'download_label' );
 	$sublabel = $this->__get_html( 'download_sub_label' );

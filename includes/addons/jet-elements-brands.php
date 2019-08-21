@@ -1,7 +1,7 @@
 <?php
 /**
  * Class: Jet_Elements_Brands
- * Name: Brands
+ * Name: Logo Showcase
  * Slug: jet-brands
  */
 
@@ -26,11 +26,11 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Brands', 'jet-elements' );
+		return esc_html__( 'Logo Showcase', 'jet-elements' );
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-2';
+		return 'jet-elements-icon-brands';
 	}
 
 	public function get_jet_help_url() {
@@ -42,25 +42,6 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 	}
 
 	protected function _register_controls() {
-
-		$this->start_controls_section(
-			'section_general',
-			array(
-				'label' => esc_html__( 'General', 'jet-elements' ),
-			)
-		);
-
-		$this->add_responsive_control(
-			'columns',
-			array(
-				'label'   => esc_html__( 'Columns', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 4,
-				'options' => jet_elements_tools()->get_select_range( 6 ),
-			)
-		);
-
-		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_brands',
@@ -144,6 +125,25 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
+		$this->start_controls_section(
+			'section_general',
+			array(
+				'label' => esc_html__( 'Settings', 'jet-elements' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'columns',
+			array(
+				'label'   => esc_html__( 'Columns', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 4,
+				'options' => jet_elements_tools()->get_select_range( 6 ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		$css_scheme = apply_filters(
 			'jet-elements/brands/css-scheme',
 			array(
@@ -155,21 +155,21 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_brand_item_style',
 			array(
 				'label'      => esc_html__( 'Company Item', 'jet-elements' ),
 				'tab'        => Controls_Manager::TAB_STYLE,
 				'show_label' => false,
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'vertical_brands_alignment',
 			array(
 				'label'       => esc_html__( 'Vertical Alignment', 'jet-elements' ),
 				'type'        => Controls_Manager::CHOOSE,
-				'label_block' => true,
 				'options' => array(
 					'flex-start' => array(
 						'title' => esc_html__( 'Top', 'jet-elements' ),
@@ -187,12 +187,13 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['list'] => 'align-items: {{VALUE}}',
 				),
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section(100);
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_brand_logo_style',
 			array(
 				'label'      => esc_html__( 'Company Logo', 'jet-elements' ),
@@ -201,7 +202,44 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
+			'logo_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'left',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['logo_wrap'] => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'logo_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['logo'],
+			)
+		);
+
+		$this->__add_responsive_control(
 			'logo_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -213,69 +251,35 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'logo_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['logo'],
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'logo_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['logo'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
-			'logo_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'left',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['logo_wrap'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
+		$this->__add_control(
 			'logo_wrap_style',
 			array(
 				'label'     => esc_html__( 'Logo Wrapper', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'logo_wrap_bg',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['logo_wrap'],
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'logo_wrap_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -284,10 +288,11 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['logo_wrap'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'logo_wrap_border',
@@ -295,20 +300,22 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['logo_wrap'],
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'logo_wrap_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['logo_wrap'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_brand_title_style',
 			array(
 				'label'      => esc_html__( 'Company Name', 'jet-elements' ),
@@ -317,7 +324,33 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'title_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['name'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
 			'title_color',
 			array(
 				'label'  => esc_html__( 'Title Color', 'jet-elements' ),
@@ -329,19 +362,21 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['name'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['name'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'title_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -350,38 +385,13 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['name'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
-			'title_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'left',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['name'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
+		$this->__end_controls_section();
 
-		$this->end_controls_section();
-
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_brand_desc_style',
 			array(
 				'label'      => esc_html__( 'Company Description', 'jet-elements' ),
@@ -390,7 +400,33 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_responsive_control(
+			'desc_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
 			'desc_color',
 			array(
 				'label'  => esc_html__( 'Title Color', 'jet-elements' ),
@@ -402,19 +438,21 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['desc'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'desc_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['desc'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'desc_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -423,36 +461,11 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['desc'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
-			'desc_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'left',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 
@@ -539,24 +552,24 @@ class Jet_Elements_Brands extends Jet_Elements_Base {
 		echo '<# } #>';
 
 	}
-	
+
 	public function __get_brand_image( $img_key ) {
 		call_user_func( array( $this, sprintf( '__get_brand_image_%s', $this->__context ) ), $img_key );
 	}
-	
+
 	public function __get_brand_image_render( $img_key ) {
 		$image_item = $this->__processed_item[ $img_key ];
-		
+
 		if ( empty( $image_item['url'] ) ) {
 			return;
 		}
-		
+
 		printf( '<div class="brands-list__item-img-wrap"><img src="%1$s" alt="%2$s" class="brands-list__item-img"></div>',
 			$image_item['url'],
 			esc_attr( Control_Media::get_image_alt( $image_item ) )
 		);
 	}
-	
+
 	public function __get_brand_image_edit( $img_key ) {
 		echo $this->__loop_item( array( $img_key, 'url' ), '<div class="brands-list__item-img-wrap"><img src="%s" alt="" class="brands-list__item-img"></div>' );
 	}

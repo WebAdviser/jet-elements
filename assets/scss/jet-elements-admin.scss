@@ -1,25 +1,76 @@
-.jet_elements_settings_form {
-	&__checkbox-group {
+#jet-elements-settings-page {
+	visibility: hidden;
 
-		display: flex;
-		flex-flow: row wrap;
+	&.is-mounted {
+		visibility: visible;
+	}
+}
 
-		.cx-checkbox-item-wrap {
-			width: 33.333%;
+.jet-elements-settings-page {
+	margin: 25px 15px 0 15px;
 
-			@media screen and (max-width: 1200px) {
-				width: 50%;
-			}
+	.cx-vui-tabs-panel {
+		> .cx-vui-subtitle {
+			padding: 20px;
+			margin-top: 20px;
 
-			@media screen and (max-width: 782px) {
-				width: 100%;
+			&:first-child {
+				margin-top: 0;
 			}
 		}
 	}
 
-	.save_button {
-		display: flex;
-		justify-content: flex-end;
-		padding: 15px;
+	.jet-elements-avaliable-widgets-control {
+		.cx-vui-checkgroup {
+			display: flex;
+			flex-flow: row wrap;
+
+			.cx-vui-checkbox-wrap {
+				width: 25%;
+
+				@media screen and (max-width: 1200px) {
+					width: 50%;
+				}
+
+				@media screen and (max-width: 782px) {
+					width: 100%;
+				}
+			}
+		}
 	}
+
+	&__avaliable-controls {
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	&__avaliable-control {
+		width: 33.3333%;
+
+		@media screen and (max-width: 1200px) {
+			width: 50%;
+		}
+
+		@media screen and (max-width: 782px) {
+			width: 100%;
+		}
+
+		.cx-vui-component {
+			padding: 10px 0;
+		}
+	}
+
+	&__disable-all-widgets {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		border-bottom: 1px solid #ECECEC;
+		padding-bottom: 20px;
+		margin: 20px 0;
+
+		.cx-vui-component__label {
+			margin-right: 10px;
+		}
+	}
+
 }

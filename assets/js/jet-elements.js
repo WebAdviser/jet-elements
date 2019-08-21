@@ -409,19 +409,22 @@
 				return;
 			}
 
-			JetElements.initCarousel( $carousel, $carousel.data( 'slider_options' ) );
+			JetElements.initCarousel( $carousel.find( '.elementor-slick-slider' ), $carousel.data( 'slider_options' ) );
 
 		},
 
 		widgetPosts: function ( $scope ) {
 
-			var $target = $scope.find( '.jet-carousel' );
+			var $target  = $scope.find( '.jet-carousel' ),
+				settings = $target.data( 'slider_options' );
 
 			if ( ! $target.length ) {
 				return;
 			}
 
-			JetElements.initCarousel( $target.find( '.jet-posts' ), $target.data( 'slider_options' ) );
+			settings['slide'] = '.jet-posts__item';
+
+			JetElements.initCarousel( $target.find( '.jet-posts' ), settings );
 
 		},
 
@@ -443,8 +446,12 @@
 
 			JetElements.onAnimatedBoxSectionActivated( $scope );
 
-			var $target      = $scope.find( '.jet-animated-box' ),
-				toogleEvents = 'mouseenter mouseleave',
+			var $target         = $scope.find( '.jet-animated-box' ),
+				defaultSettings = {
+					switchEventType: 'hover'
+				},
+				settings        = $target.data( 'settings' ),
+				settings        = $.extend( {}, defaultSettings, settings ),
 				scrollOffset = $( window ).scrollTop(),
 				firstMouseEvent = true;
 
@@ -452,38 +459,90 @@
 				return;
 			}
 
-			if ( 'ontouchend' in window || 'ontouchstart' in window ) {
-				$target.on( 'touchstart', function( event ) {
-					scrollOffset = $( window ).scrollTop();
-				} );
+			switch( settings['switchEventType'] ) {
+				case 'hover':
+					hoverSwitchType();
+					break;
 
-				$target.on( 'touchend', function( event ) {
+				case 'click':
+					clickSwitchType();
+					break;
 
-					if ( scrollOffset !== $( window ).scrollTop() ) {
-						return false;
-					}
+				case 'toggle':
+					toggleSwitchType();
+					break;
+			}
 
-					if ( ! $( this ).hasClass( 'flipped-stop' ) ) {
-						$( this ).toggleClass( 'flipped' );
-					}
-				} );
+			function hoverSwitchType() {
 
-			} else {
-				$target.on( toogleEvents, function( event ) {
+				if ( 'ontouchend' in window || 'ontouchstart' in window ) {
+					$target.on( 'touchstart', function( event ) {
+						scrollOffset = $( window ).scrollTop();
+					} );
 
-					if ( firstMouseEvent && 'mouseleave' === event.type ) {
-						return;
-					}
+					$target.on( 'touchend', function( event ) {
 
-					if ( firstMouseEvent && 'mouseenter' === event.type ) {
-						firstMouseEvent = false;
-					}
+						if ( scrollOffset !== $( window ).scrollTop() ) {
+							return false;
+						}
 
-					if ( ! $( this ).hasClass( 'flipped-stop' ) ) {
-						$( this ).toggleClass( 'flipped' );
+						if ( ! $( this ).hasClass( 'flipped-stop' ) ) {
+							$( this ).toggleClass( 'flipped' );
+						}
+					} );
+
+					$( document ).on( 'touchend', function( event ) {
+
+						if ( $( event.target ).closest( $target ).length ) {
+							return;
+						}
+
+						if ( $target.hasClass( 'flipped-stop' ) ) {
+							return;
+						}
+
+						if ( ! $target.hasClass( 'flipped' ) ) {
+							return;
+						}
+
+						$target.removeClass( 'flipped' );
+					} );
+				} else {
+					$target.on( 'mouseenter mouseleave', function( event ) {
+
+						if ( firstMouseEvent && 'mouseleave' === event.type ) {
+							return;
+						}
+
+						if ( firstMouseEvent && 'mouseenter' === event.type ) {
+							firstMouseEvent = false;
+						}
+
+						if ( ! $( this ).hasClass( 'flipped-stop' ) ) {
+							$( this ).toggleClass( 'flipped' );
+						}
+					} );
+				}
+			}
+
+			function clickSwitchType() {
+				$target.on( 'click', function( event ) {
+
+					if ( ! $target.hasClass( 'flipped-stop' ) ) {
+						$target.toggleClass( 'flipped' );
 					}
 				} );
 			}
+
+			function toggleSwitchType() {
+				$target.on( 'click', '.jet-animated-box__toggle', function( event ) {
+
+					if ( ! $target.hasClass( 'flipped-stop' ) ) {
+						$target.toggleClass( 'flipped' );
+					}
+				} );
+			}
+
 		},
 
 		onAnimatedBoxSectionActivated: function( $scope ) {
@@ -754,14 +813,14 @@
 					sliderAutoplayOnHover: 'pause',
 					sliderFadeMode: false,
 					sliderFullScreen: true,
-					sliderFullscreenIcon: 'fa fa-arrows-alt',
+					sliderFullscreenIcon: '',
 					sliderHeight: { size: 600, unit: 'px' },
 					sliderHeightTablet: { size: 400, unit: 'px' },
 					sliderHeightMobile: { size: 300, unit: 'px' },
 					sliderLoop: true,
 					sliderNaviOnHover: false,
 					sliderNavigation: true,
-					sliderNavigationIcon: 'fa fa-angle-left',
+					sliderNavigationIcon: '',
 					sliderPagination: false,
 					sliderShuffle: false,
 					sliderWidth: { size: 100, unit: '%' },
@@ -853,12 +912,16 @@
 				thumbnailHeight: settings['thumbnailHeight'],
 				rightToLeft: settings['rightToLeft'],
 				init: function() {
+
+					var fullscreenIconHtml = $( '.' + settings['sliderFullscreenIcon'] ).html(),
+						arrowIconHtml      = $( '.' + settings['sliderNavigationIcon'] ).html();
+
+					$( '.sp-full-screen-button', $target ).html( fullscreenIconHtml );
+
+					$( '.sp-previous-arrow', $target ).html( arrowIconHtml );
+					$( '.sp-next-arrow', $target ).html( arrowIconHtml );
+
 					this.resize();
-
-					$( '.sp-previous-arrow', $target ).append( '<i class="' + settings['sliderNavigationIcon'] + '"></i>' );
-					$( '.sp-next-arrow', $target ).append( '<i class="' + settings['sliderNavigationIcon'] + '"></i>' );
-
-					$( '.sp-full-screen-button', $target ).append( '<i class="' + settings['sliderFullscreenIcon'] + '"></i>' );
 				},
 				breakpoints: breakpointsSettings
 			} );
@@ -875,6 +938,8 @@
 			}
 
 			settings.adaptiveHeight = settings['adaptiveHeight'];
+
+			settings['slide'] = '.jet-testimonials__item';
 
 			JetElements.initCarousel( $target, settings );
 		},
@@ -963,6 +1028,7 @@
 			}
 
 			options.slidesToShow = options.slidesToShow.desktop;
+
 
 			defaultOptions = {
 				customPaging: function(slider, i) {
@@ -1982,7 +2048,8 @@
 				speed: 500,
 				blockSpeed: 500,
 				offset: 0,
-				sectionSwitch: false
+				sectionSwitch: false,
+				sectionSwitchOnMobile: true,
 			},
 			settings        = $.extend( {}, defaultSettings, settings ),
 			sections        = {},
@@ -2195,7 +2262,9 @@
 
 				if ( ! isMobile ) {
 					document.addEventListener( 'wheel', self.onWheel, { passive: false } );
-				} else {
+				}
+
+				if ( isMobile && settings['sectionSwitchOnMobile'] ) {
 
 					document.addEventListener( 'touchstart', function( event ) {
 						var $target   = $( event.target ),

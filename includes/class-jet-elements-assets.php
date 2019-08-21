@@ -31,7 +31,9 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 		 * Constructor for the class
 		 */
 		public function init() {
-			add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_styles' ) );
+			add_action( 'elementor/frontend/before_register_styles', array( $this, 'register_styles' ) );
+			add_action( 'elementor/frontend/before_enqueue_styles',   array( $this, 'enqueue_styles' ) );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ) );
 
 			add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_preview_styles' ) );
@@ -44,10 +46,41 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 			add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'icons_font_styles' ) );
 			add_action( 'elementor/preview/enqueue_styles',      array( $this, 'icons_font_styles' ) );
 
-			$this->localize_data['ajaxUrl'] = admin_url( 'admin-ajax.php' );
-			// Frontend messages
-			$this->localize_data['messages'] = array(
-				'invalidMail' => esc_html__( 'Please specify a valid e-mail', 'jet-elements' ),
+			$rest_api_url = apply_filters( 'jet-elements/rest/frontend/url', get_rest_url() );
+
+			$this->localize_data = array(
+				'ajaxurl'        => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'isMobile'       => filter_var( wp_is_mobile(), FILTER_VALIDATE_BOOLEAN ) ? 'true' : 'false',
+				'templateApiUrl' => $rest_api_url . 'jet-elements-api/v1/elementor-template',
+				'devMode'        => is_user_logged_in() ? 'true' : 'false',
+				'messages'       => array(
+					'invalidMail' => esc_html__( 'Please specify a valid e-mail', 'jet-elements' ),
+				)
+			);
+		}
+
+		/**
+		 * Register vendor styles.
+		 *
+		 * @since 1.0.0
+		 * @access public
+		 * @return void
+		 */
+		public function register_styles() {
+			// Register vendor slider-pro.css styles (https://github.com/bqworks/slider-pro)
+			wp_register_style(
+				'jet-slider-pro-css',
+				jet_elements()->plugin_url( 'assets/css/lib/slider-pro/slider-pro.min.css' ),
+				false,
+				'1.3.0'
+			);
+
+			// Register vendor juxtapose-css styles
+			wp_register_style(
+				'jet-juxtapose-css',
+				jet_elements()->plugin_url( 'assets/css/lib/juxtapose/juxtapose.min.css' ),
+				false,
+				'1.3.0'
 			);
 		}
 
@@ -86,22 +119,6 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 					jet_elements()->get_version()
 				);
 			}
-
-			// Register vendor slider-pro.css styles (https://github.com/bqworks/slider-pro)
-			wp_register_style(
-				'jet-slider-pro-css',
-				jet_elements()->plugin_url( 'assets/css/lib/slider-pro/slider-pro.min.css' ),
-				false,
-				'1.3.0'
-			);
-
-			// Register vendor juxtapose-css styles
-			wp_register_style(
-				'jet-juxtapose-css',
-				jet_elements()->plugin_url( 'assets/css/lib/juxtapose/juxtapose.min.css' ),
-				false,
-				'1.3.0'
-			);
 		}
 
 		/**
@@ -129,6 +146,11 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 		 * @return void
 		 */
 		public function enqueue_preview_styles() {
+
+			if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '2.6.7', '>=' ) ) {
+				return;
+			}
+
 			$avaliable_widgets = jet_elements_settings()->get( 'avaliable_widgets' );
 
 			$styles_map = array(
@@ -157,7 +179,7 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 		 */
 		public function register_scripts() {
 
-			$api_disabled = jet_elements_settings()->get( 'disable_api_js', array() );
+			$api_disabled = jet_elements_settings()->get( 'disable_api_js', [ 'disable' => 'false' ] );
 			$key          = jet_elements_settings()->get( 'api_key' );
 
 			if ( ! empty( $key ) && ( empty( $api_disabled ) || 'true' !== $api_disabled['disable'] ) ) {
@@ -205,7 +227,7 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 			wp_register_script(
 				'jet-masonry-js',
 				jet_elements()->plugin_url( 'assets/js/lib/masonry-js/masonry.pkgd.min.js' ),
-				array(),
+				array( 'jquery' ),
 				'4.2.1',
 				true
 			);
@@ -280,7 +302,7 @@ if ( ! class_exists( 'Jet_Elements_Assets' ) ) {
 
 			wp_enqueue_style(
 				'jet-elements-font',
-				jet_elements()->plugin_url( 'assets/css/lib/jetelements-font/css/jetelements.min.css' ),
+				jet_elements()->plugin_url( 'assets/css/jet-elements-icons.css' ),
 				array(),
 				jet_elements()->get_version()
 			);

@@ -32,7 +32,7 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-38';
+		return 'jet-elements-icon-v-timeline';
 	}
 
 	public function get_jet_help_url() {
@@ -150,7 +150,7 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 			)
 		);
 
-		$repeater->add_control(
+		$this->__add_advanced_icon_control(
 			'item_point_icon',
 			array(
 				'label'       => esc_html__( 'Point Icon', 'jet-elements' ),
@@ -158,10 +158,15 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'label_block' => true,
 				'file'        => '',
 				'default'     => 'fa fa-calendar',
+				'fa5_default' => array(
+					'value'   => 'fas fa-calendar-alt',
+					'library' => 'fa-solid',
+				),
 				'condition'   => array(
 					'item_point_type' => 'icon'
 				)
-			)
+			),
+			$repeater
 		);
 
 		$repeater->add_control(
@@ -215,32 +220,24 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'fields'      => array_values( $repeater->get_controls() ),
 				'default'     => array(
 					array(
-						'item_title'      => esc_html__( 'Card #1', 'jet-elements' ),
-						'item_title_icon' => 'fa fa-birthday-cake',
-						'item_desc'       => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
-						'item_point_icon' => 'fa fa-calendar',
-						'item_meta'       => esc_html__( 'Thursday, August 31, 2018', 'jet-elements' ),
+						'item_title' => esc_html__( 'Card #1', 'jet-elements' ),
+						'item_desc'  => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
+						'item_meta'  => esc_html__( 'Thursday, August 31, 2018', 'jet-elements' ),
 					),
 					array(
-						'item_title'      => esc_html__( 'Card #2', 'jet-elements' ),
-						'item_title_icon' => 'fa fa-birthday-cake',
-						'item_desc'       => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
-						'item_point_icon' => 'fa fa-calendar',
-						'item_meta'       => esc_html__( 'Thursday, August 29, 2018', 'jet-elements' ),
+						'item_title' => esc_html__( 'Card #2', 'jet-elements' ),
+						'item_desc'  => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
+						'item_meta'  => esc_html__( 'Thursday, August 29, 2018', 'jet-elements' ),
 					),
 					array(
-						'item_title'      => esc_html__( 'Card #3', 'jet-elements' ),
-						'item_title_icon' => 'fa fa-birthday-cake',
-						'item_desc'       => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
-						'item_point_icon' => 'fa fa-calendar',
-						'item_meta'       => esc_html__( 'Thursday, August 28, 2018', 'jet-elements' ),
+						'item_title' => esc_html__( 'Card #3', 'jet-elements' ),
+						'item_desc'  => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
+						'item_meta'  => esc_html__( 'Thursday, August 28, 2018', 'jet-elements' ),
 					),
 					array(
-						'item_title'      => esc_html__( 'Card #4', 'jet-elements' ),
-						'item_title_icon' => 'fa fa-birthday-cake',
-						'item_desc'       => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
-						'item_point_icon' => 'fa fa-calendar',
-						'item_meta'       => esc_html__( 'Thursday, August 27, 2018', 'jet-elements' ),
+						'item_title' => esc_html__( 'Card #4', 'jet-elements' ),
+						'item_desc'  => esc_html__( 'Lorem ipsum dolor sit amet, mea ei viderer probatus consequuntur, sonet vocibus lobortis has ad. Eos erant indoctum an, dictas invidunt est ex, et sea consulatu torquatos. Nostro aperiam petentium eu nam, mel debet urbanitas ad, idque complectitur eu quo. An sea autem dolore dolores.', 'jet-elements' ),
+						'item_meta'  => esc_html__( 'Thursday, August 27, 2018', 'jet-elements' ),
 					),
 				),
 				'title_field' => '{{{ item_title }}}',
@@ -384,7 +381,7 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_cards_style',
 			array(
 				'label'      => esc_html__( 'Cards', 'jet-elements' ),
@@ -395,9 +392,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_cards( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_image_style',
 			array(
 				'label'      => esc_html__( 'Image', 'jet-elements' ),
@@ -408,9 +405,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_image( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_meta_style',
 			array(
 				'label'      => esc_html__( 'Meta', 'jet-elements' ),
@@ -421,9 +418,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_meta( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_card_content_style',
 			array(
 				'label'      => esc_html__( 'Content', 'jet-elements' ),
@@ -434,9 +431,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_card_content( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_card_title_style',
 			array(
 				'label'      => esc_html__( 'Title', 'jet-elements' ),
@@ -447,9 +444,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_card_title( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_desc_style',
 			array(
 				'label'      => esc_html__( 'Description', 'jet-elements' ),
@@ -460,9 +457,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_card_desc( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_button_style',
 			array(
 				'label' => esc_html__( 'Button', 'jet-elements' ),
@@ -470,25 +467,26 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['card_btn'],
-			)
+			),
+			50
 		);
 
-		$this->start_controls_tabs( 'tabs_button_style' );
+		$this->__start_controls_tabs( 'tabs_button_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -497,10 +495,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['card_btn'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_background_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -512,19 +511,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['card_btn'] => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_hover_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -532,10 +532,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['card_btn'] . ':hover' => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_hover_background_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -543,10 +544,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['card_btn'] . ':hover' => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_hover_border_color',
 			array(
 				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
@@ -557,23 +559,25 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'condition' => array(
 					'button_border_border!' => '',
 				),
-			)
+			),
+			75
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'button_border',
 				'selector'  => '{{WRAPPER}} ' . $css_scheme['card_btn'],
 				'separator' => 'before',
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -582,18 +586,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['card_btn'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['card_btn'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -603,10 +609,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['card_btn'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -615,12 +622,13 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['card_btn_wrap'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_point_style',
 			array(
 				'label'      => esc_html__( 'Point', 'jet-elements' ),
@@ -631,9 +639,9 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_points( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_line_style',
 			array(
 				'label'      => esc_html__( 'Line', 'jet-elements' ),
@@ -644,12 +652,12 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 
 		$this->_control_section_line( $css_scheme );
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 	}
 
 	public function _control_section_cards( $css_scheme ) {
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'cards_border',
@@ -657,10 +665,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card'] . ',' . '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_arrow'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'cards_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -670,10 +679,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card']       => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_inner'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;'
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'cards_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -683,19 +693,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_inner'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'after'
-			)
+			),
+			25
 		);
 
-		$this->start_controls_tabs( 'cards_style_tabs' );
+		$this->__start_controls_tabs( 'cards_style_tabs' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'cards_normal_styles',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'cards_background_normal',
 			array(
 				'label'     => esc_html__( 'Background', 'jet-elements' ),
@@ -705,27 +716,29 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_inner'] => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_arrow'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'cards_box_shadow_normal',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'cards_hover_styles',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'cards_background_hover',
 			array(
 				'label'     => esc_html__( 'Background', 'jet-elements' ),
@@ -735,10 +748,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_inner'] => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_arrow'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'cards_border_color_hover',
 			array(
 				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
@@ -747,27 +761,32 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card']       => 'border-color: {{VALUE}};',
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_arrow'] => 'border-color: {{VALUE}};'
 				),
-			)
+				'condition' => array(
+					'cards_border_border!' => '',
+				),
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'cards_box_shadow_hover',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'cards_active_styles',
 			array(
 				'label' => esc_html__( 'Active', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'cards_background_active',
 			array(
 				'label'     => esc_html__( 'Background', 'jet-elements' ),
@@ -777,10 +796,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_inner'] => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_arrow'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'cards_border_color_active',
 			array(
 				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
@@ -789,31 +809,37 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card']       => 'border-color: {{VALUE}};',
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_arrow'] => 'border-color: {{VALUE}};',
 				),
-			)
+				'condition' => array(
+					'cards_border_border!' => '',
+				),
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'cards_box_shadow_active',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_control(
+		$this->__add_control(
 			'cards_arrow_heading',
 			array(
 				'label'     => esc_html__( 'Arrow', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'cards_arrow_width',
 			array(
 				'label'      => esc_html__( 'Size', 'jet-elements' ),
@@ -842,419 +868,14 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} .jet-timeline--align-left ' . $css_scheme['item'] . ' ' . $css_scheme['card_arrow'] => 'margin-left:calc( -{{SIZE}}{{UNIT}} / 2 );',
 					'{{WRAPPER}} .jet-timeline--align-right ' . $css_scheme['item'] . ' ' . $css_scheme['card_arrow'] => 'margin-right:calc( -{{SIZE}}{{UNIT}} / 2 );',
 				),
-			)
+			),
+			25
 		);
 
-	}
-
-	public function _control_section_image( $css_scheme ) {
-
-		$this->add_responsive_control(
-			'image_spacing',
-			array(
-				'label'      => esc_html__( 'Spacing', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px',
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 10,
-						'max' => 200,
-					),
-				),
-				'default'    => array(
-					'size' => 10,
-					'unit' => 'px',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_img'] => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'image_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_img'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow:hidden;',
-				),
-			)
-		);
-
-	}
-
-	public function _control_section_meta( $css_scheme ) {
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'meta_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'],
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'meta_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'],
-			)
-		);
-
-		$this->add_control(
-			'meta_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow:hidden;',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'meta_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'meta_margin',
-			array(
-				'label'      => esc_html__( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-				'separator'  => 'after'
-			)
-		);
-
-		$this->start_controls_tabs( 'meta_style_tabs' );
-
-		$this->start_controls_tab(
-			'meta_normal_styles',
-			array(
-				'label' => esc_html__( 'Normal', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'meta_normal_color',
-			array(
-				'label'     => esc_html__( 'Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'meta_normal_background_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'meta_normal_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'meta_hover_styles',
-			array(
-				'label' => esc_html__( 'Hover', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'meta_hover_color',
-			array(
-				'label'     => esc_html__( 'Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'meta_hover_background_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'meta_hover_border_color',
-			array(
-				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'] => 'border-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'meta_hover_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'meta_active_styles',
-			array(
-				'label' => esc_html__( 'Active', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'meta_active_color',
-			array(
-				'label'     => esc_html__( 'Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'meta_active_background_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'meta_active_border_color',
-			array(
-				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'] => 'border-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'meta_active_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-	}
-
-	public function _control_section_card_content( $css_scheme ) {
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'card_content_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'],
-			)
-		);
-
-		$this->add_control(
-			'card_content_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow:hidden;',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'card_content_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-				'separator'  => 'after'
-			)
-		);
-
-		$this->start_controls_tabs( 'card_content_style_tabs' );
-
-		$this->start_controls_tab(
-			'card_content_normal_styles',
-			array(
-				'label' => esc_html__( 'Normal', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'card_content_normal_background_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'card_content_normal_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'card_content_hover_styles',
-			array(
-				'label' => esc_html__( 'Hover', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'card_content_hover_background_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_content'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'card_content_hover_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_content'],
-			)
-		);
-
-		$this->add_control(
-			'card_content_hover_border_color',
-			array(
-				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_content'] => 'border-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'card_content_active_styles',
-			array(
-				'label' => esc_html__( 'Active', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'card_content_active_background_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_content'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'card_content_active_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_content'],
-			)
-		);
-
-		$this->add_control(
-			'card_content_active_border_color',
-			array(
-				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_content'] => 'border-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->add_control(
-			'card_arrow_heading',
-			array(
-				'label'     => esc_html__( 'Card Arrow', 'jet-elements' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-				'condition' => array(
-					'vertical_alignment!' => 'middle'
-				)
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'card_arrow_offset',
 			array(
-				'label'      => esc_html__( 'Card Arrow Offset', 'jet-elements' ),
+				'label'      => esc_html__( 'Offset', 'jet-elements' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array(
 					'px',
@@ -1281,22 +902,459 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'condition'  => array(
 					'vertical_alignment!' => 'middle'
 				)
+			),
+			25
+		);
+
+	}
+
+	public function _control_section_image( $css_scheme ) {
+
+		$this->__add_responsive_control(
+			'image_spacing',
+			array(
+				'label'      => esc_html__( 'Spacing', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'px',
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 10,
+						'max' => 200,
+					),
+				),
+				'default'    => array(
+					'size' => 10,
+					'unit' => 'px',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_img'] => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'image_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_img'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow:hidden;',
+				),
+			),
+			75
+		);
+
+	}
+
+	public function _control_section_meta( $css_scheme ) {
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'meta_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'],
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'meta_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'],
+			),
+			75
+		);
+
+		$this->__add_control(
+			'meta_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow:hidden;',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'meta_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'meta_margin',
+			array(
+				'label'      => esc_html__( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'after'
+			),
+			25
+		);
+
+		$this->__start_controls_tabs( 'meta_style_tabs' );
+
+		$this->__start_controls_tab(
+			'meta_normal_styles',
+			array(
+				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
+
+		$this->__add_control(
+			'meta_normal_color',
+			array(
+				'label'     => esc_html__( 'Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'meta_normal_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'meta_normal_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['item_meta'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'meta_hover_styles',
+			array(
+				'label' => esc_html__( 'Hover', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'meta_hover_color',
+			array(
+				'label'     => esc_html__( 'Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'meta_hover_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'meta_hover_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'] => 'border-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'meta_border_border!' => '',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'meta_hover_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_meta'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'meta_active_styles',
+			array(
+				'label' => esc_html__( 'Active', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'meta_active_color',
+			array(
+				'label'     => esc_html__( 'Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'meta_active_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'meta_active_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'] => 'border-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'meta_border_border!' => '',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'meta_active_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_meta'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__end_controls_tabs();
+
+	}
+
+	public function _control_section_card_content( $css_scheme ) {
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'card_content_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'],
+			),
+			75
+		);
+
+		$this->__add_control(
+			'card_content_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow:hidden;',
+				),
+			),
+			75
+		);
+
+		$this->__add_responsive_control(
+			'card_content_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'after'
+			),
+			25
+		);
+
+		$this->__start_controls_tabs( 'card_content_style_tabs' );
+
+		$this->__start_controls_tab(
+			'card_content_normal_styles',
+			array(
+				'label' => esc_html__( 'Normal', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'card_content_normal_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'card_content_normal_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_content'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'card_content_hover_styles',
+			array(
+				'label' => esc_html__( 'Hover', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'card_content_hover_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_content'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'card_content_hover_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_content'] => 'border-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'card_content_border_border!' => '',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'card_content_hover_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_content'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'card_content_active_styles',
+			array(
+				'label' => esc_html__( 'Active', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'card_content_active_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_content'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'card_content_active_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_content'] => 'border-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'card_content_border_border!' => '',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'card_content_active_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_content'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__end_controls_tabs();
 	}
 
 	public function _control_section_card_title( $css_scheme ) {
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'card_title_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_title'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'card_title_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -1306,19 +1364,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_title'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'after'
-			)
+			),
+			25
 		);
 
-		$this->start_controls_tabs( 'card_title_style_tabs' );
+		$this->__start_controls_tabs( 'card_title_style_tabs' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'card_title_normal_styles',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'card_title_normal_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1326,19 +1385,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_title'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'card_title_hover_styles',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'card_title_hover_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1346,19 +1406,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_title'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'card_title_active_styles',
 			array(
 				'label' => esc_html__( 'Active', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'card_title_active_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1366,27 +1427,29 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_title'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
 	}
 
 	public function _control_section_card_desc( $css_scheme ) {
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'card_desc_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_desc'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'card_desc_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -1396,19 +1459,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_desc'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'after'
-			)
+			),
+			25
 		);
 
-		$this->start_controls_tabs( 'card_desc_style_tabs' );
+		$this->__start_controls_tabs( 'card_desc_style_tabs' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'card_desc_normal_styles',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'card_desc_normal_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1416,19 +1480,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ' ' . $css_scheme['card_desc'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'card_desc_hover_styles',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'card_desc_hover_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1436,19 +1501,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['card_desc'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'card_desc_active_styles',
 			array(
 				'label' => esc_html__( 'Active', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'card_desc_active_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1456,45 +1522,49 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['card_desc'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
 	}
 
 	public function _control_section_points( $css_scheme ) {
 
-		$this->start_controls_tabs( 'point_type_style_tabs' );
+		$this->__start_controls_tabs( 'point_type_style_tabs', 50 );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'point_type_text_styles',
 			array(
 				'label' => esc_html__( 'Text', 'jet-elements' ),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'point_text_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item_point_content'] . '.timeline-item__point-content--text',
-			)
+			),
+			50
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab( 50 );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'point_type_icon_styles',
 			array(
 				'label' => esc_html__( 'Icon', 'jet-elements' ),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'point_type_icon_size',
 			array(
 				'label'      => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -1511,16 +1581,17 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'unit' => 'px',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['item_point_content'] . '.timeline-item__point-content--icon i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['item_point_content'] . '.timeline-item__point-content--icon .jet-elements-icon' => 'font-size: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab( 50 );
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs( 50 );
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'point_size',
 			array(
 				'label'      => esc_html__( 'Point Size', 'jet-elements' ),
@@ -1543,10 +1614,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} .jet-timeline--align-right ' . $css_scheme['line']  => 'margin-right: calc( {{SIZE}}{{UNIT}} / 2 );',
 				),
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'point_border',
@@ -1554,10 +1626,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['item_point_content'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1567,19 +1640,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['item_point_content'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator' => 'after',
-			)
+			),
+			75
 		);
 
-		$this->start_controls_tabs( 'point_style_tabs' );
+		$this->__start_controls_tabs( 'point_style_tabs' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'point_normal_styles',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_normal_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1587,10 +1661,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item_point_content'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_normal_background_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1598,19 +1673,20 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item_point_content'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'point_hover_styles',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_hover_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1618,10 +1694,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_point_content'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_hover_background_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1629,10 +1706,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_point_content'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_hover_border_color',
 			array(
 				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
@@ -1640,19 +1718,23 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . ':hover ' . $css_scheme['item_point_content'] => 'color: {{VALUE}}',
 				),
-			)
+				'condition' => array(
+					'point_border_border!' => '',
+				),
+			),
+			75
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'point_active_styles',
 			array(
 				'label' => esc_html__( 'Active', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_active_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -1660,10 +1742,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_point_content'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_active_background_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1671,10 +1754,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_point_content'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'point_active_border_color',
 			array(
 				'label'     => esc_html__( 'Border Color', 'jet-elements' ),
@@ -1682,18 +1766,22 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] . '.is--active ' . $css_scheme['item_point_content'] => 'color: {{VALUE}}',
 				),
-			)
+				'condition' => array(
+					'point_border_border!' => '',
+				),
+			),
+			75
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
 	}
 
 	public function _control_section_line( $css_scheme ) {
 
-		$this->add_control(
+		$this->__add_control(
 			'line_background_color',
 			array(
 				'label'     => esc_html__( 'Line Color', 'jet-elements' ),
@@ -1701,10 +1789,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['line'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'progress_background_color',
 			array(
 				'label'     => esc_html__( 'Progress Color', 'jet-elements' ),
@@ -1712,10 +1801,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['progress'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'line_width',
 			array(
 				'label'      => esc_html__( 'Thickness', 'jet-elements' ),
@@ -1736,10 +1826,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['line'] => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'line_border',
@@ -1747,10 +1838,11 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['line'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'line_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1759,7 +1851,8 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['line'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
 	}
@@ -1768,7 +1861,7 @@ class Jet_Elements_Timeline extends Jet_Elements_Base {
 		echo '<div class="timeline-item__point">';
 		switch ( $item_settings['item_point_type'] ) {
 			case 'icon':
-				echo $this->__loop_item( array( 'item_point_icon' ), '<div class="timeline-item__point-content timeline-item__point-content--icon"><i class="%s"></i></div>' );
+				$this->__icon( 'item_point_icon', '<div class="timeline-item__point-content timeline-item__point-content--icon"><span class="jet-elements-icon">%s</span></div>' );
 				break;
 			case 'text':
 				echo $this->__loop_item( array( 'item_point_text' ), '<div class="timeline-item__point-content timeline-item__point-content--text">%s</div>' );

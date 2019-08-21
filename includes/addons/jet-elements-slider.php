@@ -31,7 +31,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-7';
+		return 'jet-elements-icon-slider';
 	}
 
 	public function get_jet_help_url() {
@@ -110,7 +110,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			)
 		);
 
-		$repeater->add_control(
+		$this->__add_advanced_icon_control(
 			'item_icon',
 			array(
 				'label'       => esc_html__( 'Icon', 'jet-elements' ),
@@ -120,7 +120,8 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'condition'   => array(
 					'item_content_type' => 'default',
 				),
-			)
+			),
+			$repeater
 		);
 
 		$repeater->add_control(
@@ -178,7 +179,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				),
 			)
 		);
-		
+
 		$repeater->add_control(
 			'item_button_primary_target',
 			array(
@@ -191,7 +192,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				),
 			)
 		);
-		
+
 		$repeater->add_control(
 			'item_button_primary_rel',
 			array(
@@ -235,7 +236,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				),
 			)
 		);
-		
+
 		$repeater->add_control(
 			'item_button_secondary_target',
 			array(
@@ -248,7 +249,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				),
 			)
 		);
-		
+
 		$repeater->add_control(
 			'item_button_secondary_rel',
 			array(
@@ -345,11 +346,116 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			)
 		);
 
+		$this->add_control(
+			'slider_width',
+			array(
+				'label' => esc_html__( 'Slider Width(%)', 'jet-elements' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => array(
+					'%' => array(
+						'min' => 50,
+						'max' => 100,
+					),
+				),
+				'default' => array(
+					'unit' => '%',
+					'size' => 100,
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'slider_height',
+			array(
+				'label' => esc_html__( 'Slider Height(px)', 'jet-elements' ),
+				'type'  => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'px', 'vh',
+				),
+				'range' => array(
+					'px' => array(
+						'min' => 300,
+						'max' => 1000,
+					),
+					'vh' => array(
+						'min' => 10,
+						'max' => 100,
+					),
+				),
+				'default' => array(
+					'unit' => 'px',
+					'size' => 600,
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'slider_container_width',
+			array(
+				'label' => esc_html__( 'Slider Container Width(%)', 'jet-elements' ),
+				'type'  => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'%', 'px',
+				),
+				'range' => array(
+					'%' => array(
+						'min' => 20,
+						'max' => 100,
+					),
+					'px' => array(
+						'min' => 200,
+						'max' => 1000,
+					),
+				),
+				'default' => array(
+					'unit' => '%',
+					'size' => 100,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['instance_slider'] . ' .jet-slider__content-inner' => 'max-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'max-width: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
 			array(
 				'name'    => 'slider_image', // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `image_size` and `image_custom_dimension`.
 				'default' => 'large',
+			)
+		);
+
+		$this->add_control(
+			'slide_image_scale_mode',
+			array(
+				'label'   => esc_html__( 'Image Scale Mode', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'exact',
+				'options' => array(
+					'exact'   => esc_html__( 'Cover', 'jet-elements' ),
+					'contain' => esc_html__( 'Contain', 'jet-elements' ),
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'slider_background',
+				'fields_options' => array(
+					'color' => array(
+						'scheme' => array(
+							'type'  => Scheme_Color::get_type(),
+							'value' => Scheme_Color::COLOR_2,
+						),
+					),
+				),
+				'selector' => '{{WRAPPER}} ' . $css_scheme['instance_slider'] . ' .jet-slider__item',
+				'condition' => array(
+					'slide_image_scale_mode' => 'contain',
+				),
 			)
 		);
 
@@ -360,6 +466,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'up',
 				'options' => array(
+					'none'  => esc_html__( 'None', 'jet-elements' ),
 					'up'    => esc_html__( 'Up', 'jet-elements' ),
 					'down'  => esc_html__( 'Down', 'jet-elements' ),
 					'left'  => esc_html__( 'Left', 'jet-elements' ),
@@ -389,6 +496,24 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'label_off'    => esc_html__( 'No', 'jet-elements' ),
 				'return_value' => 'true',
 				'default'      => 'false',
+				'condition' => array(
+					'slider_navigation' => 'true',
+				),
+			)
+		);
+
+		$this->__add_advanced_icon_control(
+			'slider_navigation_icon_arrow',
+			array(
+				'label'       => esc_html__( 'Arrow Icon', 'jet-elements' ),
+				'type'        => Controls_Manager::ICON,
+				'label_block' => true,
+				'file'        => '',
+				'default'     => 'fa fa-angle-left',
+				'fa5_default' => array(
+					'value'   => 'fas fa-angle-left',
+					'library' => 'fa-solid',
+				),
 				'condition' => array(
 					'slider_navigation' => 'true',
 				),
@@ -457,6 +582,24 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'label_off'    => esc_html__( 'No', 'jet-elements' ),
 				'return_value' => 'true',
 				'default'      => 'true',
+			)
+		);
+
+		$this->__add_advanced_icon_control(
+			'slider_fullscreen_icon',
+			array(
+				'label'       => esc_html__( 'FullScreen Icon', 'jet-elements' ),
+				'type'        => Controls_Manager::ICON,
+				'label_block' => true,
+				'file'        => '',
+				'default'     => 'fa fa-arrows-alt',
+				'fa5_default' => array(
+					'value'   => 'fas fa-arrows-alt',
+					'library' => 'fa-solid',
+				),
+				'condition' => array(
+					'slider_fullScreen' => 'true',
+				),
 			)
 		);
 
@@ -573,7 +716,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 		/**
 		 * General Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_slider_general_style',
 			array(
 				'label'      => esc_html__( 'General', 'jet-elements' ),
@@ -582,95 +725,19 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
-			'slider_width',
+		$this->__add_control(
+			'overlay_heading',
 			array(
-				'label' => esc_html__( 'Slider Width(%)', 'jet-elements' ),
-				'type'  => Controls_Manager::SLIDER,
-				'range' => array(
-					'%' => array(
-						'min' => 50,
-						'max' => 100,
-					),
-				),
-				'default' => array(
-					'unit' => '%',
-					'size' => 100,
-				),
-			)
+				'label'     => esc_html__( 'Overlay', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+			),
+			50
 		);
 
-		$this->add_responsive_control(
-			'slider_height',
-			array(
-				'label' => esc_html__( 'Slider Height(px)', 'jet-elements' ),
-				'type'  => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px', 'vh',
-				),
-				'range' => array(
-					'px' => array(
-						'min' => 300,
-						'max' => 1000,
-					),
-					'vh' => array(
-						'min' => 10,
-						'max' => 100,
-					),
-				),
-				'default' => array(
-					'unit' => 'px',
-					'size' => 600,
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_container_width',
-			array(
-				'label' => esc_html__( 'Slider Container Width(%)', 'jet-elements' ),
-				'type'  => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'%', 'px',
-				),
-				'range' => array(
-					'%' => array(
-						'min' => 20,
-						'max' => 100,
-					),
-					'px' => array(
-						'min' => 200,
-						'max' => 1000,
-					),
-				),
-				'default' => array(
-					'unit' => '%',
-					'size' => 100,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['instance_slider'] . ' .jet-slider__content-inner' => 'max-width: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'max-width: {{SIZE}}{{UNIT}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'slide_image_scale_mode',
-			array(
-				'label'   => esc_html__( 'Image Scale Mode', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'exact',
-				'options' => array(
-					'exact'   => esc_html__( 'Cover', 'jet-elements' ),
-					'contain' => esc_html__( 'Contain', 'jet-elements' ),
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
-				'name'     => 'slider_background',
+				'name'     => 'overlay_background',
 				'fields_options' => array(
 					'color' => array(
 						'scheme' => array(
@@ -679,28 +746,38 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 						),
 					),
 				),
-				'selector' => '{{WRAPPER}} ' . $css_scheme['instance_slider'] . ' .jet-slider__item',
-				'condition' => array(
-					'slide_image_scale_mode' => 'contain',
-				),
-			)
+				'selector' => '{{WRAPPER}} ' . $css_scheme['overlay'],
+			),
+			50
 		);
 
-		$this->end_controls_section();
-
-		/**
-		 * Container Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_container_style',
+		$this->__add_control(
+			'overlay_opacity',
 			array(
-				'label'      => esc_html__( 'Container', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
+				'label'    => esc_html__( 'Opacity', 'jet-elements' ),
+				'type'     => Controls_Manager::NUMBER,
+				'default'  => 0.2,
+				'min'      => 0,
+				'max'      => 1,
+				'step'     => 0.1,
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['overlay'] => 'opacity: {{VALUE}};',
+				),
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_control(
+			'widget_container_heading',
+			array(
+				'label'     => esc_html__( 'Widget Container', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
 			'container_padding',
 			array(
 				'label'      => __( 'Padding', 'jet-elements' ),
@@ -709,10 +786,11 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'container_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -721,20 +799,22 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'container_border',
 				'label'       => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder' => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['instance'],
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'container_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -743,35 +823,162 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] . ' .jet-slider__item'=> 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'container_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['instance'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__add_control(
+			'fullscreen_heading',
+			array(
+				'label'     => esc_html__( 'Fullscreen', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			),
+			25
+		);
+
+		$this->__add_control(
+			'fullscreen_icon_color',
+			array(
+				'label' => esc_html__( 'Icon Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] . ' i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] . ' svg' => 'fill: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'fullscreen_icon_bg_color',
+			array(
+				'label' => esc_html__( 'Icon Background Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'fullscreen_icon_font_size',
+			array(
+				'label'      => esc_html__( 'Icon Font Size', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'px', 'em', 'rem',
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 18,
+						'max' => 200,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] . ' i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'font-size: {{SIZE}}{{UNIT}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'fullscreen_icon_size',
+			array(
+				'label'      => esc_html__( 'Icon Box Size', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'px', 'em', '%',
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 18,
+						'max' => 200,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'fullscreen_icon_box_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'fullscreen_icon_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['fullscreen'],
+			),
+			75
+		);
+
+		$this->__add_control(
+			'fullscreen_icon_box_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'fullscreen_icon_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['fullscreen'],
+			),
+			100
+		);
+
+		$this->__end_controls_section();
 
 		/**
 		 * Content Slider Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_content_slider_style',
 			array(
-				'label'      => esc_html__( 'Content', 'jet-elements' ),
+				'label'      => esc_html__( 'Content Wrapper', 'jet-elements' ),
 				'tab'        => Controls_Manager::TAB_STYLE,
 				'show_label' => false,
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'slider_content_horizontal_alignment',
 			array(
-				'label'   => esc_html__( 'Horizontal Alignment', 'jet-elements' ),
+				'label'   => esc_html__( 'Horizontal Align', 'jet-elements' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'options' => array(
 					'flex-start' => array(
@@ -790,13 +997,14 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '. $css_scheme['content_item'] => 'justify-content: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'slider_content_vertical_alignment',
 			array(
-				'label'   => esc_html__( 'Vertical Alignment', 'jet-elements' ),
+				'label'   => esc_html__( 'Vertical Align', 'jet-elements' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'options' => array(
 					'flex-start' => array(
@@ -818,15 +1026,16 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'slider_content_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['content_inner'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'slider_content_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -835,10 +1044,11 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['content_inner'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'slider_content_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -847,19 +1057,21 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['content_inner'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'slider_content_border',
 				'placeholder' => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['content_inner'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'slider_content_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -868,125 +1080,89 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['content_inner'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'slider_content_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['content_inner'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
-		 * Overlay Style Section
+		 * Icon Style Section
 		 */
-		$this->start_controls_section(
-			'section_images_layout_overlay_style',
+		$this->__start_controls_section(
+			'section_slider_icon_style',
 			array(
-				'label'      => esc_html__( 'Overlay', 'jet-elements' ),
+				'label'      => esc_html__( 'Icon', 'jet-elements' ),
 				'tab'        => Controls_Manager::TAB_STYLE,
 				'show_label' => false,
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Background::get_type(),
+		$this->__add_responsive_control(
+			'icon_box_alignment',
 			array(
-				'name'     => 'overlay_background',
-				'fields_options' => array(
-					'color' => array(
-						'scheme' => array(
-							'type'  => Scheme_Color::get_type(),
-							'value' => Scheme_Color::COLOR_2,
-						),
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
-				'selector' => '{{WRAPPER}} ' . $css_scheme['overlay'],
-			)
-		);
-
-		$this->add_control(
-			'overlay_opacity',
-			array(
-				'label'    => esc_html__( 'Opacity', 'jet-elements' ),
-				'type'     => Controls_Manager::NUMBER,
-				'default'  => 0.2,
-				'min'      => 0,
-				'max'      => 1,
-				'step'     => 0.1,
 				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['overlay'] => 'opacity: {{VALUE}};',
+					'{{WRAPPER}} ' . $css_scheme['icon'] => 'justify-content: {{VALUE}};',
 				),
-
-			)
+			),
+			50
 		);
 
-		$this->end_controls_section();
-
-		/**
-		 * Navigation Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_navigation_style',
+		$this->__add_control(
+			'icon_color',
 			array(
-				'label'      => esc_html__( 'Navigation', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'slider_navigation_icon_arrow',
-			array(
-				'label'   => esc_html__( 'Arrow Icon', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'fa fa-angle-left',
-				'options' => jet_elements_tools()->get_available_prev_arrows_list(),
-				'condition' => array(
-					'slider_navigation' => 'true',
-				),
-			)
-		);
-
-		$this->start_controls_tabs( 'navigation_style_tabs' );
-
-		$this->start_controls_tab(
-			'tab_normal_navigation_styles',
-			array(
-				'label' => esc_html__( 'Normal', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'normal_navigation_color',
-			array(
-				'label' => esc_html__( 'Color', 'jet-elements' ),
+				'label' => esc_html__( 'Icon Color', 'jet-elements' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' svg' => 'fill: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
-			'normal_navigation_bg_color',
+		$this->__add_control(
+			'icon_bg_color',
 			array(
-				'label' => esc_html__( 'Background Color', 'jet-elements' ),
+				'label' => esc_html__( 'Icon Background Color', 'jet-elements' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
-			'normal_navigation_font_size',
+		$this->__add_responsive_control(
+			'icon_font_size',
 			array(
-				'label'      => esc_html__( 'Font Size', 'jet-elements' ),
+				'label'      => esc_html__( 'Icon Font Size', 'jet-elements' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array(
 					'px', 'em', 'rem',
@@ -998,12 +1174,849 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} ' . $css_scheme['icon'] => 'font-size: {{SIZE}}{{UNIT}}',
 				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'icon_size',
+			array(
+				'label'      => esc_html__( 'Icon Box Size', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'px', 'em', '%',
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 18,
+						'max' => 200,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
+			'icon_box_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'icon_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner',
+			),
+			100
+		);
+
+		$this->__add_control(
+			'icon_box_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'icon_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner',
+			),
+			100
+		);
+
+		$this->__end_controls_section();
+
+		/**
+		 * Title Style Section
+		 */
+		$this->__start_controls_section(
+			'section_slider_title_style',
+			array(
+				'label'      => esc_html__( 'Title', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
+			'slider_title_alignment',
+			array(
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'fa fa-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'fa fa-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'fa fa-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['title'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'slider_title_color',
+			array(
+				'label'  => esc_html__( 'Title Color', 'jet-elements' ),
+				'type'   => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['title'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'slider_title_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'selector' => '{{WRAPPER}} ' . $css_scheme['title'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'slider_title_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['title'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
+			'slider_title_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['title'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__end_controls_section();
+
+		/**
+		 * SubTitle Style Section
+		 */
+		$this->__start_controls_section(
+			'section_slider_subtitle_style',
+			array(
+				'label'      => esc_html__( 'Subtitle', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			)
+		);
+
+		$this->__add_responsive_control(
+			'slider_subtitle_alignment',
+			array(
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'fa fa-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'fa fa-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'fa fa-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'slider_subtitle_color',
+			array(
+				'label'  => esc_html__( 'Subtitle Color', 'jet-elements' ),
+				'type'   => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'slider_subtitle_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'selector' => '{{WRAPPER}} ' . $css_scheme['subtitle'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'slider_subtitle_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
+			'slider_subtitle_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__end_controls_section();
+
+		/**
+		 * Desc Style Section
+		 */
+		$this->__start_controls_section(
+			'section_slider_desc_style',
+			array(
+				'label'      => esc_html__( 'Description', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			)
+		);
+
+		$this->__add_responsive_control(
+			'slider_desc_wax_width',
+			array(
+				'label' => esc_html__( 'Max Width', 'jet-elements' ),
+				'type'  => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range' => array(
+					'%' => array(
+						'min' => 20,
+						'max' => 100,
+					),
+					'px' => array(
+						'min' => 300,
+						'max' => 1000,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'slider_desc_container_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end' => array(
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'align-self: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'slider_desc_alignment',
+			array(
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'fa fa-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'fa fa-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'fa fa-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'slider_desc_color',
+			array(
+				'label'  => esc_html__( 'Description Color', 'jet-elements' ),
+				'type'   => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'slider_desc_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
+				'selector' => '{{WRAPPER}} ' . $css_scheme['desc'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'slider_desc_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
+			'slider_desc_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['desc'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__end_controls_section();
+
+		/**
+		 * Action Button #1 Style Section
+		 */
+		$this->__start_controls_section(
+			'section_action_button_style',
+			array(
+				'label'      => esc_html__( 'Action Button', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'slider_action_button_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['buttons_wrapper'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'section_action_primary_button_heading',
+			array(
+				'label'     => esc_html__( 'Action Button #1', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'primary_button_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'primary_button_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__start_controls_tabs( 'tabs_primary_button_style' );
+
+		$this->__start_controls_tab(
+			'tab_primary_button_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'primary_button_bg_color',
+			array(
+				'label' => esc_html__( 'Background Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'scheme' => array(
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'primary_button_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'primary_button_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['primary_button'],
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'primary_button_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['primary_button'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'primary_button_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'primary_button_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['primary_button'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'tab_primary_button_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'primary_button_hover_bg_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'primary_button_hover_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'primary_button_hover_typography',
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['primary_button'] . ':hover',
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'primary_button_hover_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover',
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'primary_button_hover_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'primary_button_hover_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover',
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__end_controls_tabs();
+
+		$this->__add_control(
+			'section_action_secondary_button_heading',
+			array(
+				'label'     => esc_html__( 'Action Button #2', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'secondary_button_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'secondary_button_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__start_controls_tabs( 'tabs_secondary_button_style' );
+
+		$this->__start_controls_tab(
+			'tab_secondary_button_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'secondary_button_bg_color',
+			array(
+				'label' => esc_html__( 'Background Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'scheme' => array(
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_2,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'secondary_button_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'secondary_button_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['secondary_button'],
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'secondary_button_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['secondary_button'],
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'secondary_button_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'secondary_button_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['secondary_button'],
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'tab_secondary_button_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'secondary_button_hover_bg_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'secondary_button_hover_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'secondary_button_hover_typography',
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['secondary_button'] . ':hover',
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'secondary_button_hover_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover',
+			),
+			50
+		);
+
+		$this->__add_responsive_control(
+			'secondary_button_hover_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			75
+		);
+
+		$this->__add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'secondary_button_hover_box_shadow',
+				'selector' => '{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover',
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__end_controls_tabs();
+
+		$this->__end_controls_section();
+
+		/**
+		 * Navigation Style Section
+		 */
+		$this->__start_controls_section(
+			'section_slider_navigation_style',
+			array(
+				'label'      => esc_html__( 'Navigation', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			)
+		);
+
+		$this->__add_responsive_control(
 			'normal_navigation_size',
 			array(
 				'label'      => esc_html__( 'Box Size', 'jet-elements' ),
@@ -1020,33 +2033,11 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'normal_navigation_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '0px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow',
-			)
-		);
-
-		$this->add_control(
-			'normal_navigation_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_navigation_box_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -1055,38 +2046,123 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['navigation']. ' .sp-arrow' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
+			),
+			100
+		);
+
+		$this->__start_controls_tabs( 'navigation_style_tabs' );
+
+		$this->__start_controls_tab(
+			'tab_normal_navigation_styles',
+			array(
+				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_control(
+			'normal_navigation_color',
+			array(
+				'label' => esc_html__( 'Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow svg' => 'fill: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_control(
+			'normal_navigation_bg_color',
+			array(
+				'label' => esc_html__( 'Background Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow' => 'background-color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'normal_navigation_font_size',
+			array(
+				'label'      => esc_html__( 'Font Size', 'jet-elements' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(
+					'px', 'em', 'rem',
+				),
+				'range'      => array(
+					'px' => array(
+						'min' => 18,
+						'max' => 200,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow i' => 'font-size: {{SIZE}}{{UNIT}}',
+				),
+			),
+			50
+		);
+
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'normal_navigation_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '0px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow',
+			),
+			50
+		);
+
+		$this->__add_control(
+			'normal_navigation_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'normal_navigation_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_hover_navigation_styles',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'hover_navigation_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover svg' => 'fill: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'hover_navigation_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1094,10 +2170,11 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'hover_navigation_font_size',
 			array(
 				'label'      => esc_html__( 'Font Size', 'jet-elements' ),
@@ -1112,32 +2189,14 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 					),
 				),
 				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover' => 'font-size: {{SIZE}}{{UNIT}}',
 					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover i' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
-			'hover_navigation_size',
-			array(
-				'label'      => esc_html__( 'Box Size', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px', 'em', '%',
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 18,
-						'max' => 200,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'hover_navigation_border',
@@ -1145,10 +2204,11 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '0px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'hover_navigation_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1157,39 +2217,29 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
-			'hover_navigation_box_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['navigation']. ' .sp-arrow:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'hover_navigation_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['navigation'] . ' .sp-arrow:hover',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Pagination Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_pagination_style',
 			array(
 				'label'      => esc_html__( 'Pagination', 'jet-elements' ),
@@ -1198,16 +2248,84 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_dots_style' );
+		$this->__add_responsive_control(
+			'pagination_alignment',
+			array(
+				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'left' => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-h-align-right',
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'text-align: {{VALUE}};',
+				),
+			),
+			25
+		);
 
-		$this->start_controls_tab(
+		$this->__add_responsive_control(
+			'pagination_container_offset',
+			array(
+				'label'   => esc_html__( 'Pagination Container Offset', 'jet-elements' ),
+				'type'    => Controls_Manager::NUMBER,
+				'min'     => -500,
+				'max'     => 500,
+				'step'    => 1,
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'margin-top: {{VALUE}}px;',
+				),
+			),
+			25
+		);
+
+		$this->__add_responsive_control(
+			'pagination_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_responsive_control(
+			'pagination_dots_margin',
+			array(
+				'label'      => __( 'Margin', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['pagination'] . ' .sp-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
+
+		$this->__start_controls_tabs( 'tabs_dots_style' );
+
+		$this->__start_controls_tab(
 			'tab_pagination_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			\Jet_Group_Control_Box_Style::get_type(),
 			array(
 				'name'           => 'pagination_style',
@@ -1222,19 +2340,20 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 					'box_font_color',
 					'box_font_size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_pagination_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			\Jet_Group_Control_Box_Style::get_type(),
 			array(
 				'name'           => 'pagination_style_hover',
@@ -1252,19 +2371,20 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 					'box_font_color',
 					'box_font_size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_pagination_active',
 			array(
 				'label' => esc_html__( 'Active', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			\Jet_Group_Control_Box_Style::get_type(),
 			array(
 				'name'           => 'pagination_style_active',
@@ -1282,84 +2402,20 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 					'box_font_color',
 					'box_font_size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_responsive_control(
-			'pagination_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-				'separator' => 'before',
-			)
-		);
-
-		$this->add_responsive_control(
-			'pagination_dots_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['pagination'] . ' .sp-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'pagination_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left' => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'pagination_container_offset',
-			array(
-				'label'   => esc_html__( 'Pagination Container Offset', 'jet-elements' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => -500,
-				'max'     => 500,
-				'step'    => 1,
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['pagination'] => 'margin-top: {{VALUE}}px;',
-				),
-			)
-		);
-
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Thumbnails Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_thumbnails_style',
 			array(
 				'label'      => esc_html__( 'Thumbnails', 'jet-elements' ),
@@ -1368,7 +2424,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'thumbnail_item_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -1379,10 +2435,11 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				),
 				'separator'   => 'before',
 				'render_type' => 'template',
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'thumbnails_container_offset',
 			array(
 				'label'   => esc_html__( 'Thumbnails Container Offset', 'jet-elements' ),
@@ -1393,27 +2450,29 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['thumbnails'] => 'margin-top: {{VALUE}}px;',
 				),
-			)
+			),
+			25
 		);
 
-		$this->start_controls_tabs( 'tabs_thumbnails_style' );
+		$this->__start_controls_tabs( 'tabs_thumbnails_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_thumbnails_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'thumbnails_normal_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['thumbnail_container'] . ':before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'thumbnails_normal_border',
@@ -1441,27 +2500,29 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_thumbnails_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'thumbnails_hover_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['thumbnail_container'] . ':hover:before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'thumbnails_hover_border',
@@ -1489,27 +2550,29 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_thumbnails_active',
 			array(
 				'label' => esc_html__( 'Active', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'thumbnails_active_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['thumbnail_container'] . '.sp-selected-thumbnail:before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'thumbnails_active_border',
@@ -1537,1041 +2600,15 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
-
-		/**
-		 * Fullscreen Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_fullscreen_style',
-			array(
-				'label'      => esc_html__( 'Fullscreen', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'slider_fullscreen_icon',
-			array(
-				'label'       => esc_html__( 'Icon', 'jet-elements' ),
-				'type'        => Controls_Manager::ICON,
-				'label_block' => true,
-				'file'        => '',
-				'default'     => 'fa fa-arrows-alt',
-			)
-		);
-
-		$this->add_control(
-			'fullscreen_icon_color',
-			array(
-				'label' => esc_html__( 'Icon Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['fullscreen'] . ' i' => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'fullscreen_icon_bg_color',
-			array(
-				'label' => esc_html__( 'Icon Background Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'fullscreen_icon_font_size',
-			array(
-				'label'      => esc_html__( 'Icon Font Size', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px', 'em', 'rem',
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 18,
-						'max' => 200,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['fullscreen'] . ' i' => 'font-size: {{SIZE}}{{UNIT}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'fullscreen_icon_size',
-			array(
-				'label'      => esc_html__( 'Icon Box Size', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px', 'em', '%',
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 18,
-						'max' => 200,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'fullscreen_icon_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['fullscreen'],
-			)
-		);
-
-		$this->add_control(
-			'fullscreen_icon_box_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'fullscreen_icon_box_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['fullscreen'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'fullscreen_icon_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['fullscreen'],
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * Icon Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_icon_style',
-			array(
-				'label'      => esc_html__( 'Icon', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'icon_color',
-			array(
-				'label' => esc_html__( 'Icon Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] . ' i' => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_bg_color',
-			array(
-				'label' => esc_html__( 'Icon Background Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'icon_font_size',
-			array(
-				'label'      => esc_html__( 'Icon Font Size', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px', 'em', 'rem',
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 18,
-						'max' => 200,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] . ' i' => 'font-size: {{SIZE}}{{UNIT}}',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'icon_size',
-			array(
-				'label'      => esc_html__( 'Icon Box Size', 'jet-elements' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(
-					'px', 'em', '%',
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 18,
-						'max' => 200,
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'icon_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner',
-			)
-		);
-
-		$this->add_control(
-			'icon_box_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'icon_box_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'icon_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['icon'] . ' .jet-slider-icon-inner',
-			)
-		);
-
-		$this->add_responsive_control(
-			'icon_box_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon'] => 'justify-content: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * Title Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_title_style',
-			array(
-				'label'      => esc_html__( 'Title', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'slider_title_color',
-			array(
-				'label'  => esc_html__( 'Title Color', 'jet-elements' ),
-				'type'   => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['title'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'slider_title_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-				'selector' => '{{WRAPPER}} ' . $css_scheme['title'],
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_title_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['title'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_title_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['title'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_title_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['title'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * SubTitle Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_subtitle_style',
-			array(
-				'label'      => esc_html__( 'Subtitle', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'slider_subtitle_color',
-			array(
-				'label'  => esc_html__( 'Subtitle Color', 'jet-elements' ),
-				'type'   => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'slider_subtitle_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-				'selector' => '{{WRAPPER}} ' . $css_scheme['subtitle'],
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_subtitle_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_subtitle_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_subtitle_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['subtitle'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * Desc Style Section
-		 */
-		$this->start_controls_section(
-			'section_slider_desc_style',
-			array(
-				'label'      => esc_html__( 'Description', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'slider_desc_color',
-			array(
-				'label'  => esc_html__( 'Description Color', 'jet-elements' ),
-				'type'   => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'slider_desc_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-				'selector' => '{{WRAPPER}} ' . $css_scheme['desc'],
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_desc_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_desc_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_desc_alignment',
-			array(
-				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_desc_container_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'align-self: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_desc_wax_width',
-			array(
-				'label' => esc_html__( 'Max Width', 'jet-elements' ),
-				'type'  => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
-				'range' => array(
-					'%' => array(
-						'min' => 20,
-						'max' => 100,
-					),
-					'px' => array(
-						'min' => 300,
-						'max' => 1000,
-					),
-				),
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['desc'] => 'max-width: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/**
-		 * Action Button #1 Style Section
-		 */
-		$this->start_controls_section(
-			'section_action_button_style',
-			array(
-				'label'      => esc_html__( 'Action Button', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_responsive_control(
-			'slider_action_button_alignment',
-			array(
-				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['buttons_wrapper'] => 'text-align: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'section_action_primary_button_heading',
-			array(
-				'label'     => esc_html__( 'Action Button #1', 'jet-elements' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			)
-		);
-
-		$this->start_controls_tabs( 'tabs_primary_button_style' );
-
-		$this->start_controls_tab(
-			'tab_primary_button_normal',
-			array(
-				'label' => esc_html__( 'Normal', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'primary_button_bg_color',
-			array(
-				'label' => esc_html__( 'Background Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'scheme' => array(
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'primary_button_color',
-			array(
-				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'primary_button_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['primary_button'],
-			)
-		);
-
-		$this->add_responsive_control(
-			'primary_button_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'primary_button_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'primary_button_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'primary_button_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['primary_button'],
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'primary_button_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['primary_button'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'tab_primary_button_hover',
-			array(
-				'label' => esc_html__( 'Hover', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'primary_button_hover_bg_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'primary_button_hover_color',
-			array(
-				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'primary_button_hover_typography',
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['primary_button'] . ':hover',
-			)
-		);
-
-		$this->add_responsive_control(
-			'primary_button_hover_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'primary_button_hover_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'primary_button_hover_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'primary_button_hover_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover',
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'primary_button_hover_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['primary_button'] . ':hover',
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->add_control(
-			'section_action_secondary_button_heading',
-			array(
-				'label'     => esc_html__( 'Action Button #2', 'jet-elements' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			)
-		);
-
-		$this->start_controls_tabs( 'tabs_secondary_button_style' );
-
-		$this->start_controls_tab(
-			'tab_secondary_button_normal',
-			array(
-				'label' => esc_html__( 'Normal', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'secondary_button_bg_color',
-			array(
-				'label' => esc_html__( 'Background Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'scheme' => array(
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'secondary_button_color',
-			array(
-				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'secondary_button_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['secondary_button'],
-			)
-		);
-
-		$this->add_responsive_control(
-			'secondary_button_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'secondary_button_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'secondary_button_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'secondary_button_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['secondary_button'],
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'secondary_button_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['secondary_button'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'tab_secondary_button_hover',
-			array(
-				'label' => esc_html__( 'Hover', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'secondary_button_hover_bg_color',
-			array(
-				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'background-color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_control(
-			'secondary_button_hover_color',
-			array(
-				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'color: {{VALUE}}',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'secondary_button_hover_typography',
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['secondary_button'] . ':hover',
-			)
-		);
-
-		$this->add_responsive_control(
-			'secondary_button_hover_padding',
-			array(
-				'label'      => esc_html__( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'secondary_button_hover_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'secondary_button_hover_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'secondary_button_hover_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover',
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			array(
-				'name'     => 'secondary_button_hover_box_shadow',
-				'selector' => '{{WRAPPER}} ' . $css_scheme['secondary_button'] . ':hover',
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 
@@ -2582,6 +2619,7 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 	 */
 	public function generate_setting_json() {
 		$module_settings = $this->get_settings();
+		$widget_id = $this->get_id();
 
 		$settings = array(
 			'sliderWidth'           => $module_settings['slider_width'],
@@ -2589,14 +2627,14 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 			'sliderHeightTablet'    => $module_settings['slider_height_tablet'],
 			'sliderHeightMobile'    => $module_settings['slider_height_mobile'],
 			'sliderNavigation'      => filter_var( $module_settings['slider_navigation'], FILTER_VALIDATE_BOOLEAN ),
-			'sliderNavigationIcon'  => $module_settings['slider_navigation_icon_arrow'],
+			'sliderNavigationIcon'  => 'jet-slider__arrow-icon-' . $widget_id,
 			'sliderNaviOnHover'     => filter_var( $module_settings['slider_navigation_on_hover'], FILTER_VALIDATE_BOOLEAN ),
 			'sliderPagination'      => filter_var( $module_settings['slider_pagination'], FILTER_VALIDATE_BOOLEAN ),
 			'sliderAutoplay'        => filter_var( $module_settings['slider_autoplay'], FILTER_VALIDATE_BOOLEAN ),
 			'sliderAutoplayDelay'   => $module_settings['slider_autoplay_delay'],
 			'sliderAutoplayOnHover' => $module_settings['slide_autoplay_on_hover'],
 			'sliderFullScreen'      => filter_var( $module_settings['slider_fullScreen'], FILTER_VALIDATE_BOOLEAN ),
-			'sliderFullscreenIcon'  => $module_settings['slider_fullscreen_icon'],
+			'sliderFullscreenIcon'  => 'jet-slider__fullscreen-icon-' . $widget_id,
 			'sliderShuffle'         => filter_var( $module_settings['slider_shuffle'], FILTER_VALIDATE_BOOLEAN ),
 			'sliderLoop'            => filter_var( $module_settings['slider_loop'], FILTER_VALIDATE_BOOLEAN ),
 			'sliderFadeMode'        => filter_var( $module_settings['slider_fade_mode'], FILTER_VALIDATE_BOOLEAN ),
@@ -2665,20 +2703,20 @@ class Jet_Elements_Slider extends Jet_Elements_Base {
 		$image_attr = array(
 			'class' => 'sp-image',
 		);
-		
+
 		return wp_get_attachment_image( $image['id'], $slider_image_size, false, $image_attr );
 	}
-	
+
 	protected function __loop_item_image_thumb() {
 		$item = $this->__processed_item;
 		$image = $item['item_image'];
-		
+
 		if ( empty( $image['id'] ) ) {
 			return sprintf( '<img class="sp-thumbnail" src="%s" alt="">', Utils::get_placeholder_image_src() );
 		}
-		
+
 		$alt = esc_attr( Control_Media::get_image_alt( $image ) );
-		
+
 		return sprintf( '<img class="sp-thumbnail" src="%1$s" alt="%2$s">', $image['url'], $alt );
 	}
 

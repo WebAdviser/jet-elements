@@ -48,18 +48,14 @@ $this->item_counter++;
 			<div class="jet-images-layout__image">
 				<?php echo $this->__loop_image_item(); ?>
 			</div>
-			<div class="jet-images-layout__content">
-					<?php
-						echo $this->__loop_item( array( 'item_icon' ), '<div class="jet-images-layout__icon"><div class="jet-images-layout-icon-inner"><i class="%s"></i></div></div>' );
-					?>
+			<div class="jet-images-layout__content"><?php
+				echo $this->__render_icon( 'item_icon', '<div class="jet-images-layout__icon"><div class="jet-images-layout-icon-inner">%s</div></div>', '', false );
 
-					<?php
-						$title_tag = $this->__get_html( 'title_html_tag', '%s' );
+				$title_tag = $this->__get_html( 'title_html_tag', '%s' );
 
-						echo $this->__loop_item( array( 'item_title' ), '<' . $title_tag . ' class="jet-images-layout__title">%s</' . $title_tag . '>' );
-						echo $this->__loop_item( array( 'item_desc' ), '<div class="jet-images-layout__desc">%s</div>' );
-					?>
-			</div>
+				echo $this->__loop_item( array( 'item_title' ), '<' . $title_tag . ' class="jet-images-layout__title">%s</' . $title_tag . '>' );
+				echo $this->__loop_item( array( 'item_desc' ), '<div class="jet-images-layout__desc">%s</div>' );
+			?></div>
 		</a>
 	</div>
 </div>

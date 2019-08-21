@@ -5,6 +5,12 @@
 class Jet_Posts_Shortcode extends Jet_Elements_Shortcode_Base {
 
 	/**
+	 * [$elementor_widget description]
+	 * @var null
+	 */
+	public $elementor_widget = null;
+
+	/**
 	 * Shortocde tag
 	 *
 	 * @return string

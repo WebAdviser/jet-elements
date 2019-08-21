@@ -1,6 +1,10 @@
 .jet-slider {
 	position: relative;
 
+	.hidden-html {
+		display: none;
+	}
+
 	.slider-pro {
 		visibility: hidden;
 
@@ -45,7 +49,6 @@
 		flex-flow: column nowrap;
 		justify-content: center;
 		align-items: center;
-
 	}
 
 	&__content-item {
@@ -75,6 +78,11 @@
 			flex-flow: column nowrap;
 			justify-content: center;
 			align-items: center;
+
+			svg {
+				width: 1em;
+				height: 1em;
+			}
 		}
 	}
 
@@ -112,23 +120,35 @@
 			width: 100%;
 			height: 100%;
 			display: block;
-			background-color: rgba(0,0,0, 0.8);
+			background-color: rgba(0,0,0, 0.3);
 			content: '';
 		}
 	}
 
 	.sp-full-screen-button {
 		color: white;
+
+		svg {
+			width: 1em;
+			height: 1em;
+		}
 	}
 
 	.sp-arrow {
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
-		display: block;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		&.sp-next-arrow {
 			transform: scale(-1, 1);
+		}
+
+		svg {
+			width: 1em;
+			height: 1em;
 		}
 
 		i {

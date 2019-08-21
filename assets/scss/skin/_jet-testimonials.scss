@@ -9,10 +9,11 @@
 			width: 60px;
 			height: 60px;
 			border-radius: 50%;
+		}
 
-			i {
-				font-size: 40px;
-			}
+		svg {
+			width: 40px;
+			height: 40px;
 		}
 	}
 
@@ -31,6 +32,10 @@
 		padding: 25px 15px;
 		border-radius: 10px;
 		background-color: #6ec1e4;
+
+		&:after {
+			border-color: #6ec1e4 transparent transparent transparent;
+		}
 	}
 
 	.jet-testimonials__name {
@@ -60,10 +65,7 @@
 		margin-top: -18px;
 		color: #fff;
 		background-color: #6ec1e4;
-
-		&:before {
-			font-size: 23px;
-		}
+		font-size: 23px;
 
 		&.prev-arrow {
 			left: 20px;

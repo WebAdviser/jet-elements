@@ -162,6 +162,7 @@ class Jet_Group_Control_Box_Style extends Elementor\Group_Control_Base {
 			'type'      => Controls_Manager::COLOR,
 			'selectors' => array(
 				'{{SELECTOR}}' => 'color: {{VALUE}}',
+				'{{SELECTOR}} svg' => 'fill: {{VALUE}}',
 			),
 		);
 

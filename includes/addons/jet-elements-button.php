@@ -30,7 +30,7 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-28';
+		return 'jet-elements-icon-button';
 	}
 
 	public function get_jet_help_url() {
@@ -75,14 +75,13 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'button_icon_normal',
 			array(
 				'label'       => esc_html__( 'Button Icon', 'jet-elements' ),
 				'type'        => Controls_Manager::ICON,
 				'label_block' => true,
 				'file'        => '',
-				'default'     => 'fa fa-circle-o',
 			)
 		);
 
@@ -105,14 +104,13 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_advanced_icon_control(
 			'button_icon_hover',
 			array(
 				'label'       => esc_html__( 'Button Icon', 'jet-elements' ),
 				'type'        => Controls_Manager::ICON,
 				'label_block' => true,
 				'file'        => '',
-				'default'     => 'fa fa-check-circle-o',
 			)
 		);
 
@@ -217,7 +215,7 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 		/**
 		 * General Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_button_general_style',
 			array(
 				'label'      => esc_html__( 'General', 'jet-elements' ),
@@ -226,7 +224,7 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'custom_size',
 			array(
 				'label'        => esc_html__( 'Custom Size', 'jet-elements' ),
@@ -235,10 +233,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'label_off'    => esc_html__( 'No', 'jet-elements' ),
 				'return_value' => 'yes',
 				'default'      => 'false',
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_custom_width',
 			array(
 				'label'      => esc_html__( 'Custom Width', 'jet-elements' ),
@@ -262,10 +261,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'condition' => array(
 					'custom_size' => 'yes',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_custom_height',
 			array(
 				'label'      => esc_html__( 'Custom Height', 'jet-elements' ),
@@ -289,36 +289,39 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'condition' => array(
 					'custom_size' => 'yes',
 				),
-			)
+				'separator' => 'after',
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'default' => 'flex-start',
 				'options' => array(
-					'flex-start'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+					'flex-start' => array(
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['container'] => 'justify-content: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -327,27 +330,29 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->start_controls_tabs( 'tabs_general_styles' );
+		$this->__start_controls_tabs( 'tabs_general_styles' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_general_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'normal_button_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'normal_border',
@@ -355,10 +360,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'  => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -367,47 +373,38 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
-			'button_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['state_normal'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'normal_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_general_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'hover_button_background',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'hover_border',
@@ -415,10 +412,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'  => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'hover_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -427,39 +425,29 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['button'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
-			'hover_button_padding',
-			array(
-				'label'      => __( 'Padding', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['state_hover'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'hover_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['button'] . ':hover',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Plane Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_button_plane_style',
 			array(
 				'label'      => esc_html__( 'Plane', 'jet-elements' ),
@@ -468,16 +456,30 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_plane_styles' );
+		$this->__add_responsive_control(
+			'button_padding',
+			array(
+				'label'      => __( 'Padding', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['state_normal'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['state_hover'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			50
+		);
 
-		$this->start_controls_tab(
+		$this->__start_controls_tabs( 'tabs_plane_styles' );
+
+		$this->__start_controls_tab(
 			'tab_plane_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'normal_plane_background',
@@ -490,20 +492,22 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'normal_plane_border',
 				'label'       => esc_html__( 'Border', 'jet-elements' ),
 				'placeholder' => '1px',
 				'selector'  => '{{WRAPPER}} ' . $css_scheme['plane_normal'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_plane_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -512,27 +516,29 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['plane_normal'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'normal_plane_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['plane_normal'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_plane_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'plane_hover_background',
@@ -545,10 +551,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 						),
 					),
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'plane_hover_border',
@@ -556,10 +563,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['plane_hover'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'plane_hover_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'jet-elements' ),
@@ -568,27 +576,29 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['plane_hover'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'hover_plane_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['plane_hover'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Icon Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_button_icon_style',
 			array(
 				'label'      => esc_html__( 'Icon', 'jet-elements' ),
@@ -597,27 +607,28 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_icon_styles' );
+		$this->__start_controls_tabs( 'tabs_icon_styles' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_icon_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'normal_icon_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['icon_normal'] . ' i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_icon_font_size',
 			array(
 				'label'      => esc_html__( 'Font Size', 'jet-elements' ),
@@ -632,12 +643,13 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon_normal'] . ' i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_icon_box_width',
 			array(
 				'label'      => esc_html__( 'Icon Box Width', 'jet-elements' ),
@@ -654,10 +666,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_icon_box_height',
 			array(
 				'label'      => esc_html__( 'Icon Box Height', 'jet-elements' ),
@@ -674,10 +687,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'height: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'normal_icon_box_color',
 			array(
 				'label' => esc_html__( 'Icon Box Color', 'jet-elements' ),
@@ -685,33 +699,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'normal_icon_box_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['icon_normal'],
-			)
-		);
-
-		$this->add_control(
-			'normal_icon_box_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'normal_icon_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -720,19 +712,45 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'normal_icon_box_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['icon_normal'],
+			),
+			100
+		);
 
-		$this->start_controls_tab(
+		$this->__add_control(
+			'normal_icon_box_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['icon_normal'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
 			'tab_icon_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'hover_icon_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -740,10 +758,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'hover_icon_font_size',
 			array(
 				'label'      => esc_html__( 'Font Size', 'jet-elements' ),
@@ -760,10 +779,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'hover_icon_box_width',
 			array(
 				'label'      => esc_html__( 'Icon Box Width', 'jet-elements' ),
@@ -780,10 +800,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'hover_icon_box_height',
 			array(
 				'label'      => esc_html__( 'Icon Box Height', 'jet-elements' ),
@@ -800,10 +821,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'height: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'hover_icon_box_color',
 			array(
 				'label' => esc_html__( 'Icon Box Color', 'jet-elements' ),
@@ -811,33 +833,11 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			array(
-				'name'        => 'hover_icon_box_border',
-				'label'       => esc_html__( 'Border', 'jet-elements' ),
-				'placeholder' => '1px',
-				'default'     => '1px',
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['icon_hover'],
-			)
-		);
-
-		$this->add_control(
-			'hover_icon_box_border_radius',
-			array(
-				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'hover_icon_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -846,19 +846,45 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'hover_icon_box_border',
+				'label'       => esc_html__( 'Border', 'jet-elements' ),
+				'placeholder' => '1px',
+				'default'     => '1px',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['icon_hover'],
+			),
+			100
+		);
 
-		$this->end_controls_tabs();
+		$this->__add_control(
+			'hover_icon_box_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['icon_hover'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			),
+			100
+		);
 
-		$this->end_controls_section();
+		$this->__end_controls_tab();
+
+		$this->__end_controls_tabs();
+
+		$this->__end_controls_section();
 
 		/**
 		 * Label Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_button_label_style',
 			array(
 				'label'      => esc_html__( 'Label', 'jet-elements' ),
@@ -867,69 +893,35 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_label_styles' );
-
-		$this->start_controls_tab(
-			'tab_label_normal',
+		$this->__add_responsive_control(
+			'label_text_alignment',
 			array(
-				'label' => esc_html__( 'Normal', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'normal_label_color',
-			array(
-				'label' => esc_html__( 'Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['label_normal'] => 'color: {{VALUE}}',
+				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'left',
+				'options' => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'jet-elements' ),
+						'icon'  => 'eicon-text-align-right',
+					),
 				),
-			)
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'normal_label_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['label_normal'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'tab_label_hover',
-			array(
-				'label' => esc_html__( 'Hover', 'jet-elements' ),
-			)
-		);
-
-		$this->add_control(
-			'hover_label_color',
-			array(
-				'label' => esc_html__( 'Color', 'jet-elements' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['label_hover'] => 'color: {{VALUE}}',
+				'selectors'  => array(
+					'{{WRAPPER}} ' . $css_scheme['label_normal'] => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} ' . $css_scheme['label_hover'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'hover_label_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}}  ' . $css_scheme['label_hover'],
-			)
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'label_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -940,37 +932,77 @@ class Jet_Elements_Button extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['label_normal'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					'{{WRAPPER}} ' . $css_scheme['label_hover'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
-			'label_text_alignment',
+		$this->__start_controls_tabs( 'tabs_label_styles' );
+
+		$this->__start_controls_tab(
+			'tab_label_normal',
 			array(
-				'label'   => esc_html__( 'Text Alignment', 'jet-elements' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'left',
-				'options' => array(
-					'left'    => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
-					),
-					'center' => array(
-						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
-					),
-					'right' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
-					),
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['label_normal'] => 'text-align: {{VALUE}};',
-					'{{WRAPPER}} ' . $css_scheme['label_hover'] => 'text-align: {{VALUE}};',
-				),
+				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->end_controls_section();
+		$this->__add_control(
+			'normal_label_color',
+			array(
+				'label' => esc_html__( 'Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['label_normal'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'normal_label_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['label_normal'],
+			),
+			50
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__start_controls_tab(
+			'tab_label_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'jet-elements' ),
+			)
+		);
+
+		$this->__add_control(
+			'hover_label_color',
+			array(
+				'label' => esc_html__( 'Color', 'jet-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} ' . $css_scheme['label_hover'] => 'color: {{VALUE}}',
+				),
+			),
+			25
+		);
+
+		$this->__add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'hover_label_typography',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'selector' => '{{WRAPPER}}  ' . $css_scheme['label_hover'],
+			),
+			50
+		);
+
+		$this->__end_controls_tab();
+
+		$this->__end_controls_tabs();
+
+		$this->__end_controls_section();
 
 	}
 

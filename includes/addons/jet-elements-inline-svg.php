@@ -31,7 +31,7 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-44';
+		return 'jet-elements-icon-inline-svg';
 	}
 
 	public function get_jet_help_url() {
@@ -87,7 +87,7 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_svg_style',
 			array(
 				'label'      => esc_html__( 'SVG', 'jet-elements' ),
@@ -96,7 +96,7 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'svg_custom_width',
 			array(
 				'label'        => esc_html__( 'Use Custom Width', 'jet-elements' ),
@@ -106,10 +106,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'return_value' => 'yes',
 				'default'      => '',
 				'description'  => esc_html__( 'Makes SVG responsive and allows to change its width.', 'jet-elements' )
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'svg_aspect_ratio',
 			array(
 				'label'        => esc_html__( 'Use Aspect Ratio', 'jet-elements' ),
@@ -122,10 +123,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'condition'    => array(
 					'svg_custom_width' => 'yes'
 				)
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'svg_width',
 			array(
 				'label'      => esc_html__( 'Width', 'jet-elements' ),
@@ -149,10 +151,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'condition'  => array(
 					'svg_custom_width' => 'yes'
 				)
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'svg_height',
 			array(
 				'label'      => esc_html__( 'Height', 'jet-elements' ),
@@ -178,10 +181,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 					'svg_custom_width'  => 'yes'
 
 				)
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'svg_custom_color',
 			array(
 				'label'        => esc_html__( 'Use Custom Color', 'jet-elements' ),
@@ -191,10 +195,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'return_value' => 'yes',
 				'default'      => '',
 				'description'  => esc_html__( 'Specifies color of all SVG elements that have a fill or stroke color set.', 'jet-elements' )
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'svg_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -205,10 +210,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'condition' => array(
 					'svg_custom_color' => 'yes'
 				)
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'svg_hover_color',
 			array(
 				'label'     => esc_html__( 'Hover Color', 'jet-elements' ),
@@ -219,10 +225,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'condition' => array(
 					'svg_custom_color' => 'yes'
 				)
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'svg_remove_inline_css',
 			array(
 				'label'        => esc_html__( 'Remove Inline CSS', 'jet-elements' ),
@@ -232,10 +239,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'return_value' => 'yes',
 				'default'      => '',
 				'description'  => esc_html__( 'Use this option to delete the inline styles in the loaded SVG.', 'jet-elements' )
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'svg_alignment',
 			array(
 				'label'     => esc_html__( 'Alignment', 'jet-elements' ),
@@ -258,23 +266,24 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['svg-wrapper'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 	}
 
 	public function prepare_svg( $svg, $settings ) {
-		if ( 'yes' !== $settings['svg_aspect_ratio'] ) {
+		if ( isset( $settings['svg_aspect_ratio'] ) && 'yes' !== $settings['svg_aspect_ratio'] ) {
 			$svg = preg_replace( '[preserveAspectRatio\s*?=\s*?"\s*?.*?\s*?"]', '', $svg );
 			$svg = preg_replace( '[<svg]', '<svg preserveAspectRatio="none"', $svg );
 		}
 
-		if ( 'yes' === $settings['svg_remove_inline_css'] ) {
+		if ( isset( $settings['svg_remove_inline_css'] ) && 'yes' === $settings['svg_remove_inline_css'] ) {
 			$svg = preg_replace( '[style\s*?=\s*?"\s*?.*?\s*?"]', '', $svg );
 		}
 
-		if ( 'yes' === $settings['svg_custom_color'] ) {
+		if ( isset( $settings['svg_custom_color'] ) && 'yes' === $settings['svg_custom_color'] ) {
 			$svg = preg_replace( '[fill\s*?=\s*?("(?!(?:\s*?none\s*?)")[^"]*")]', 'fill="currentColor"', $svg );
 			$svg = preg_replace( '[stroke\s*?=\s*?("(?!(?:\s*?none\s*?)")[^"]*")]', 'stroke="currentColor"', $svg );
 		}
@@ -317,11 +326,11 @@ class Jet_Elements_Inline_Svg extends Jet_Elements_Base {
 			}
 		}
 
-		if ( 'yes' === $settings['svg_custom_width'] ) {
+		if ( isset( $settings['svg_custom_width'] ) && 'yes' === $settings['svg_custom_width'] ) {
 			$this->add_render_attribute( 'svg_wrap', 'class', 'jet-inline-svg--custom-width' );
 		}
 
-		if ( 'yes' === $settings['svg_custom_color'] ) {
+		if ( isset( $settings['svg_custom_color'] ) && 'yes' === $settings['svg_custom_color'] ) {
 			$this->add_render_attribute( 'svg_wrap', 'class', 'jet-inline-svg--custom-color' );
 		}
 

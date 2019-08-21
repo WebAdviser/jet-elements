@@ -76,12 +76,6 @@ if ( ! class_exists( 'Jet_Elements_Templates_Manager' ) ) {
 		 */
 		public function register_templates_source() {
 
-//			if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '2.4.7', '>' ) ) {
-//				require jet_elements()->plugin_path( 'includes/template-library/class-jet-elements-templates-source-v_2_5.php' );
-//			} else {
-//				require jet_elements()->plugin_path( 'includes/template-library/class-jet-elements-templates-source.php' );
-//			}
-
 			require jet_elements()->plugin_path( 'includes/template-library/class-jet-elements-templates-source.php' );
 
 			$elementor = Elementor\Plugin::instance();

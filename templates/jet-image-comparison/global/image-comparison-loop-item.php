@@ -2,6 +2,7 @@
 /**
  * Image Comparison item template
  */
+
 $settings = $this->get_settings();
 $prevArrow = $settings['handle_prev_arrow'];
 $nextArrow = $settings['handle_next_arrow'];

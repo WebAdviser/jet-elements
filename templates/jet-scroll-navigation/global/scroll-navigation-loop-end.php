@@ -2,5 +2,4 @@
 /**
  * Scroll Navigation wrap end template
  */
-?>
-</div>
+?></div>

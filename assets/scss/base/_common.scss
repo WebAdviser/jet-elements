@@ -5,6 +5,19 @@
 	}
 }
 
+.jet-elements-icon {
+	display: inline-block;
+	line-height: 1;
+	text-align: center;
+
+	svg {
+		display: block;
+		width: 1em;
+		height: 1em;
+		fill: currentColor;
+	}
+}
+
 .jet-elements {
 	.jet-elements-edit-template-link {
 		position: absolute;

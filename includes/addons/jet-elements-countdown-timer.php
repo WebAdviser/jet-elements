@@ -30,7 +30,7 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-9';
+		return 'jet-elements-icon-countdown-timer';
 	}
 
 	public function get_jet_help_url() {
@@ -43,123 +43,22 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 
 	protected function _register_controls() {
 
+		$css_scheme = apply_filters(
+			'jet-elements/jet-countdown-timer/css-scheme',
+			array(
+				'item'    => '.jet-countdown-timer__item',
+				'label'   => '.jet-countdown-timer__item-label',
+				'value'   => '.jet-countdown-timer__item-value',
+				'sep'     => '.jet-countdown-timer__separator',
+				'digit'   => '.jet-countdown-timer__digit',
+				'message' => '.jet-countdown-timer-message',
+			)
+		);
+
 		$this->start_controls_section(
 			'section_general',
 			array(
 				'label' => esc_html__( 'General', 'jet-elements' ),
-			)
-		);
-
-		$default_date = date(
-			'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS )
-		);
-
-		$this->add_control(
-			'type',
-			array(
-				'label'   => esc_html__( 'Type', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'due_date',
-				'options' => array(
-					'due_date'  => esc_html__( 'Due Date', 'jet-elements' ),
-					'evergreen' => esc_html__( 'Evergreen Timer', 'jet-elements' ),
-					'endless'   => esc_html__( 'Endless Timer', 'jet-elements' )
-				),
-			)
-		);
-
-		$this->add_control(
-			'due_date',
-			array(
-				'label'       => esc_html__( 'Due Date', 'jet-elements' ),
-				'type'        => Controls_Manager::DATE_TIME,
-				'default'     => $default_date,
-				'description' => sprintf(
-					esc_html__( 'Date set according to your timezone: %s.', 'jet-elements' ),
-					Utils::get_timezone_string()
-				),
-				'condition' => array(
-					'type' => 'due_date',
-				),
-			)
-		);
-
-		$this->add_control(
-			'evergreen_hours',
-			array(
-				'label'     => esc_html__( 'Hours', 'jet-elements' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 23,
-				'condition' => array(
-					'type' => 'evergreen',
-				),
-			)
-		);
-
-		$this->add_control(
-			'evergreen_minutes',
-			array(
-				'label'     => esc_html__( 'Minutes', 'jet-elements' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 30,
-				'condition' => array(
-					'type' => 'evergreen',
-				),
-			)
-		);
-
-		$default_start_date = date(
-			'Y-m-d H:i', strtotime( 'today' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS )
-		);
-
-		$this->add_control(
-			'start_date',
-			array(
-				'label'       => esc_html__( 'Start Timer', 'jet-elements' ),
-				'type'        => Controls_Manager::DATE_TIME,
-				'default'     => $default_start_date,
-				'description' => sprintf(
-					esc_html__( 'Date set according to your timezone: %s.', 'jet-elements' ),
-					Utils::get_timezone_string()
-				),
-				'condition' => array(
-					'type' => 'endless',
-				),
-			)
-		);
-
-		$this->add_control(
-			'restart_time_heading',
-			array(
-				'label'     => esc_html__( 'Restart After', 'jet-elements' ),
-				'type'      => Controls_Manager::HEADING,
-				'condition' => array(
-					'type' => 'endless',
-				),
-			)
-		);
-
-		$this->add_control(
-			'restart_hours',
-			array(
-				'label'     => esc_html__( 'Hours', 'jet-elements' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 12,
-				'condition' => array(
-					'type' => 'endless',
-				),
-			)
-		);
-
-		$this->add_control(
-			'restart_minutes',
-			array(
-				'label'     => esc_html__( 'Minutes', 'jet-elements' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 00,
-				'condition' => array(
-					'type' => 'endless',
-				),
 			)
 		);
 
@@ -172,7 +71,6 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'label_off'    => esc_html__( 'Hide', 'jet-elements' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'separator'    => 'before',
 			)
 		);
 
@@ -326,24 +224,123 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 
 		$this->end_controls_section();
 
-		$css_scheme = apply_filters(
-			'jet-elements/jet-countdown-timer/css-scheme',
+		$this->start_controls_section(
+			'section_settings',
 			array(
-				'item'    => '.jet-countdown-timer__item',
-				'label'   => '.jet-countdown-timer__item-label',
-				'value'   => '.jet-countdown-timer__item-value',
-				'sep'     => '.jet-countdown-timer__separator',
-				'digit'   => '.jet-countdown-timer__digit',
-				'message' => '.jet-countdown-timer-message',
+				'label' => esc_html__( 'Settings', 'jet-elements' ),
 			)
 		);
 
-		$this->start_controls_section(
-			'section_item_styles',
+		$default_date = date(
+			'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS )
+		);
+
+		$this->add_control(
+			'type',
 			array(
-				'label'      => esc_html__( 'Item', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
+				'label'   => esc_html__( 'Type', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'due_date',
+				'options' => array(
+					'due_date'  => esc_html__( 'Due Date', 'jet-elements' ),
+					'evergreen' => esc_html__( 'Evergreen Timer', 'jet-elements' ),
+					'endless'   => esc_html__( 'Endless Timer', 'jet-elements' )
+				),
+			)
+		);
+
+		$this->add_control(
+			'due_date',
+			array(
+				'label'       => esc_html__( 'Due Date', 'jet-elements' ),
+				'type'        => Controls_Manager::DATE_TIME,
+				'default'     => $default_date,
+				'description' => sprintf(
+					esc_html__( 'Date set according to your timezone: %s.', 'jet-elements' ),
+					Utils::get_timezone_string()
+				),
+				'condition' => array(
+					'type' => 'due_date',
+				),
+			)
+		);
+
+		$this->add_control(
+			'evergreen_hours',
+			array(
+				'label'     => esc_html__( 'Hours', 'jet-elements' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 23,
+				'condition' => array(
+					'type' => 'evergreen',
+				),
+			)
+		);
+
+		$this->add_control(
+			'evergreen_minutes',
+			array(
+				'label'     => esc_html__( 'Minutes', 'jet-elements' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 30,
+				'condition' => array(
+					'type' => 'evergreen',
+				),
+			)
+		);
+
+		$default_start_date = date(
+			'Y-m-d H:i', strtotime( 'today' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS )
+		);
+
+		$this->add_control(
+			'start_date',
+			array(
+				'label'       => esc_html__( 'Start Timer', 'jet-elements' ),
+				'type'        => Controls_Manager::DATE_TIME,
+				'default'     => $default_start_date,
+				'description' => sprintf(
+					esc_html__( 'Date set according to your timezone: %s.', 'jet-elements' ),
+					Utils::get_timezone_string()
+				),
+				'condition' => array(
+					'type' => 'endless',
+				),
+			)
+		);
+
+		$this->add_control(
+			'restart_time_heading',
+			array(
+				'label'     => esc_html__( 'Restart After', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array(
+					'type' => 'endless',
+				),
+			)
+		);
+
+		$this->add_control(
+			'restart_hours',
+			array(
+				'label'     => esc_html__( 'Hours', 'jet-elements' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 12,
+				'condition' => array(
+					'type' => 'endless',
+				),
+			)
+		);
+
+		$this->add_control(
+			'restart_minutes',
+			array(
+				'label'     => esc_html__( 'Minutes', 'jet-elements' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 00,
+				'condition' => array(
+					'type' => 'endless',
+				),
 			)
 		);
 
@@ -357,6 +354,7 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 					'auto'  => esc_html__( 'Auto', 'jet-elements' ),
 					'fixed' => esc_html__( 'Fixed', 'jet-elements' ),
 				),
+				'separator' => 'before',
 			)
 		);
 
@@ -420,15 +418,27 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->end_controls_section();
+
+		$this->__start_controls_section(
+			'section_item_styles',
+			array(
+				'label'      => esc_html__( 'Item', 'jet-elements' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'show_label' => false,
+			)
+		);
+
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'item_bg',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'],
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'item_padding',
 			array(
 				'label'      => esc_html__( 'Item Padding', 'jet-elements' ),
@@ -437,10 +447,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['item'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'item_margin',
 			array(
 				'label'      => esc_html__( 'Item Margin', 'jet-elements' ),
@@ -449,13 +460,15 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['item'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'border',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'],
 				'placeholder' => '1px',
 				'fields_options' => array(
 					'border' => array(
@@ -477,11 +490,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 						),
 					),
 				),
-				'selector'    => '{{WRAPPER}} ' . $css_scheme['item'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'item_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -490,20 +503,64 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['item'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name' => 'item_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['item'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__add_control(
+			'order_heading',
+			array(
+				'label'     => esc_html__( 'Order', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			),
+			100
+		);
 
-		$this->start_controls_section(
+		$this->__add_control(
+			'value_order',
+			array(
+				'label'   => esc_html__( 'Digit Order', 'jet-elements' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 1,
+				'min'     => 1,
+				'max'     => 2,
+				'step'    => 1,
+				'selectors' => array(
+					'{{WRAPPER}} '. $css_scheme['value'] => 'order: {{VALUE}};',
+				),
+			),
+			100
+		);
+
+		$this->__add_control(
+			'label_order',
+			array(
+				'label'   => esc_html__( 'Label Order', 'jet-elements' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 2,
+				'min'     => 1,
+				'max'     => 2,
+				'step'    => 1,
+				'selectors' => array(
+					'{{WRAPPER}} '. $css_scheme['label'] => 'order: {{VALUE}};',
+				),
+			),
+			100
+		);
+
+		$this->__end_controls_section();
+
+		$this->__start_controls_section(
 			'section_label_styles',
 			array(
 				'label'      => esc_html__( 'Labels', 'jet-elements' ),
@@ -512,7 +569,7 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'label_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -524,27 +581,30 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['label'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'label_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['label'],
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'label_bg',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['label'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'label_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -553,10 +613,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['label'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'label_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -565,10 +626,20 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['label'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'        => 'label_border',
+				'selector'    => '{{WRAPPER}} ' . $css_scheme['label'],
+			),
+			100
+		);
+
+		$this->__add_control(
 			'label_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -577,20 +648,22 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['label'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name' => 'label_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['label'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_digit_styles',
 			array(
 				'label'      => esc_html__( 'Digits', 'jet-elements' ),
@@ -599,7 +672,7 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'value_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -611,27 +684,30 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['value'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'value_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['value'],
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'value_bg',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['value'],
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'value_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -640,10 +716,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['value'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'value_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -652,19 +729,21 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['value'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'value_border',
 				'placeholder' => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['value'],
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'value_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -673,35 +752,39 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['value'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name' => 'value_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['value'],
-			)
+			),
+			100
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'digit_item_heading',
 			array(
 				'label'     => esc_html__( 'Digit Item Styles', 'jet-elements' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'digit_bg',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['digit'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'digit_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -710,10 +793,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['digit'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'digit_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -722,19 +806,21 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['digit'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'digit_border',
 				'placeholder' => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['digit'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'digit_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -743,20 +829,22 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['digit'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name' => 'digit_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['digit'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_sep_styles',
 			array(
 				'label'      => esc_html__( 'Separator Styles', 'jet-elements' ),
@@ -765,7 +853,7 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'sep_color',
 			array(
 				'label'     => esc_html__( 'Color', 'jet-elements' ),
@@ -773,10 +861,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['sep'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'sep_size',
 			array(
 				'label'      => esc_html__( 'Size', 'jet-elements' ),
@@ -796,14 +885,15 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 						'max' => 20,
 					),
 				),
-				'render_type' => 'template',
+				//'render_type' => 'template',
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['sep'] => 'font-size: {{SIZE}}{{UNIT}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'sep_font',
 			array(
 				'label'     => esc_html__( 'Font', 'jet-elements' ),
@@ -812,10 +902,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['sep'] => 'font-family: {{VALUE}}',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'sep_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -824,59 +915,16 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} '  . $css_scheme['sep'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_section();
-
-		/**
-		 * Order Style Section
-		 */
-		$this->start_controls_section(
-			'section_order_style',
-			array(
-				'label'      => esc_html__( 'Order', 'jet-elements' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
-				'show_label' => false,
-			)
-		);
-
-		$this->add_control(
-			'value_order',
-			array(
-				'label'   => esc_html__( 'Digit Order', 'jet-elements' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 1,
-				'min'     => 1,
-				'max'     => 2,
-				'step'    => 1,
-				'selectors' => array(
-					'{{WRAPPER}} '. $css_scheme['value'] => 'order: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'label_order',
-			array(
-				'label'   => esc_html__( 'Label Order', 'jet-elements' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 2,
-				'min'     => 1,
-				'max'     => 2,
-				'step'    => 1,
-				'selectors' => array(
-					'{{WRAPPER}} '. $css_scheme['label'] => 'order: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Message Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_message_style',
 			array(
 				'label'     => esc_html__( 'Message', 'jet-elements' ),
@@ -887,7 +935,7 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -895,10 +943,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_bg_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -906,18 +955,20 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'message_typography',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['message'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -926,10 +977,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_margin',
 			array(
 				'label'      => esc_html__( 'Margin', 'jet-elements' ),
@@ -938,10 +990,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_align',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -967,18 +1020,20 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] => 'text-align: {{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'message_border',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['message'],
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -987,10 +1042,11 @@ class Jet_Elements_Countdown_Timer extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 

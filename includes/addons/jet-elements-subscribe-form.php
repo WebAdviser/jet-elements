@@ -37,7 +37,7 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-35';
+		return 'jet-elements-icon-subscribe-form';
 	}
 
 	public function get_jet_help_url() {
@@ -69,6 +69,15 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 		);
 
 		$this->add_control(
+			'submit_placeholder',
+			array(
+				'label'       => esc_html__( 'Input Placeholder', 'jet-elements' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'E-Mail', 'jet-elements' ),
+			)
+		);
+
+		$this->add_control(
 			'submit_button_text',
 			array(
 				'label'       => esc_html__( 'Submit Text', 'jet-elements' ),
@@ -79,11 +88,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 		);
 
 		$this->add_control(
-			'submit_placeholder',
+			'add_button_icon',
 			array(
-				'label'       => esc_html__( 'Input Placeholder', 'jet-elements' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => esc_html__( 'E-Mail', 'jet-elements' ),
+				'label'        => esc_html__( 'Add Submit Icon', 'jet-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
+				'label_off'    => esc_html__( 'No', 'jet-elements' ),
+				'return_value' => 'yes',
+				'default'      => 'false',
+				'render_type'  => 'template',
+			)
+		);
+
+		$this->__add_advanced_icon_control(
+			'button_icon',
+			array(
+				'label'       => esc_html__( 'Submit Icon', 'jet-elements' ),
+				'type'        => Controls_Manager::ICON,
+				'label_block' => true,
+				'file'        => '',
+				'condition'   => array(
+					'add_button_icon' => 'yes',
+				),
+				'render_type' => 'template',
 			)
 		);
 
@@ -156,6 +183,20 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 			]
 		);
 
+		$this->add_control(
+			'layout',
+			array(
+				'label'   => esc_html__( 'Layout', 'jet-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'inline',
+				'options' => array(
+					'inline' => esc_html__( 'Inline', 'jet-elements' ),
+					'block'  => esc_html__( 'Block', 'jet-elements' ),
+				),
+				'separator' => 'before',
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -218,7 +259,7 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 		/**
 		 * General Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_general_style',
 			array(
 				'label'      => esc_html__( 'General', 'jet-elements' ),
@@ -227,20 +268,7 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
-			'layout',
-			array(
-				'label'   => esc_html__( 'Layout', 'jet-elements' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'inline',
-				'options' => array(
-					'inline' => esc_html__( 'Inline', 'jet-elements' ),
-					'block'  => esc_html__( 'Block', 'jet-elements' ),
-				)
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'container_width',
 			array(
 				'label'      => esc_html__( 'Width', 'jet-elements' ),
@@ -261,10 +289,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'container_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -273,10 +302,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'container_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -285,10 +315,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'container_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -297,19 +328,20 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->start_controls_tabs( 'tabs_container_style' );
+		$this->__start_controls_tabs( 'tabs_container_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_container',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'container_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -317,10 +349,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'container_border',
@@ -328,27 +361,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['instance'],
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'container_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['instance'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_container_error',
 			array(
 				'label' => esc_html__( 'Error', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'container_error_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -356,10 +391,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['instance'] . '.jet-subscribe-form--response-error' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'container_error_border',
@@ -367,27 +403,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['instance'] . '.jet-subscribe-form--response-error',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'container_error_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['instance'] . '.jet-subscribe-form--response-error',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Input Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_input_style',
 			array(
 				'label'      => esc_html__( 'Input', 'jet-elements' ),
@@ -396,7 +434,7 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'input_width',
 			array(
 				'label'      => esc_html__( 'Width', 'jet-elements' ),
@@ -417,26 +455,27 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'input_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'options' => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'condition' => array(
@@ -445,10 +484,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['input']  => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'input_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -457,10 +497,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'input_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -469,10 +510,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'input_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -481,19 +523,20 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->start_controls_tabs( 'tabs_input_style' );
+		$this->__start_controls_tabs( 'tabs_input_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_input',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -501,10 +544,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -514,19 +558,21 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['input'] . '::-webkit-input-placeholder' => 'color: {{VALUE}}',
 					'{{WRAPPER}} ' . $css_scheme['input'] . '::-moz-input-placeholder' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'input_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['input'],
-			)
+			),
+			50
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'input_border',
@@ -534,27 +580,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['input'],
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['input'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_input_focus',
 			array(
 				'label' => esc_html__( 'Focus', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_focus_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -562,10 +610,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] . ':focus' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_focus_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -575,19 +624,21 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['input'] . ':focus::-webkit-input-placeholder' => 'color: {{VALUE}}',
 					'{{WRAPPER}} ' . $css_scheme['input'] . ':focus::-moz-input-placeholder' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'input_focus_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['input'] . ':focus',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'input_focus_border',
@@ -595,27 +646,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['input'] . ':focus',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_focus_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['input'] . ':focus',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_input_error',
 			array(
 				'label' => esc_html__( 'Error', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_error_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -623,10 +676,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['input'] . '.mail-invalid' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'input_error_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -636,19 +690,21 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['input'] . '.mail-invalid::-webkit-input-placeholder' => 'color: {{VALUE}}',
 					'{{WRAPPER}} ' . $css_scheme['input'] . '.mail-invalid::-moz-input-placeholder' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'input_error_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} ' . $css_scheme['input'] . '.mail-invalid',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'input_error_border',
@@ -656,27 +712,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['input'] . '.mail-invalid',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'input_error_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['input'] . '.mail-invalid',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Submit Button Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_submit_button_style',
 			array(
 				'label'      => esc_html__( 'Submit Button', 'jet-elements' ),
@@ -685,35 +743,19 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
-			'add_button_icon',
+		$this->__add_control(
+			'button_icon_heading',
 			array(
-				'label'        => esc_html__( 'Add Icon', 'jet-elements' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'jet-elements' ),
-				'label_off'    => esc_html__( 'No', 'jet-elements' ),
-				'return_value' => 'yes',
-				'default'      => 'false',
-				'render_type'  => 'template',
-			)
-		);
-
-		$this->add_control(
-			'button_icon',
-			array(
-				'label'       => esc_html__( 'Icon', 'jet-elements' ),
-				'type'        => Controls_Manager::ICON,
-				'label_block' => true,
-				'file'        => '',
-				'default'     => 'fa fa-send',
+				'label'     => esc_html__( 'Icon', 'jet-elements' ),
+				'type'      => Controls_Manager::HEADING,
 				'condition' => array(
 					'add_button_icon' => 'yes',
 				),
-				'render_type' => 'template',
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_size',
 			array(
 				'label' => esc_html__( 'Icon Size', 'jet-elements' ),
@@ -728,12 +770,13 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 					'add_button_icon' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} ' . $css_scheme['submit_icon'] . ':before' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} ' . $css_scheme['submit_icon'] => 'font-size: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_color',
 			array(
 				'label'     => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -744,10 +787,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['submit_icon'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_icon_margin',
 			array(
 				'label'      => esc_html__( 'Icon Margin', 'jet-elements' ),
@@ -759,10 +803,12 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit_icon'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+				'separator' => 'after',
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_width',
 			array(
 				'label'      => esc_html__( 'Width', 'jet-elements' ),
@@ -783,26 +829,27 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] => 'width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'options' => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'condition' => array(
@@ -811,19 +858,20 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit']  => 'align-self: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->start_controls_tabs( 'tabs_button_style' );
+		$this->__start_controls_tabs( 'tabs_button_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_normal',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'button_bg',
@@ -851,10 +899,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 					'repeat',
 					'size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -862,19 +911,21 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['submit'],
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -883,10 +934,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -895,10 +947,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -907,10 +960,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'button_border',
@@ -918,27 +972,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['submit'],
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['submit'],
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_button_hover',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'button_hover_bg',
@@ -962,10 +1018,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 					'repeat',
 					'size',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_hover_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -973,10 +1030,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] . ':hover' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'button_icon_hover_color',
 			array(
 				'label'     => esc_html__( 'Icon Color', 'jet-elements' ),
@@ -987,18 +1045,20 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'condition' => array(
 					'add_button_icon' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_hover_typography',
 				'selector' => '{{WRAPPER}}  ' . $css_scheme['submit'] . ':hover',
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_hover_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1007,22 +1067,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] . ':hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
-			'button_hover_margin',
-			array(
-				'label'      => __( 'Margin', 'jet-elements' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%' ),
-				'selectors'  => array(
-					'{{WRAPPER}} ' . $css_scheme['submit'] . ':hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'button_hover_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1031,10 +1080,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['submit'] . ':hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'button_hover_border',
@@ -1042,27 +1092,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} ' . $css_scheme['submit'] . ':hover',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'button_hover_box_shadow',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['submit'] . ':hover',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * Message Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_message_style',
 			array(
 				'label'      => esc_html__( 'Message', 'jet-elements' ),
@@ -1071,7 +1123,7 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_alignment',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -1079,34 +1131,35 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'default' => 'center',
 				'options' => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Left', 'jet-elements' ),
-						'icon'  => 'fa fa-align-left',
+						'title' => esc_html__( 'Start', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-left' : 'eicon-h-align-right',
 					),
 					'center' => array(
 						'title' => esc_html__( 'Center', 'jet-elements' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-h-align-center',
 					),
 					'flex-end' => array(
-						'title' => esc_html__( 'Right', 'jet-elements' ),
-						'icon'  => 'fa fa-align-right',
+						'title' => esc_html__( 'End', 'jet-elements' ),
+						'icon'  => ! is_rtl() ? 'eicon-h-align-right' : 'eicon-h-align-left',
 					),
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['message'] . ' .jet-subscribe-form__message-inner' => 'justify-content: {{VALUE}};',
 				),
-			)
+			),
+			50
 		);
 
-		$this->start_controls_tabs( 'tabs_message_style' );
+		$this->__start_controls_tabs( 'tabs_message_style' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_message_success',
 			array(
 				'label' => esc_html__( 'Success', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_success_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1114,10 +1167,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_success_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -1125,19 +1179,21 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'message_success_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_success_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1146,10 +1202,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_success_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -1158,10 +1215,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_success_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1170,10 +1228,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'message_success_border',
@@ -1181,27 +1240,29 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'message_success_box_shadow',
 				'selector' => '{{WRAPPER}} .jet-subscribe-form--response-success ' . $css_scheme['message'] . ' span',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'tab_message_error',
 			array(
 				'label' => esc_html__( 'Error', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_error_bg_color',
 			array(
 				'label'     => esc_html__( 'Background Color', 'jet-elements' ),
@@ -1209,10 +1270,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span' => 'background-color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'message_error_color',
 			array(
 				'label'     => esc_html__( 'Text Color', 'jet-elements' ),
@@ -1220,19 +1282,21 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span' => 'color: {{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'message_error_typography',
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span',
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_error_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1241,10 +1305,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_error_margin',
 			array(
 				'label'      => __( 'Margin', 'jet-elements' ),
@@ -1253,10 +1318,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			100
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'message_error_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1265,10 +1331,11 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'        => 'message_error_border',
@@ -1276,22 +1343,24 @@ class Jet_Elements_Subscribe_Form extends Jet_Elements_Base {
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span',
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'message_error_box_shadow',
 				'selector' => '{{WRAPPER}} .jet-subscribe-form--response-error ' . $css_scheme['message'] . ' span',
-			)
+			),
+			100
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 	}
 

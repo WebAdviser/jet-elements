@@ -33,7 +33,7 @@ class Jet_Elements_Advanced_Map extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-8';
+		return 'jet-elements-icon-map';
 	}
 
 	public function get_jet_help_url() {
@@ -46,7 +46,7 @@ class Jet_Elements_Advanced_Map extends Jet_Elements_Base {
 
 	public function get_script_depends() {
 
-		$api_disabled = jet_elements_settings()->get( 'disable_api_js', array() );
+		$api_disabled = jet_elements_settings()->get( 'disable_api_js', [ 'disable' => 'false' ] );
 
 		if ( empty( $api_disabled ) || 'true' !== $api_disabled['disable'] ) {
 			return array( 'google-maps-api' );

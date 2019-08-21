@@ -5,14 +5,43 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 abstract class Jet_Elements_Base extends Widget_Base {
 
-	public $__context         = 'render';
-	public $__processed_item  = false;
-	public $__processed_index = 0;
+	public $__context          = 'render';
+	public $__processed_item   = false;
+	public $__processed_index  = 0;
+	public $__load_level       = 100;
+	public $__include_controls = [];
+	public $__exclude_controls = [];
+	public $__new_icon_prefix  = 'selected_';
 
+	/**
+	 * [__construct description]
+	 * @param array  $data [description]
+	 * @param [type] $args [description]
+	 */
+	public function __construct( $data = [], $args = null ) {
+		parent::__construct( $data, $args );
+
+		$this->__load_level = (int)jet_elements_settings()->get( 'widgets_load_level', 100 );
+
+		$widget_name = $this->get_name();
+
+		$this->__include_controls = apply_filters( "jet-elements/editor/{$widget_name}/include-controls", [], $widget_name, $this );
+
+		$this->__exclude_controls = apply_filters( "jet-elements/editor/{$widget_name}/exclude-controls", [], $widget_name, $this );
+	}
+
+	/**
+	 * [get_jet_help_url description]
+	 * @return [type] [description]
+	 */
 	public function get_jet_help_url() {
 		return false;
 	}
 
+	/**
+	 * [get_help_url description]
+	 * @return [type] [description]
+	 */
 	public function get_help_url() {
 
 		$url = $this->get_jet_help_url();
@@ -392,6 +421,346 @@ abstract class Jet_Elements_Base extends Widget_Base {
 		echo '<# if ( settings.' . $setting . ' ) { #>';
 		printf( $format, '{{{ settings.' . $setting . ' }}}' );
 		echo '<# } #>';
+	}
+
+	/**
+	 * Add icon control
+	 *
+	 * @param string $id
+	 * @param array  $args
+	 * @param object $instance
+	 */
+	public function __add_advanced_icon_control( $id, array $args = array(), $instance = null ) {
+
+		if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '2.6.0', '>=' ) ) {
+
+			$_id = $id; // old control id
+			$id  = $this->__new_icon_prefix . $id;
+
+			$args['type'] = Controls_Manager::ICONS;
+			$args['fa4compatibility'] = $_id;
+
+			unset( $args['file'] );
+			unset( $args['default'] );
+
+			if ( isset( $args['fa5_default'] ) ) {
+				$args['default'] = $args['fa5_default'];
+
+				unset( $args['fa5_default'] );
+			}
+		} else {
+			$args['type'] = Controls_Manager::ICON;
+			unset( $args['fa5_default'] );
+		}
+
+		if ( null !== $instance ) {
+			$instance->add_control( $id, $args );
+		} else {
+			$this->add_control( $id, $args );
+		}
+	}
+
+	/**
+	 * Prepare icon control ID for condition.
+	 *
+	 * @param  string $id Old icon control ID.
+	 * @return string
+	 */
+	public function __prepare_icon_id_for_condition( $id ) {
+
+		if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '2.6.0', '>=' ) ) {
+			return $this->__new_icon_prefix . $id . '[value]';
+		}
+
+		return $id;
+	}
+
+	/**
+	 * Print HTML icon markup
+	 *
+	 * @param  array $setting
+	 * @param  string $format
+	 * @param  string $icon_class
+	 * @return void
+	 */
+	public function __icon( $setting = null, $format = '%s', $icon_class = '' ) {
+		call_user_func( array( $this, sprintf( '__%s_icon', $this->__context ) ), $setting, $format, $icon_class );
+	}
+
+	/**
+	 * Returns HTML icon markup
+	 *
+	 * @param  array $setting
+	 * @param  string $format
+	 * @param  string $icon_class
+	 * @return string
+	 */
+	public function __get_icon( $setting = null, $format = '%s', $icon_class = '' ) {
+		return $this->__render_icon( $setting, $format, $icon_class, false );
+	}
+
+	/**
+	 * Print HTML icon template
+	 *
+	 * @param  array  $setting
+	 * @param  string $format
+	 * @param  string $icon_class
+	 * @param  bool   $echo
+	 *
+	 * @return void|string
+	 */
+	public function __render_icon( $setting = null, $format = '%s', $icon_class = '', $echo = true ) {
+
+		if ( false === $this->__processed_item ) {
+			$settings = $this->get_settings_for_display();
+		} else {
+			$settings = $this->__processed_item;
+		}
+
+		$new_setting = $this->__new_icon_prefix . $setting;
+
+		$migrated = isset( $settings['__fa4_migrated'][ $new_setting ] );
+		$is_new   = empty( $settings[ $setting ] ) && class_exists( 'Elementor\Icons_Manager' ) && Icons_Manager::is_migration_allowed();
+
+		$icon_html = '';
+
+		if ( $is_new || $migrated ) {
+
+			$attr = array( 'aria-hidden' => 'true' );
+
+			if ( ! empty( $icon_class ) ) {
+				$attr['class'] = $icon_class;
+			}
+
+			if ( isset( $settings[ $new_setting ] ) ) {
+				ob_start();
+				Icons_Manager::render_icon( $settings[ $new_setting ], $attr );
+
+				$icon_html = ob_get_clean();
+			}
+
+		} else if ( ! empty( $settings[ $setting ] ) ) {
+
+			if ( empty( $icon_class ) ) {
+				$icon_class = $settings[ $setting ];
+			} else {
+				$icon_class .= ' ' . $settings[ $setting ];
+			}
+
+			$icon_html = sprintf( '<i class="%s" aria-hidden="true"></i>', $icon_class );
+		}
+
+		if ( empty( $icon_html ) ) {
+			return;
+		}
+
+		if ( ! $echo ) {
+			return sprintf( $format, $icon_html );
+		}
+
+		printf( $format, $icon_html );
+	}
+
+	/**
+	 * [__add_control description]
+	 * @param  boolean $control_id   [description]
+	 * @param  array   $control_args [description]
+	 * @param  integer $load_level   [description]
+	 * @return [type]                [description]
+	 */
+	public function __add_control( $control_id = false, $control_args = [], $load_level = 100 ) {
+
+		if (
+			( $this->__load_level < $load_level
+			  || 0 === $this->__load_level
+			  || in_array( $control_id, $this->__exclude_controls )
+			) && !in_array( $control_id, $this->__include_controls )
+		) {
+			return false;
+		}
+
+		$this->add_control( $control_id, $control_args );
+	}
+
+	/**
+	 * [__add_responsive_control description]
+	 * @param  boolean $control_id   [description]
+	 * @param  array   $control_args [description]
+	 * @param  integer $load_level   [description]
+	 * @return [type]                [description]
+	 */
+	public function __add_responsive_control( $control_id = false, $control_args = [], $load_level = 100 ) {
+
+		if (
+			( $this->__load_level < $load_level
+			  || 0 === $this->__load_level
+			  || in_array( $control_id, $this->__exclude_controls )
+			) && !in_array( $control_id, $this->__include_controls )
+		) {
+			return false;
+		}
+
+		$this->add_responsive_control( $control_id, $control_args );
+	}
+
+	/**
+	 * [__add_group_control description]
+	 * @param  boolean $group_control_type [description]
+	 * @param  array   $group_control_args [description]
+	 * @param  integer $load_level         [description]
+	 * @return [type]                      [description]
+	 */
+	public function __add_group_control( $group_control_type = false, $group_control_args = [], $load_level = 100 ) {
+
+		if (
+			( $this->__load_level < $load_level
+			  || 0 === $this->__load_level
+			  || in_array( $group_control_args['name'], $this->__exclude_controls )
+			) && !in_array( $group_control_args['name'], $this->__include_controls )
+		) {
+			return false;
+		}
+
+		$this->add_group_control( $group_control_type, $group_control_args );
+	}
+
+	/**
+	 * [__add_icon_control description]
+	 * @param  [type] $id   [description]
+	 * @param  array  $args [description]
+	 * @return [type]       [description]
+	 */
+	public function __add_icon_control( $id, array $args = array(), $load_level = 100 ) {
+
+		if (
+			( $this->__load_level < $load_level
+			  || 0 === $this->__load_level
+			  || in_array( $id, $this->__exclude_controls )
+			) && !in_array( $id, $this->__include_controls )
+		) {
+			return false;
+		}
+
+		$this->__add_advanced_icon_control( $id, $args );
+	}
+
+	/**
+	 * [__start_controls_section description]
+	 * @param  boolean $controls_section_id   [description]
+	 * @param  array   $controls_section_args [description]
+	 * @param  integer $load_level            [description]
+	 * @return [type]                         [description]
+	 */
+	public function __start_controls_section( $controls_section_id = false, $controls_section_args = [], $load_level = 25 ) {
+
+		if ( ! $controls_section_id || $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->start_controls_section( $controls_section_id, $controls_section_args );
+	}
+
+	/**
+	 * [__end_controls_section description]
+	 * @param  integer $load_level [description]
+	 * @return [type]              [description]
+	 */
+	public function __end_controls_section( $load_level = 25 ) {
+
+		if ( $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * [__start_controls_tabs description]
+	 * @param  boolean $tabs_id    [description]
+	 * @param  integer $load_level [description]
+	 * @return [type]              [description]
+	 */
+	public function __start_controls_tabs( $tabs_id = false, $load_level = 25 ) {
+
+		if ( ! $tabs_id || $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->start_controls_tabs( $tabs_id );
+	}
+
+	/**
+	 * [__end_controls_tabs description]
+	 * @param  integer $load_level [description]
+	 * @return [type]              [description]
+	 */
+	public function __end_controls_tabs( $load_level = 25 ) {
+
+		if ( $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->end_controls_tabs();
+	}
+
+	/**
+	 * [__start_controls_tab description]
+	 * @param  boolean $tab_id     [description]
+	 * @param  array   $tab_args   [description]
+	 * @param  integer $load_level [description]
+	 * @return [type]              [description]
+	 */
+	public function __start_controls_tab( $tab_id = false, $tab_args = [], $load_level = 25 ) {
+
+		if ( ! $tab_id || $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->start_controls_tab( $tab_id, $tab_args );
+	}
+
+	/**
+	 * [__end_controls_tab description]
+	 * @param  integer $load_level [description]
+	 * @return [type]              [description]
+	 */
+	public function __end_controls_tab( $load_level = 25 ) {
+
+		if ( $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->end_controls_tab();
+	}
+
+	/**
+	 * Start popover
+	 *
+	 * @param int $load_level
+	 * @return void|bool
+	 */
+	public function __start_popover( $load_level = 25 ) {
+
+		if ( $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->start_popover();
+	}
+
+	/**
+	 * End popover
+	 *
+	 * @param int $load_level
+	 * @return void|bool
+	 */
+	public function __end_popover( $load_level = 25 ) {
+
+		if ( $this->__load_level < $load_level || 0 === $this->__load_level ) {
+			return false;
+		}
+
+		$this->end_popover();
 	}
 
 }

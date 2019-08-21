@@ -29,7 +29,7 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 	}
 
 	public function get_icon() {
-		return 'jetelements-icon-37';
+		return 'jet-elements-icon-table';
 	}
 
 	public function get_jet_help_url() {
@@ -131,7 +131,7 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$table_header_repeater->add_control(
+		$this->__add_advanced_icon_control(
 			'cell_icon',
 			array(
 				'label'       => esc_html__( 'Icon', 'jet-elements' ),
@@ -140,7 +140,8 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'add_icon_or_image' => 'icon',
 				),
-			)
+			),
+			$table_header_repeater
 		);
 
 		$table_header_repeater->add_control(
@@ -396,7 +397,7 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$table_body_repeater->add_control(
+		$this->__add_advanced_icon_control(
 			'cell_icon',
 			array(
 				'label'       => esc_html__( 'Icon', 'jet-elements' ),
@@ -406,7 +407,8 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 					'action' => 'cell',
 					'add_icon_or_image' => 'icon',
 				),
-			)
+			),
+			$table_body_repeater
 		);
 
 		$table_body_repeater->add_control(
@@ -649,7 +651,7 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 		/**
 		 * `General` Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_general_style',
 			array(
 				'label' => esc_html__( 'General', 'jet-elements' ),
@@ -657,7 +659,7 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_width',
 			array(
 				'label' => esc_html__( 'Table Width', 'jet-elements' ),
@@ -675,10 +677,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['wrapper'] => 'max-width: {{SIZE}}{{UNIT}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_column_width',
 			array(
 				'label' => esc_html__( 'Column Width', 'jet-elements' ),
@@ -691,10 +694,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table'] => 'table-layout: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_align',
 			array(
 				'label' => esc_html__( 'Table Alignment', 'jet-elements' ),
@@ -721,10 +725,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['wrapper'] => '{{VALUE}}',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -737,10 +742,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['table_body_row'] . ':last-child ' . $css_scheme['table_cell'] . ':last-child' => 'border-bottom-right-radius: {{BOTTOM}}{{UNIT}};',
 					'{{WRAPPER}} ' . $css_scheme['table_body_row'] . ':last-child ' . $css_scheme['table_cell'] . ':first-child' => 'border-bottom-left-radius: {{LEFT}}{{UNIT}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'table_box_shadow',
@@ -748,15 +754,16 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'exclude'  => array(
 					'box_shadow_position',
 				),
-			)
+			),
+			100
 		);
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * `Table Header` Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_table_header_style',
 			array(
 				'label' => esc_html__( 'Table Header', 'jet-elements' ),
@@ -764,24 +771,25 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'table_head_typography',
 				'selector' => '{{WRAPPER}} ' .$css_scheme['table_head_cell'],
-			)
+			),
+			50
 		);
 
-		$this->start_controls_tabs( 'table_head_tabs' );
+		$this->__start_controls_tabs( 'table_head_tabs' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'table_head_normal_tab',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -789,10 +797,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_bg_color',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -800,19 +809,20 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell'] => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'table_head_hover_tab',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_color_hover',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -820,10 +830,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell'] . ':hover' => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_bg_color_hover',
 			array(
 				'label' => esc_html__( 'Background Color', 'jet-elements' ),
@@ -831,14 +842,15 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell'] . ':hover' => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_head_cell_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -848,18 +860,20 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell_inner'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 		
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'table_head_cell_border',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['table_head_cell'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_hidden_border',
 			array(
 				'label' => esc_html__( 'Hidden border for header container', 'jet-elements' ),
@@ -867,10 +881,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head'] => 'border-style: hidden;',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_head_cell_align',
 			array(
 				'label' => esc_html__( 'Alignment', 'jet-elements' ),
@@ -897,10 +912,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell_content'] => '{{VALUE}}',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_head_cell_vert_align',
 			array(
 				'label'   => esc_html__( 'Vertical Alignment', 'jet-elements' ),
@@ -923,21 +939,23 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_head_cell'] => 'vertical-align: {{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_icon_style',
 			array(
 				'label' => '<b>' . esc_html__( 'Icon', 'jet-elements' ) . '</b>',
 				'type'  => Controls_Manager::POPOVER_TOGGLE,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->start_popover();
+		$this->__start_popover();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_head_cell_icon_size',
 			array(
 				'label' => esc_html__( 'Font Size', 'jet-elements' ),
@@ -957,10 +975,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_head_cell_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_icon_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -971,10 +990,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_head_cell_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_icon_gap',
 			array(
 				'label' => esc_html__( 'Gap', 'jet-elements' ),
@@ -994,23 +1014,25 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_head_cell_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_popover();
+		$this->__end_popover();
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_img_style',
 			array(
 				'label' => '<b>' . esc_html__( 'Image', 'jet-elements' ) . '</b>',
 				'type'  => Controls_Manager::POPOVER_TOGGLE,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->start_popover();
+		$this->__start_popover();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_head_cell_img_width',
 			array(
 				'label' => esc_html__( 'Width', 'jet-elements' ),
@@ -1027,10 +1049,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_head_cell_img_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_head_cell_img_gap',
 			array(
 				'label' => esc_html__( 'Gap', 'jet-elements' ),
@@ -1050,10 +1073,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_head_cell_img_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_head_cell_img_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1065,12 +1089,13 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_head_cell_img_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_popover();
+		$this->__end_popover();
 
-		$this->add_control(
+		$this->__add_control(
 			'sorting_icon_style',
 			array(
 				'label' => '<b>' . esc_html__( 'Sorting Icon', 'jet-elements' ) . '</b>',
@@ -1079,12 +1104,13 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'sorting_table' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->start_popover();
+		$this->__start_popover();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'sorting_icon_size',
 			array(
 				'label' => esc_html__( 'Font Size', 'jet-elements' ),
@@ -1104,10 +1130,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'sorting_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 		
-		$this->add_control(
+		$this->__add_control(
 			'sorting_icon_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -1118,17 +1145,18 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'sorting_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_popover();
+		$this->__end_popover();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 
 		/**
 		 * `Table Body` Style Section
 		 */
-		$this->start_controls_section(
+		$this->__start_controls_section(
 			'section_table_body_style',
 			array(
 				'label' => esc_html__( 'Table Body', 'jet-elements' ),
@@ -1136,24 +1164,25 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 			)
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'table_body_typography',
 				'selector' => '{{WRAPPER}} ' .$css_scheme['table_body_cell'],
-			)
+			),
+			50
 		);
 
-		$this->start_controls_tabs( 'table_body_tabs' );
+		$this->__start_controls_tabs( 'table_body_tabs' );
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'table_body_normal_tab',
 			array(
 				'label' => esc_html__( 'Normal', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_row_color',
 			array(
 				'label' => esc_html__( 'Row Color', 'jet-elements' ),
@@ -1161,10 +1190,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_row_bg_color',
 			array(
 				'label' => esc_html__( 'Row Background Color', 'jet-elements' ),
@@ -1172,18 +1202,20 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell'] => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_striped_row',
 			array(
 				'label' => esc_html__( 'Striped rows', 'jet-elements' ),
 				'type'  => Controls_Manager::SWITCHER,
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_even_row_color',
 			array(
 				'label' => esc_html__( 'Even Row Color', 'jet-elements' ),
@@ -1194,10 +1226,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_striped_row' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_even_row_bg_color',
 			array(
 				'label' => esc_html__( 'Even Row Background Color', 'jet-elements' ),
@@ -1208,10 +1241,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_striped_row' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_link_color',
 			array(
 				'label' => esc_html__( 'Link Color', 'jet-elements' ),
@@ -1219,19 +1253,20 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell_link'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->start_controls_tab(
+		$this->__start_controls_tab(
 			'table_body_hover_tab',
 			array(
 				'label' => esc_html__( 'Hover', 'jet-elements' ),
 			)
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_row_color_hover',
 			array(
 				'label' => esc_html__( 'Row Hover Color', 'jet-elements' ),
@@ -1239,10 +1274,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_row'] . ':hover ' . $css_scheme['table_body_cell'] => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_row_bg_color_hover',
 			array(
 				'label' => esc_html__( 'Row Hover Background Color', 'jet-elements' ),
@@ -1250,10 +1286,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_row'] . ':hover '  . $css_scheme['table_body_cell'] => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_even_row_color_hover',
 			array(
 				'label' => esc_html__( 'Even Row Hover Color', 'jet-elements' ),
@@ -1264,10 +1301,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_striped_row' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_even_row_bg_color_hover',
 			array(
 				'label' => esc_html__( 'Even Row Hover Background Color', 'jet-elements' ),
@@ -1278,10 +1316,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_striped_row' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_color_hover',
 			array(
 				'label' => esc_html__( 'Cell Hover Color', 'jet-elements' ),
@@ -1289,10 +1328,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_row'] . ':hover ' . $css_scheme['table_body_cell'] . ':hover' => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_bg_color_hover',
 			array(
 				'label' => esc_html__( 'Cell Hover Background Color', 'jet-elements' ),
@@ -1300,10 +1340,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_row'] . ':hover ' . $css_scheme['table_body_cell'] . ':hover' => 'background-color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_link_color_hover',
 			array(
 				'label' => esc_html__( 'Link Hover Color', 'jet-elements' ),
@@ -1311,14 +1352,15 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell_link'] . ':hover' => 'color: {{VALUE}};',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_controls_tab();
+		$this->__end_controls_tab();
 
-		$this->end_controls_tabs();
+		$this->__end_controls_tabs();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_body_cell_padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'jet-elements' ),
@@ -1328,18 +1370,20 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell_inner'] => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->add_group_control(
+		$this->__add_group_control(
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'table_body_cell_border',
 				'selector' => '{{WRAPPER}} ' . $css_scheme['table_body_cell'],
-			)
+			),
+			50
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_hidden_border',
 			array(
 				'label' => esc_html__( 'Hidden border for body container', 'jet-elements' ),
@@ -1347,10 +1391,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body'] => 'border-style: hidden;',
 				),
-			)
+			),
+			50
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_body_cell_align',
 			array(
 				'label'   => esc_html__( 'Alignment', 'jet-elements' ),
@@ -1377,10 +1422,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell_content'] => '{{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_body_cell_vert_align',
 			array(
 				'label'   => esc_html__( 'Vertical Alignment', 'jet-elements' ),
@@ -1402,21 +1448,23 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'selectors' => array(
 					'{{WRAPPER}} ' . $css_scheme['table_body_cell'] => 'vertical-align: {{VALUE}};',
 				),
-			)
+			),
+			75
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_icon_style',
 			array(
 				'label' => '<b>' . esc_html__( 'Icon', 'jet-elements' ) . '</b>',
 				'type'  => Controls_Manager::POPOVER_TOGGLE,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
 		$this->start_popover();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_body_cell_icon_size',
 			array(
 				'label' => esc_html__( 'Font Size', 'jet-elements' ),
@@ -1436,10 +1484,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_cell_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_icon_color',
 			array(
 				'label' => esc_html__( 'Color', 'jet-elements' ),
@@ -1450,10 +1499,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_cell_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_icon_gap',
 			array(
 				'label' => esc_html__( 'Gap', 'jet-elements' ),
@@ -1473,23 +1523,25 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_cell_icon_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_popover();
+		$this->__end_popover();
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_img_style',
 			array(
 				'label' => '<b>' . esc_html__( 'Image', 'jet-elements' ) . '</b>',
 				'type'  => Controls_Manager::POPOVER_TOGGLE,
 				'separator' => 'before',
-			)
+			),
+			25
 		);
 
-		$this->start_popover();
+		$this->__start_popover();
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_body_cell_img_width',
 			array(
 				'label' => esc_html__( 'Width', 'jet-elements' ),
@@ -1506,10 +1558,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_cell_img_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_control(
+		$this->__add_control(
 			'table_body_cell_img_gap',
 			array(
 				'label' => esc_html__( 'Gap', 'jet-elements' ),
@@ -1529,10 +1582,11 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_cell_img_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->add_responsive_control(
+		$this->__add_responsive_control(
 			'table_body_cell_img_border_radius',
 			array(
 				'label'      => esc_html__( 'Border Radius', 'jet-elements' ),
@@ -1544,12 +1598,13 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				'condition' => array(
 					'table_body_cell_img_style' => 'yes',
 				),
-			)
+			),
+			25
 		);
 
-		$this->end_popover();
+		$this->__end_popover();
 
-		$this->end_controls_section();
+		$this->__end_controls_section();
 	}
 
 	protected function render() {
@@ -1615,6 +1670,8 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 		}
 
 		foreach ( $data as $index => $item ) {
+			$this->__processed_item = $item;
+
 			if ( isset( $item['action'] ) && 'row' === $item['action'] ) {
 				// Render row html
 				if ( $is_first_row ) {
@@ -1629,8 +1686,9 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				$additional_element = isset( $item['add_icon_or_image'] ) ? $item['add_icon_or_image'] : '';
 				$position = isset( $item['additional_elem_position'] ) ? $item['additional_elem_position'] : 'before';
 
-				if ( 'icon' === $additional_element && ! empty ( $item['cell_icon'] ) ) {
-					$additional_content = sprintf( '<i class="jet-table__cell-icon jet-table__cell-icon--%2$s %1$s"></i>', esc_attr( $item['cell_icon'] ), esc_attr( $position ) );
+				if ( 'icon' === $additional_element ) {
+					$icon_format        = '<span class="jet-elements-icon jet-table__cell-icon jet-table__cell-icon--' . esc_attr( $position ) . '">%s</span>';
+					$additional_content = $this->__get_icon( 'cell_icon', $icon_format );
 				}
 
 				if ( 'image' === $additional_element && ! empty ( $item['cell_image']['url'] ) ) {
@@ -1700,6 +1758,8 @@ class Jet_Elements_Table extends Jet_Elements_Base {
 				}
 			}
 		}
+
+		$this->__processed_item = false;
 
 		$html .= '</tr>';
 
